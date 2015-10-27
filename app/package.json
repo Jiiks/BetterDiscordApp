@@ -6,7 +6,7 @@
   "main": "app/index.js",
   "private": true,
   "dependencies": {
-    "react": "^0.13.0",
-	"betterdiscord": "^0.1.2"
+    "react": "0.14.0",
+	  "betterdiscord": "^0.1.2"
   }
 }

@@ -6,31 +6,72 @@ var dver = "0.0.280";
 
 var asar = require('asar');
 var wrench = require('wrench');
-var fs = require('fs');
+var fs = require('fs-promise');
 var readline = require('readline');
 var util = require('util');
+var path = require('path');
 
-var _discordPath;
-var _appFolder = "\\app";
-var _appArchive = "\\app.asar";
-var _packageJson = _appFolder + "\\package.json";
-var _index = _appFolder + "\\app\\index.js";
+var _discordPath = path.join(process.env.LOCALAPPDATA, `/Discord/app-${dver}`, "/resources");
+var _appPath = path.join(_discordPath, '/app');
+var _betterDiscordPath = path.join(_appPath, '/node_modules', '/BetterDiscord');
+var _packageJson = path.resolve('../app/package.json');
+var _index = path.resolve('../app/app/index.js');
 
 function install() {
+    console.log(`Looking for discord resources at: ${_discordPath}`);
 
-    _discordPath = process.env.LOCALAPPDATA + "\\Discord\\app-"+dver+"\\resources";
-    console.log("Looking for discord resources at: " + _discordPath);
+    fs.stat(_discordPath)
+        .then(() => {
+            console.log(
+                `Discord resources found at: ${_discordPath}`
+            );
 
-    fs.exists(_discordPath, function(exists) {
+            fs.stat(_appPath)
+                .then(() => {
+                    console.log(`Deleting ${_appPath} folder.`);
+                    return fs.rmdir(_appPath)
+                        .then(() => {
+                            console.log(`Deleted ${_appPath} folder.`);              
+                        });
+                })
+                .catch(err => {
+                    console.log("App path not found, continuing...");
+                })
 
-        if(exists) {
-            console.log("Discord resources found at: " + _discordPath + "\nLooking for app folder");
+            fs.stat(_betterDiscordPath)
+                .then(() => {
+                    console.log(`Deleting ${_betterDiscordPath} folder.`);
 
-            if(fs.existsSync(_discordPath + _appFolder)) {
-                console.log("Deleting " + _discordPath + _appFolder + " folder.");
-                wrench.rmdirSyncRecursive(_discordPath + _appFolder);
-                console.log("Deleted " + _discordPath + _appFolder + " folder.");
-            }
+                    return fs.rmdir(_betterDiscordPath)
+                        .then(() => {
+                            console.log(`Deleted ${_betterDiscordPath} folder.`);
+                        });
+                })
+                .catch(err => {
+                    console.log("Old better discord installation not found, continuing...");
+                })
+        })
+        .catch(err => {
+            console.log("Unable to locate discord installation, stopping...");
+            process.exit();
+        });
+    /*
+    fs.stat(_discordPath, function(err, stats) {
+        if(err) {
+            console.log(err);
+            process.exit();
+        }
+
+        console.log(
+            `Discord resources found at: ${_discordPath}
+            Looking for app folder...`
+        );
+
+        if(fs.statSync(_discordPath + _appFolder)) {
+            console.log("Deleting " + _discordPath + _appFolder + " folder.");
+            wrench.rmdirSyncRecursive(_discordPath + _appFolder);
+            console.log("Deleted " + _discordPath + _appFolder + " folder.");
+        }
 
             if(fs.existsSync(_discordPath + "\\node_modules\\BetterDiscord")) {
                 console.log("Deleting " + _discordPath + "\\node_modules\\BetterDiscord" + " folder.");
@@ -97,7 +138,7 @@ function install() {
         }
 
     });
-
+    */
 }
 
 function init() {
@@ -107,7 +148,7 @@ function init() {
 
     var rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
-    rl.question("The following directories will be deleted if they exists: discorpath\\app, discordpath\\node_modules\\BetterDiscord, is this ok? Y/N", function(answer) {
+    rl.question("The following directories will be deleted if they exists: discorpath\\app, discordpath\\node_modules\\BetterDiscord, is this ok? Y/N \n", function(answer) {
 
         var alc = answer.toLowerCase();
 
