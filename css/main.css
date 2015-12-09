@@ -491,7 +491,10 @@
 
 .tipsy-inner {
 	background-color: black;
+	max-width: 300px;
 	color: white;
 	padding: 5px 8px 4px;
 	text-align: center;
+   	overflow:hidden !important;
+	text-overflow: ellipsis;
 }
