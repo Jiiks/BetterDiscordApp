@@ -1343,3 +1343,18 @@ BdApi.getIpc = function() {
 BdApi.getCore = function() {
     return mainCore;	
 };
+
+//Get Username by User ID
+BdApi.getUserNamebyID = function(id) {
+    return Username;	
+};
+
+//Get User ID by Username
+BdApi.getUserIDbyName = function(name) {
+    return UserID;	
+};
+
+//Get Avatar link from User ID (Ex: https://cdn.discordapp.com/avatars/97138137679028224/4f6e0a5a5c7b3ebd4071f5bd5d6d8a10.jpg)
+BdApi.getUserAvatar = function(id) {
+    return AvatarURL;	
+};
