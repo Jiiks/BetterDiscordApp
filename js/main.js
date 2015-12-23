@@ -36,12 +36,6 @@ var settings = {
     "Emote Auto Capitalization":  { "id": "bda-es-4", "info": "Autocapitalize emote commands",                  "implemented": true  },
     "Override Default Emotes":    { "id": "bda-es-5", "info": "Override default emotes",                        "implemented": false },
     "Show Names":                 { "id": "bda-es-6", "info": "Show emote names on hover",                      "implemented": true  }
-}
-
-var links = {
-    "Jiiks.net": { "text": "Jiiks.net", "href": "http://jiiks.net",          "target": "_blank" },
-    "twitter":   { "text": "Twitter",   "href": "http://twitter.com/jiiksi", "target": "_blank" },
-    "github":    { "text": "Github",    "href": "http://github.com/jiiks",   "target": "_blank" }
 };
 
 var defaultCookie = {
