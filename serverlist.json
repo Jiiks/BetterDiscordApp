@@ -14,6 +14,13 @@
       "language": "EN",
       "title": "3DS"
     },
+    "Black Desert Online": {
+      "code": "0hpSA0xzUj07ABop",
+      "description": "BDO",
+      "icon": null,
+      "language": "EN",
+      "title": "Black Desert Online"
+    },
     "ALTEDM": {
       "code": "0Y6Is461Ze5ae0w1",
       "description": "ALTEDM",
@@ -49,12 +56,33 @@
       "language": "EN",
       "title": "Animu and Mango"
     },
+        "Anime-Discuss": {
+      "code": "0ccNdvWBCEuw87eD",
+      "description": "Anime-Discuss",
+      "icon": null,
+      "language": "EN",
+      "title": "Anime-Discuss"
+    },
+    "Binding of Isaac": { 
+      "code": "0gonaBVBNISU8zhS", 
+      "description": "For all Isaac talk", 
+      "icon": null, 
+      "language": "EN", 
+      "title": "Binding of Isaac"
+    },
     "Blade and Soul": {
       "code": "0TaItTx9qrQce4iU",
       "description": "Blade and Soul",
       "icon": null,
       "language": "EN",
       "title": "Blade and Soul"
+    },
+    "Cell Geek House": {
+      "code": "0eMZO3uY2Gk15xD7",
+      "description": "Cell Geek House / Cell Cyber Arena",
+      "icon": null,
+      "language": "EN",
+      "title": "Cell Geek House"
     },
     "CS:GO": {
       "code": "0TIJM4joeU3XmRWO",
@@ -175,6 +203,13 @@
       "language": "EN",
       "title": "E-Sports India"
     },
+    "ElDewrito": {
+    	"code": "0TKY0SDEUHBum0w3",
+    	"description": "Halo Online ElDewrito",
+    	"icon": null,
+    	"language": "EN",
+    	"title": "ElDewrito"
+    },
     "Elite Dangerous": {
       "code": "0V5hfT4eO8fN9Q6K",
       "description": "Elite Dangerous",
@@ -294,6 +329,13 @@
       "language": "EN",
       "title": "Japanese Media Management"
     },
+	"KappaPride": {
+	  "code": "0ijf4nNsflGI8zYR",
+	  "description": "#Kappa",
+	  "icon": null,
+	  "language": "EN",
+	  "title": "KappaPride"
+	},
     "Killing Floor 2": {
       "code": "0YmeWp0IqRUndLXx",
       "description": "Killing Floor 2",
@@ -392,6 +434,13 @@
       "language": "EN",
       "title": "Project Zomboid"
     },
+    "Ragnarok Online": {
+      "code": "0hr7izZb0BhnyN8L",
+      "description": "Ragnarok Online",
+      "icon": null,
+      "language": "EN",
+      "title": "Ragnarok Online"
+    },
     "Reflex": {
       "code": "0SrnNbgr3f6Mz9kt",
       "description": "Reflex",
@@ -462,12 +511,12 @@
       "language": "EN",
       "title": "Social Hub"
     },
-    "Speedrunning": {
-      "code": "0SarUu3yU9BgVEh5",
-      "description": "Speedrunning",
+    "SoulsBorne": {
+      "code": "0gzazVW6NC6TCIJC",
+      "description": "All things soulsborne",
       "icon": null,
       "language": "EN",
-      "title": "Speedrunning"
+      "title": "SoulsBorne"
     },
     "Starcraft": {
       "code": "0Vjzi81e7LFaUhPR",
@@ -503,6 +552,13 @@
       "icon": null,
       "language": "EN",
       "title": "Terraria"
+    },
+    "The MKW Wiimm-fi Chats": {
+      "code": "0SdlpwUtv7ozFqXg",
+      "description": "The MKW Wiimm-fi Chats",
+      "icon": null,
+      "language": "EN",
+      "title": "The MKW Wiimm-fi Chats"
     },
     "The Music Bar": {
       "code": "0TBYxuT95eWrk9RI",
@@ -608,6 +664,34 @@
       "icon": null,
       "language": "EN",
       "title": "[UK] FPS/RTS/RPG"
+    },
+    "RepZ": {
+      "code": "0gAFLYLhoOvyeqBA",
+      "description": "RepZ Clan Discord Server",
+      "icon": null,
+      "language": "EN",
+      "title": "RepZ"
+    },
+    "Bluscream's Server": {
+      "code": "0Xdjjtm2UyoI6Kgu",
+      "description": "Bluscream's Discord Server",
+      "icon": null,
+      "language": "EN",
+      "title": "Bluscream's Server"
+    },
+    "Highschool DxD": {
+      "code": "0guT1EI9HilMr4dg",
+      "description": "Highschool DxD",
+      "icon": null,
+      "language": "EN",
+      "title": "Highschool DxD"
+    },
+    "TheWinggas": {
+      "code": "0agnV89C8NpXnJbl",
+      "description": "Winggas for days",
+      "icon": null,
+      "language": "EN",
+      "title": "TheWinggas"
     }
   }
 }

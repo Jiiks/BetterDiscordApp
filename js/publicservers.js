@@ -64,6 +64,8 @@ PublicServers.prototype.init = function() {
         text: "Language"
     })).append($("<th/>", {
         text: "Description"
+    })).append($("<th/>", {
+        text: "Join"
     }));
 
     headers.appendTo(thead);
@@ -96,7 +98,7 @@ PublicServers.prototype.init = function() {
 };
 
 PublicServers.prototype.addServer = function(name, code, title, language, description) {
-
+    var self = this;
     var tableBody = $("#bd-ps-tbody");
 
 
@@ -125,6 +127,20 @@ PublicServers.prototype.addServer = function(name, code, title, language, descri
 
     tr.append(desc);
 
+    tr.append($("<td/>").append($("<button/>", {
+        text: "Join",
+        css: {
+            "height": "30px",
+            "display": "block",
+            "margin-top": "10px",
+            "background-color": "#36393E",
+            "border": "1px solid #404040",
+            "outline": "1px solid #000",
+            "color": "#EDEDED"
+        },
+        click: function() { self.joinServer(code); }
+    })));
+
     tableBody.append(tr);
 };
 
@@ -135,4 +151,12 @@ PublicServers.prototype.show = function() {
     if(this.getPanel().is(":visible")) {
         li.addClass("active");
     }
+};
+
+//Workaround for joining a server
+PublicServers.prototype.joinServer = function(code) {
+    $(".guilds-add").click();
+    $(".action.join .btn").click();
+    $(".create-guild-container input").val(code);
+    $(".form.join-server .btn-primary").click();
 };
