@@ -1,11 +1,18 @@
 {
   "servers": {
 	"BetterDiscord": {
-      "code": "0Tmfo5ZbORCRqbAd",
+      "code": "0kdpwyLsTTOuNIpj",
       "description": "BetterDiscord Server",
       "icon": null,
       "language": "EN",
       "title": "BetterDiscord"
+    },
+    "BetterDiscord+": {
+      "code": "0kdpwyLsTTOuNIpj",
+      "description": "BetterDiscord+ Server",
+      "icon": null,
+      "language": "EN",
+      "title": "BetterDiscord+"
     },
     "3DS": {
       "code": "0UFdpe0x69ZguQw8",
