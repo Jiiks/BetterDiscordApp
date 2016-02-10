@@ -1,0 +1,16 @@
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\BetterDiscordWI.exe.config
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.csprojResolveAssemblyReference.cache
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.FormMain.resources
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.panels.Panel0.resources
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.panels.Panel1.resources
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.panels.Panel2.resources
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.Properties.Resources.resources
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.csproj.GenerateResource.Cache
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\BetterDiscordWI.exe
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\BetterDiscordWI.pdb
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\asardotnet.dll
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\Newtonsoft.Json.dll
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\asardotnet.pdb
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\bin\Debug\Newtonsoft.Json.xml
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.exe
+G:\Git\BetterDiscordApp\BetterDiscordApp\WindowsInstaller\BetterDiscordWI\obj\Debug\BetterDiscordWI.pdb
