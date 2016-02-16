@@ -10,10 +10,6 @@ var fs = require('fs');
 var readline = require('readline');
 var util = require('util');
 
-var _importSplice;
-var _functionSplice;
-var _functionCallSplice;
-
 var _discordPath;
 var _appFolder = "/app";
 var _appArchive = "/app.asar";
@@ -38,14 +34,8 @@ function install() {
     if (typeof _discordPath == 'undefined') {
         var _os = process.platform;
         if (_os == "win32") {
-            _importSplice = 89;
-            _functionCallSplice = 497;
-            _functionSplice = 601;
            _discordPath = process.env.LOCALAPPDATA + "/Discord/app-"+dver+"/resources";
         } else if (_os == "darwin") {
-            _importSplice = 67;
-            _functionCallSplice = 446;
-            _functionSplice = 547;
             _discordPath = "/Applications/Discord.app/Contents/Resources" // Defaults to Applications directory
         }
     }
@@ -90,17 +80,51 @@ function install() {
                 process.exit();
             }
 
-            var splice = fs.readFileSync("splice");
-
-
             fs.exists(_discordPath + _appFolder, function(exists) {
                 if(exists) {
                     console.log("Extracted to: " + _discordPath + _appFolder);
                     console.log("Injecting index.js");
 
                     var data = fs.readFileSync(_discordPath + _index).toString().split("\n");
-                    data.splice(_importSplice, 0, 'var _betterDiscord = require(\'betterdiscord\');\n');
-                    data.splice(_functionCallSplice, 0, splice);
+
+                    // Insert the 'require betterdiscord'
+                    var indexR = 0;
+                    var foundR = false;
+                    while(!foundR && indexR < data.length) {
+                        if(data[indexR].replace(/\s+/g, "").replace(/\t+/g, "")
+                        	.trim().startsWith("var_fs=")) {
+                            console.log("Offset found: Insert required BD");
+                            foundR = true;
+                        }
+                        indexR++;
+                    }
+
+                    if(!foundR) {
+                        console.log("Offset _fs can't be found");
+                        process.exit();
+                    }
+
+                    data.splice(indexR, 0, 'var _betterDiscord = require(\'betterdiscord\');\n');
+   
+                    // Insert the 'betterdiscord.init()'
+                    var index = 0;
+                    var found = false;
+                    while(!found && index < data.length) {
+                        if(data[index].replace(/\s+/g, "").replace(/\t+/g, "")
+                        	.trim().startsWith("mainWindow=new")) {
+                            console.log("Offset found: Init BD with mainWindow");
+                            found = true;
+                        }
+                        index++;
+                    }
+
+                    if(!found) {
+                        console.log("Offset mainWindow can't be found");
+                        process.exit();
+                    }
+
+                    var splice = fs.readFileSync("splice");
+                    data.splice(index, 0, splice);
 
                     fs.writeFile(_discordPath + _index, data.join("\n"), function(err) {
                         if(err) return console.log(err);
