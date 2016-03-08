@@ -221,7 +221,7 @@ function init() {
     var rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
     if (_force == false) {
-        rl.question("The following directories will be deleted if they exists: discorpath/app, discordpath/node_modules/BetterDiscord, is this ok? Y/N", function(answer) {
+        rl.question("The following directories will be deleted if they exists: discordpath/app, discordpath/node_modules/BetterDiscord, is this ok? Y/N", function(answer) {
 
             var alc = answer.toLowerCase();
 
