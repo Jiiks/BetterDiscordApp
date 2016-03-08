@@ -43,9 +43,8 @@ function install() {
             _functionSplice = 601;
            _discordPath = process.env.LOCALAPPDATA + "/Discord/app-"+dver+"/resources";
         } else if (_os == "darwin") {
-            _importSplice = 67;
-            _functionCallSplice = 446;
-            _functionSplice = 547;
+            _importSplice = 66;
+            _functionCallSplice = 541;
             _discordPath = "/Applications/Discord.app/Contents/Resources" // Defaults to Applications directory
         }
     }
