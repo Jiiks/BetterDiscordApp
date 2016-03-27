@@ -951,6 +951,13 @@
       "icon": null,
       "language": "EN",
       "title": "Dirty Bomb"
-    }
+    },
+    "american truck simulator multplayer": {
+      "code": "0dFHyDoIgbSUXSpX",
+      "description": "a gamming server that allows 18+ content and plays ats mp",
+      "icon": null,
+      "language": "EN",
+      "title": "American Truck Simulator"
+      }
   }
 }
