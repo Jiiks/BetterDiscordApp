@@ -49,7 +49,7 @@ function install() {
             _discordPath = "/Applications/Discord.app/Contents/Resources"; // Defaults to Applications directory
         } else if (_os == "linux") {
 			_importSplice = 63;
-			_functionCallSplice = 510;
+			_functionCallSplice = 517;
 			_functionSplice = 593;
 			_discordPath = "/opt/DiscordCanary/resources";
 			// not sure where the .deb install, and most people are going to 
