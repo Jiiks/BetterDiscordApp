@@ -510,12 +510,15 @@ EmoteModule.prototype.injectEmote = function (node) {
             var emoteClass = "";
             var allowedClasses = ["emoteflip", "emotespin", "emotepulse", "emotespinflip", "emotespin2", "emotespin3"];
             if(word.indexOf(":") > -1) {
-                userEmoteCss = true;
-                sWord = word.split(":")[0];
-                if(settingsCookie["bda-es-8"]) {
-                    emoteClass = "emote" + word.split(":")[1];
-                    if(allowedClasses.indexOf(emoteClass) < 0) {
-                        emoteClass = "";
+                var split = word.split(/:(?!.*:)/);
+                if (split[0] != "" && split[1] != "") {
+                    userEmoteCss = true;
+                    sWord = split[0];
+                    if(settingsCookie["bda-es-8"]) {
+                        emoteClass = "emote" + split[1];
+                        if(allowedClasses.indexOf(emoteClass) < 0) {
+                            emoteClass = "";
+                        }
                     }
                 }
             }
