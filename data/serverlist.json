@@ -1035,6 +1035,13 @@
 		"icon": null,
 		"language": "EN",
 		"title": "LeagueSharp"
-	}
+	},
+    "Dungeon Fighter Online": {
+      "code": "0qxsH9FS2t7a87LF",
+      "description": "A Discord server for people who play Dungeon Fighter Online!",
+      "icon": null,
+      "language": "EN",
+      "title": "Dungeon Fighter Online"
+    }
   }
 }
