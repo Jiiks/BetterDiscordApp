@@ -46,8 +46,15 @@ function install() {
             _importSplice = 67;
             _functionCallSplice = 446;
             _functionSplice = 547;
-            _discordPath = "/Applications/Discord.app/Contents/Resources" // Defaults to Applications directory
-        }
+            _discordPath = "/Applications/Discord.app/Contents/Resources"; // Defaults to Applications directory
+        } else if (_os == "linux") {
+			_importSplice = 63;
+			_functionCallSplice = 517;
+			_functionSplice = 593;
+			_discordPath = "/opt/DiscordCanary/resources";
+			// not sure where the .deb install, and most people are going to 
+			// use the tar archive so I just picked a good default location
+		}
     }
     console.log("Looking for discord resources at: " + _discordPath);
 
@@ -99,7 +106,7 @@ function install() {
                     console.log("Injecting index.js");
 
                     var data = fs.readFileSync(_discordPath + _index).toString().split("\n");
-                    data.splice(_importSplice, 0, 'var _betterDiscord = require(\'betterdiscord\');\n');
+                    data.splice(_importSplice, 0, 'var _betterDiscord = require(\'BetterDiscord\');\n');
                     data.splice(_functionCallSplice, 0, splice);
 
                     fs.writeFile(_discordPath + _index, data.join("\n"), function(err) {
