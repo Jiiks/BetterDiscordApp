@@ -1,0 +1,1 @@
+Superseded by Media Support: https://github.com/Jiiks/BetterDiscordApp/blob/master/Plugins/mediaSupport.js
