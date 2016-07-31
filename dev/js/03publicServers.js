@@ -231,6 +231,10 @@ PublicServers.prototype.show = function () {
         $("#pubs-spinner-bottom").show();
         self.search(list.children().length, false);
     });
+
+    $("button[data-server-invite-code=0Tmfo5ZbORCRqbAd]").off("click").on("click", function(){
+        self.joinServer("0Tmfo5ZbORCRqbAd");
+    });
 };
 
 PublicServers.prototype.hide = function() {

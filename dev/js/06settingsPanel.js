@@ -62,6 +62,12 @@ SettingsPanel.prototype.init = function () {
     } else {
         $(document).off('mouseover', '.emote');
     }
+    
+    if(settingsCookie["bda-gs-8"]) {
+        dMode.enable();
+    } else {
+        dMode.disable();
+    }
 };
 
 var customCssInitialized = false;
@@ -118,6 +124,9 @@ SettingsPanel.prototype.updateSetting = function (checkbox) {
             $("#app-mount").addClass("bd-hide-bd")
         }
     }
+    if(id == "bda-gs-8" && enabled) {
+        mainCore.alert("Developer Mode Enabled", "Use F8 to break/resume execution<br>More coming soon")
+    }
 
     settingsCookie[id] = enabled;
 
@@ -172,6 +181,12 @@ SettingsPanel.prototype.updateSettings = function() {
     } else {
         $(document).off('mouseover', '.emote');
     } 
+
+    if(settingsCookie["bda-gs-8"]) {
+        dMode.enable();
+    } else {
+        dMode.disable();
+    }
 
     mainCore.saveSettings();
 };
