@@ -284,8 +284,6 @@ PublicServers.prototype.loadServers = function(dataset, search, clear) {
                     tags.push(tag.name);
                 });
 
-                var desc = 
-
                 html += '<span class="server-tags">'+tags.join(", ")+'</span>';
                 html += '<span class="server-description">'+(source.description == undefined ? "No Description" : self.escape(source.description)) +'</span>';
                 html += '</div>';
