@@ -268,8 +268,9 @@ PublicServers.prototype.loadServers = function(dataset, search, clear) {
             hits.forEach(function(hit) {
                 var source = hit._source;
                 var icode = source.invite_code.replace(/ /g,'');
+                icode = self.escape(icode);
                 var html = '<div class="server-row">';
-                html += '<div class="server-icon" style="background-image:url(' + source.icon + ')"></div>';
+                html += '<div class="server-icon" style="background-image:url(' + self.escape(source.icon) + ')"></div>';
                 html += '<div class="server-info server-name">';
                 html += '<div class="server-information">';
                 
@@ -281,7 +282,7 @@ PublicServers.prototype.loadServers = function(dataset, search, clear) {
                 
                 var tags = [];
                 source.categories.forEach(function(tag) {
-                    tags.push(tag.name);
+                    tags.push(self.escape(tag.name));
                 });
 
                 html += '<span class="server-tags">'+tags.join(", ")+'</span>';
