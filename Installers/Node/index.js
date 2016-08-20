@@ -1,5 +1,5 @@
 /*
- * BetterDiscordApp Installer v0.3.2
+ * BetterDiscordApp Installer v0.3.3
  */
 
 var dver = "0.0.284";
@@ -95,8 +95,10 @@ function install() {
                     console.log("Injecting index.js");
 
                     var data = fs.readFileSync(_discordPath + _index).toString().split("\n");
-                    data.splice(_importSplice, 0, 'var _betterDiscord = require(\'betterdiscord\');\n');
-                    data.splice(_functionCallSplice, 0, splice);
+                    data = data.join("\n");
+                    data = data.replace("'use strict';\n","'use strict';\n\nvar _betterDiscord = require('BetterDiscord');\n var _betterDiscord2;");
+                    data = data.replace('mainWindow.setMenuBarVisibility(false);','mainWindow.setMenuBarVisibility(false);\n' + splice + '\n');
+                    data = data.split("\n");
 
                     fs.writeFile(_discordPath + _index, data.join("\n"), function(err) {
                         if(err) return console.log(err);
@@ -217,7 +219,7 @@ function init() {
     var rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
     if (_force == false) {
-        rl.question("The following directories will be deleted if they exists: discorpath/app, discordpath/node_modules/BetterDiscord, is this ok? Y/N", function(answer) {
+        rl.question("The following directories will be deleted if they exists: discordpath/app, discordpath/node_modules/BetterDiscord, is this ok? Y/N", function(answer) {
 
             var alc = answer.toLowerCase();
 
