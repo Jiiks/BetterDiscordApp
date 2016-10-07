@@ -10,4 +10,4 @@ RUN npm install
 
 #ENV FRESHINSTALL=true
 
-CMD ["start.sh"]
+CMD ["/usr/scr/app/start.sh"]
