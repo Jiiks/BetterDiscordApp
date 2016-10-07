@@ -1,6 +1,4 @@
-!#/bin/bash
-
-if [[ FRESHINSTALL=true ]]; then
-./node_modules/.bin/eletron ./src
-set -e FRESHINSTALL=false
-fi
+#if [[ FRESHINSTALL=true ]]; then
+./node_modules/.bin/electron ./src
+#  set -e FRESHINSTALL=false
+#fi

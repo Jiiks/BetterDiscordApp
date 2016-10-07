@@ -2,12 +2,12 @@ FROM node:slim
 
 COPY . /usr/scr/app
 
-RUN rm bdstart.sh
+#RUN rm bdstart.sh
 
 RUN npm install --save-dev electron
 
 RUN npm install
 
-ENV FRESHINSTALL=true
+#ENV FRESHINSTALL=true
 
-CMD["start.sh"]
+CMD ["start.sh"]
