@@ -2,8 +2,6 @@ FROM node:slim
 
 COPY . /usr/scr/app
 
-#RUN rm bdstart.sh
-
 RUN apt-get update
 
 RUN apt-get -y install libgtkextra-dev libgconf2-dev libnss3 libasound2 libxtst-dev libxss1
