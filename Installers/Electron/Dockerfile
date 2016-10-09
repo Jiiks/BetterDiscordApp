@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node:onbuild
 
 COPY . /usr/scr/app
 
