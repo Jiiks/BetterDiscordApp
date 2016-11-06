@@ -1,0 +1,14 @@
+{
+    "name": "betterdiscord",
+    "description": "Discord enhancement project. v2 preview",
+    "version": "0.3.0",
+    "homepage": "https://github.com/Jiiks/BetterDiscordApp",
+    "license": "MIT",
+    "main": "dist/lib/main.js",
+    "devDependencies": {
+    	"grunt": "^0.4.5",
+    	"load-grunt-tasks": "^3.5.0",
+    	"grunt-webpack": "1.0.18",
+    	"jsx-loader": "^0.12.2"
+    }
+}
