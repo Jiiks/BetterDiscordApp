@@ -8,7 +8,11 @@
     "devDependencies": {
     	"grunt": "^0.4.5",
     	"load-grunt-tasks": "^3.5.0",
-    	"grunt-webpack": "1.0.18",
-    	"jsx-loader": "^0.12.2"
+    	"grunt-wrap": "^0.3.0",
+    	"webpack": "^1.13.3",
+    	"grunt-webpack": "^1.0.18",
+    	"jsx-loader": "^0.12.2",
+    	"grunt-react": "^0.12.3",
+    	"grunt-contrib-clean": "^1.0.0"
     }
 }
