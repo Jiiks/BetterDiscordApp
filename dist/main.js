@@ -44,15 +44,10 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = ((test) => {
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = ((checkbox) => {
 	    
 	    class Core {
-	        
-	        constructor() {
-	           this.wtf = test;
-	        }
-	        
-	        gg() {}
+
 	    }
 	    
 	}), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -65,10 +60,15 @@
 
 	var element = React.createClass({displayName: "element",
 	  render: function() {
-	    return (
-
-	      React.createElement("div", {className: "test"})
-	    );
+	        return React.createElement("li", null, 
+	            React.createElement("div", {className: "checkbox"}, 
+	                React.createElement("div", {className: "checkbox-inner"}, 
+	                    React.createElement("input", {type: "checkbox", id: this.props.id}), 
+	                    React.createElement("span", null)
+	                ), 
+	                React.createElement("span", null)
+	            )
+	        )
 	  }
 	});
 

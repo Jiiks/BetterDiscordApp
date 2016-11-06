@@ -1,4 +1,4 @@
-define(['../../dist/jsx/devTest.jsx'], (test) => {
+define(['../../dist/jsx/checkbox.jsx'], (checkbox) => {
     
     class Core {
 
