@@ -10,5 +10,3 @@ class Button extends React.Component {
         )
     }
 }
-
-var element = Button;

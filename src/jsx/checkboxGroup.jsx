@@ -27,5 +27,3 @@ class CheckboxGroup extends React.Component {
         )
     }
 }
-
-var element = CheckboxGroup;

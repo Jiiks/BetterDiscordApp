@@ -20,5 +20,3 @@ class TabBar extends React.Component {
         return (<div className="tab-bar TOP">{this.tabs}</div>);
     }
 }
-
-var element = TabBar;

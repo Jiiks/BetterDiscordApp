@@ -16,5 +16,3 @@ class Checkbox extends React.Component {
         )
     } 
 }
-
-var element = Checkbox;

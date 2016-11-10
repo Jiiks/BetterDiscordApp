@@ -11,5 +11,3 @@ class TabBarItem extends React.Component {
         )
     }
 }
-
-var element = TabBarItem;
