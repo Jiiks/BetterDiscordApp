@@ -6,7 +6,9 @@ module.exports = {
         src: ['*.jsx'],
         dest: 'dist/jsx/',
         options: {
-            wrapper: ['define([], () => {\n', '\n return element;\n});']
+            wrapper: function(filepath, options) {
+                return ['define([], () => {\n', `return ${filepath.match(/([^\/]+)(?=\.\w+)/)[0]};\n});`];
+            }
         }
     }
     
