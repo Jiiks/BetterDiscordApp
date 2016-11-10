@@ -1,10 +1,13 @@
 module.exports = {
     
     dist: {
-        entry: './src/js/main.js',
+        entry: [
+            './src/js/main.js'
+        ],
         output: {
-            path: 'dist/',
-            filename: 'main.js'
+            path: 'src/compiled/js/',
+            filename: "main.js",
+            library: 'BD'
         },
         module: {
             loaders: [{

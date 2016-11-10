@@ -4,7 +4,7 @@ module.exports = {
             expand: true,
             cwd: 'src/jsx',
             src: ['**/*.jsx'],
-            dest: 'src/jsx/compiled',
+            dest: 'src/compiled/jsx',
             ext: '.jsx'
             
         }],

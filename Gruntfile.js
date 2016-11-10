@@ -17,5 +17,6 @@ module.exports = grunt => {
     grunt.registerTask('gr', ['react']);
     grunt.registerTask('cleaner', ['clean']);
     
-    grunt.registerTask('pack', ['react', 'wrap:jsx', 'webpack', 'cleaner']);
+    grunt.registerTask('pack', ['react', 'wrap:jsx', 'webpack', 'wrap:dist', 'cleaner']);
+    grunt.registerTask('pack:noclean', ['react', 'wrap:jsx', 'webpack']);
 };
