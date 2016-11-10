@@ -16,3 +16,4 @@ Installers/dotNet/dlls/
 v2/dist/vendor/
 v2/lib/static.js
 devTest.*
+dist/*
