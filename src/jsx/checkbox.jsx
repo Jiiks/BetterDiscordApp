@@ -1,13 +1,20 @@
-var element = React.createClass({
-  render: function() {
-        return <li>
-            <div className="checkbox">
-                <div className="checkbox-inner">
-                    <input type="checkbox" id={this.props.id}/>
-                    <span></span>
+class Checkbox extends React.Component {
+    constructor(props) {super(props);}
+    
+    render() {
+        return(
+            <span>
+                <div className="checkbox" onClick={this.props.onClick}>
+                    <div className="checkbox-inner">
+                        <input type="checkbox" checked={this.props.data.checked}></input>
+                        <span/>
+                    </div>
+                    <span>{this.props.data.title}</span>
                 </div>
-                <span></span>
-            </div>
-        </li>
-  }
-});
+                <div className="help-text">{this.props.data.helptext}</div>
+            </span>
+        )
+    } 
+}
+
+var element = Checkbox;
