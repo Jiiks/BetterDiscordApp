@@ -12,7 +12,7 @@ RUN apt-get update \
  fonts-dejavu fonts-liberation hicolor-icon-theme \
  libcanberra-gtk3-0 libcanberra-gtk-module libcanberra-gtk3-module \
  libasound2 libglib2.0 libgtk2.0-0 libdbus-glib-1-2 libxt6 libexif12 \
- libgl1-mesa-glx libgl1-mesa-dri libstdc++6 nvidia-346 \
+ libgl1-mesa-glx libgl1-mesa-dri libstdc++6 \
  gstreamer-1.0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
  gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
 
