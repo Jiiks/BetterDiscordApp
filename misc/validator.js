@@ -19,7 +19,7 @@ var discordPath = process.env.LOCALAPPDATA + "/Discord/app-" + dver + "/resource
 exists(discordPath + "/app");
 exists(discordPath + "/app/app/index.js");
 
-var bdPath = discordPath + "/node_modules/BetterDiscord";
+var bdPath = discordPath + "/modules/BetterDiscord";
 
 exists(bdPath);
 exists(bdPath + "/package.json");
