@@ -1,0 +1,11 @@
+[08/01/2017 09:12:58] Config: {"urls":{"package":"https://github.com/Jiiks/BetterDiscordApp/archive/stable16.zip","finish":"https://betterdiscord.net/installed"},"discord":{"lastKnownVersion":"0.0.292"},"import":"BetterDiscordApp-stable16","cache":["emotes_bttv.json","emotes_bttv_2.json","emotes_ffz.json","emotes_twitch_global.json","emotes_twitch_subscriber.json","user.json"],"paths":{"installPath":"/opt/discord-canary","libPath":"/opt/betterdiscord"}}
+[08/01/2017 09:12:58] Initializing
+[08/01/2017 09:12:58] Located app package
+[08/01/2017 09:12:58] Downloading BetterDiscord
+[08/01/2017 09:12:59] Deleting old app directory
+[08/01/2017 09:13:00] Extracting app package
+[08/01/2017 09:13:00] Creating Directories
+[08/01/2017 09:13:02] Copying files
+[08/01/2017 09:14:02] Finished extracting app package
+[08/01/2017 09:14:02] Injecting loader
+[08/01/2017 09:14:02] Finished installing BetterDiscord
