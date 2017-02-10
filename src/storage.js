@@ -7,11 +7,12 @@ const osString = platform();
 
 class Storage {
 
-    constructor() {
-        this.initConfig();
+    constructor(options) {
+        this.initConfig(options);
     }
 
-    initConfig() {
+    initConfig(options) {
+
         this.config = {
             defaults: {
                 paths: {
@@ -20,15 +21,18 @@ class Storage {
                 config: {
                 }
             },
-            storage: []
+            paths: {
+                base: "",
+                file: options.file || "bdStorage2"
+            }
         };
 
-        this.config.paths = this.config.defaults.paths;
+        this.config.paths.base = options.basePath || this.config.defaults.paths.base;
     }
 
 
     read(cb) {
-        let path = `${this.config.paths.base}/bdStorage2.json`;
+        let path = `${this.config.paths.base}/${this.config.paths.file}.json`;
         fs.stat(path, (err, stats) => {
             if(err) {
                 //Does not exist, create it
@@ -60,7 +64,7 @@ class Storage {
     }
 
     write(data, cb) {
-        let path = `${this.config.paths.base}/bdStorage2.json`;
+        let path = `${this.config.paths.base}/${this.config.paths.file}.json`;
         let json = null;
         try {
             json = JSON.stringify(data);
@@ -81,7 +85,16 @@ class Storage {
 
 }
 
+class PluginStorage extends Storage {
+    constructor(options) {
+        super(options);
+        this.config.paths.base += '/plugins';
+        this.config.paths.file += '.config';
+    }
+}
+
 
 module.exports = {
-    Storage: new Storage()
+    Storage: Storage,
+    PluginStorage: PluginStorage
 }

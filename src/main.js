@@ -1,13 +1,13 @@
-const { Storage } = require('./storage');
+const { Storage, PluginStorage } = require('./storage');
 
 class Core {
 
-    constructor(...options) {
+    constructor(options) {
 
     }
 
 }
 
 module.exports = {
-    Core: Core
+    Core: new Core()
 }
