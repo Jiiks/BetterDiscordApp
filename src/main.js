@@ -2,12 +2,12 @@ const { Storage } = require('./storage');
 
 class Core {
 
-	constructor(...options) {
+    constructor(...options) {
 
-	}
+    }
 
 }
 
 module.exports = {
-	Core: Core
+    Core: Core
 }
