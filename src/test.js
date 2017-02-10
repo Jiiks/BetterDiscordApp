@@ -1,3 +1,3 @@
 const { BetterDiscord } = require('./main');
 
-module.exports = new BetterDiscord();
+module.exports = new BetterDiscord({ mainWindow: null });
