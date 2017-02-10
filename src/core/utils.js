@@ -6,13 +6,24 @@ const _bd_open = require('open');
 
 class BDUtils {
 
-    //Injects html to Discord window
-    injectHtml(window, selector, html) {
- 
+    //Injects an element to Discord window
+    injectElement(window, selector, element) {
+        this.execJs(window, 
+            `
+            let _ELEMENT = document.createElement("${element.type}");
+            _ELEMENT.id = "${element.id}";
+            _ELEMENT.class = "${element.class}";
+            document.querySelector("${selector}").appendChild(_ELEMENT);
+            `);
+    }
+
+    //Injects component to Discord window
+    injectComponent(window, selector, component) {
+        this.execJs(window, `require('react-dom').render(${component}, document.querySelector("${selector}"));`);
     }
 
     execJs(window, js) {
-        window.webContents.executeJavaScript(js);
+        window.webContents.executeJavaScript(`(() => { ${js} })();`);
     }
 
     injectScript(window, variable, file) {
