@@ -1,10 +1,10 @@
 'use strict';
 
-class Utils {
+class BDUtils {
 
 }
 
-class Logger {
+class BDLogger {
 
     constructor(debug) {
         this.debug = debug || false;
@@ -29,6 +29,6 @@ class Logger {
 }
 
 module.exports = {
-    Utils: new Utils(),
-    Logger: Logger
+    BDUtils: new BDUtils(),
+    BDLogger: BDLogger
 };
