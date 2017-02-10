@@ -11,5 +11,5 @@ class Core {
 }
 
 module.exports = {
-    Core: Core
+    BetterDiscord: Core
 }

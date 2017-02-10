@@ -1,3 +1,3 @@
-const { Core } = require('./main');
+const { BetterDiscord } = require('./main');
 
-module.exports = new Core();
+module.exports = new BetterDiscord();
