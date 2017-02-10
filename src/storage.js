@@ -1,9 +1,9 @@
 'use strict';
 
-const fs = require('fs');
-const process = require('process');
-const { platform } = require('os');
-const osString = platform();
+const _bd_fs = require('fs');
+const _bd_process = require('process');
+const _bd_platform = require('os').platform;
+const _bd_osString = _bd_platform();
 
 class Storage {
 
@@ -16,7 +16,7 @@ class Storage {
         this.config = {
             defaults: {
                 paths: {
-                    base: (osString === 'win32' ? process.env.APPDATA : osString === 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + './config') + '/BetterDiscord'
+                    base: (_bd_osString === 'win32' ? process.env.APPDATA : _bd_osString === 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + './config') + '/BetterDiscord'
                 },
                 config: {
                 }
@@ -33,7 +33,7 @@ class Storage {
 
     read(cb) {
         let path = `${this.config.paths.base}/${this.config.paths.file}.json`;
-        fs.stat(path, (err, stats) => {
+        _bd_fs.stat(path, (err, stats) => {
             if(err) {
                 //Does not exist, create it
                 this.write(this.config.defaults.config, (err, result) => {
@@ -47,7 +47,7 @@ class Storage {
                 });
             }
             
-            fs.readFile(path, (err, result) => {
+            _bd_fs.readFile(path, (err, result) => {
                 if(err) {
                     //Something went wrong with read
                     cb(err);
@@ -72,7 +72,7 @@ class Storage {
             cb(err);
             return;
         }
-        fs.writeFile(path, json, (err, result) => {
+        _bd_fs.writeFile(path, json, (err, result) => {
             if(err) {
                 //Something went wrong with write
                 cb(err);
