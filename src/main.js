@@ -9,5 +9,5 @@ class Core {
 }
 
 module.exports = {
-    Core: new Core()
+    Core: Core
 }
