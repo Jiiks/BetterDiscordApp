@@ -1,13 +1,13 @@
 const { BDStorage, BDPluginStorage } = require('./storage');
 const { BDLogger } = require('./utils');
 const _bd_logger = new BDLogger(true);
-const Config = require('./config');
+const BDConfig = require('./config');
 
 class BDCore {
 
     constructor(options) {
         if(!this.validateOptions(options)) return;
-        _bd_logger.log(`v${Config.version} starting up`);
+        _bd_logger.log(`v${BDConfig.version} starting up`);
     }
 
     validateOptions(options) 
