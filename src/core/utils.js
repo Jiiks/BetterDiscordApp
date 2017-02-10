@@ -6,6 +6,20 @@ const _bd_open = require('open');
 
 class BDUtils {
 
+    //Injects html to Discord window
+    injectHtml(window, selector, html) {
+ 
+    }
+
+    execJs(window, js) {
+        window.webContents.executeJavaScript(js);
+    }
+
+    injectScript(window, variable, file) {
+        let path = `${__dirname}/vendor/${file}`.replace(/\\/g, '/');
+        this.execJs(window, `${variable} = require("${path}");`);
+    }
+
 }
 
 class BDLogger {
