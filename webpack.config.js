@@ -22,7 +22,8 @@ const webpackConfig = {
     externals: {
         "react": "window.require('react')",
         "React": "window.require('react')",
-        "ReactDOM": "window.require('react-dom')"
+        "ReactDOM": "window.require('react-dom')",
+        "events": "window.require('events')"
     }
 }
 
