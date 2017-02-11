@@ -33,8 +33,12 @@ class BetterDiscord {
                 let waiter = setInterval(() => {
                     //Wait for fasthook
                     if(!self.wsHooked) return;
-                    BDUtils.injectDevScript(mainWindow, "main.js");
                     clearInterval(waiter);
+                    BDUtils.execJs(mainWindow, `window._bd.options = {}`);
+                    if(_bd_config.debug) {
+                        BDUtils.execJs(mainWindow, `window._bd.options.debug = true`);
+                    }
+                    BDUtils.injectDevScript(mainWindow, "betterdiscord.client.js");
                 }, 100);
                 
             }

@@ -26,7 +26,7 @@ class BDUtils {
     }
 
     injectDevScript(window, file) {
-        let path = `${__dirname}/../client/dist/${file}`.replace(/\\/g, '/');
+        let path = `${__dirname}/../../dist/client/${file}`.replace(/\\/g, '/');
         this.execJs(window, `require("${path}");`);
     }
 
