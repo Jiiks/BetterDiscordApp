@@ -3,6 +3,7 @@ const ReactDOM = require("ReactDOM");
 const React = require("React");
 
 import CSettingsPanel from '../components/settingsPanel';
+import CProTip from '../components/protip';
 
 class SettingsPanel {
     
@@ -44,7 +45,9 @@ class SettingsPanel {
     render() {
         var self = this;
         let $root = self.$("<div/>", { class: "settings-inner", css: { display: "none" } }).insertBefore(self.$(".form .settings-right .settings-actions"))
-        let $button = self.$("<div/>", { class: "tab-bar-item", text: "BetterDiscord", click: showSettings });
+        let $button = self.$("<div/>", { "data-bd": "tbi-settings", class: "tab-bar-item", click: showSettings })
+        .append(self.$("<span/>", { text: "Better"  }))
+        .append(self.$("<span/>", { text: "Discord" }));
         self.$(".tab-bar.SIDE .tab-bar-item").on("click", () => {
             self.$(".form .settings-right .settings-inner").first().show();
             $root.hide();
@@ -57,7 +60,23 @@ class SettingsPanel {
             self.$(".settings-inner").hide();
             $root.show();
         }
-        ReactDOM.render(<CSettingsPanel handleChange={self.changeHandler} settings={self.settings} />, $root[0]);
+
+        let tabs = [
+            { "key": "core", "text": "Core" },
+            { "key": "ui", "text": "UI" },
+            { "key": "emotes", "text": "Emotes" },
+            { "key": "css", "text": "Custom CSS" },
+            { "key": "plugins", "text": "Plugins" },
+            { "key": "themes", "text": "Themes" }
+        ];
+        let footerLink = {"key": "ghjlink", "text": "Jiiks", "onClick": (key) => { console.log(key + " CLICKED"); }};
+        let footerLinks = [
+            {"key": "bdlink", "text": "BetterDiscord.net", "onClick": (key) => { console.log(key + " CLICKED"); }},
+            {"key": "cllink", "text": "changelog", "onClick": (key) => { console.log(key + " CLICKED"); }}
+        ];
+        let footer = <CProTip title="BetterDiscord v0.3.0-1.8.0 by" link={footerLink} links={footerLinks} />;
+
+        ReactDOM.render(<CSettingsPanel tabs={tabs} handleChange={self.changeHandler} settings={self.settings} footer={footer} />, $root[0]);
     }
 
     changeHandler(key, checked) {
@@ -67,3 +86,4 @@ class SettingsPanel {
 }
 
 module.exports = SettingsPanel;
+
