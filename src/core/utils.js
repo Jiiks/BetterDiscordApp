@@ -8,12 +8,12 @@ class BDUtils {
 
     //Injects an element to Discord window
     injectElement(window, selector, element) {
-        this.execJs(window, `_$("${selector}").append(_$("<${element.type}/>", { "data-bd": "${element.id}" }));`);
+        this.execJs(window, `window._bd.$("${selector}").append(window._bd.$("<${element.type}/>", { "data-bd": "${element.id}" }));`);
     }
 
     //Injects component to Discord window
     injectComponent(window, selector, component) {
-        this.execJs(window, `let _REACT = require('react'); require('react-dom').render(${component}, _$("[data-bd=${selector}]")[0]);`);
+        this.execJs(window, `let _REACT = require('react'); require('react-dom').render(${component}, window._bd.$("[data-bd=${selector}]")[0]);`);
     }
 
     execJs(window, js) {
@@ -26,7 +26,7 @@ class BDUtils {
     }
 
     injectCss(window, css, id) {
-        this.execJs(window, `_$("head").append('<style data-bd="${id}">${css}></style>');`);
+        this.execJs(window, `window._bd.$("head").append('<style data-bd="${id}">${css}></style>');`);
     }
 
 }
