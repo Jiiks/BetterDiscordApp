@@ -23,9 +23,3 @@ class ObserverModule extends ISingleton {
 }
 
 module.exports = new ObserverModule();
-
-
-
-var obs = new MutationObserver(mutations => mutations.map(value => {
-    console.log(value);
-}));
