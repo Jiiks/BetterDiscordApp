@@ -9,12 +9,12 @@ class SettingsPanel extends Component {
     constructor(props) {
         super(props);
         this.tabs = [
-            { "id": "core", "text": "Core" },
-            { "id": "ui", "text": "UI" },
-            { "id": "emotes", "text": "Emotes" },
-            { "id": "css", "text": "Custom CSS" },
-            { "id": "plugins", "text": "Plugins" },
-            { "id": "themes", "text": "Themes" }
+            { "key": "core", "text": "Core" },
+            { "key": "ui", "text": "UI" },
+            { "key": "emotes", "text": "Emotes" },
+            { "key": "css", "text": "Custom CSS" },
+            { "key": "plugins", "text": "Plugins" },
+            { "key": "themes", "text": "Themes" }
         ];
         this.settings = this.settings.bind(this);
         this.switchTab = this.switchTab.bind(this);
@@ -34,7 +34,7 @@ class SettingsPanel extends Component {
                     <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
                         <div className="tab-bar TOP">
                             {this.tabs.map(value => {
-                            return <div key={value.id} onClick={() => this.switchTab(value.id)} className={this.state.activeTab === value.id ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
+                            return <div key={value.key} onClick={() => this.switchTab(value.key)} className={this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
                             })}
                         </div>
                         <div>
@@ -59,7 +59,7 @@ class SettingsPanel extends Component {
             <div className="control-group">
                 <ul className="checkbox-group">
                     {this.props.settings[this.state.activeTab].map(value => {
-                        return <Checkbox checked={value.checked} onChange={this.handleChange.bind(this, value.id)} key={value.id} text={value.text} helptext={value.helptext} />
+                        return <Checkbox checked={value.checked} onChange={this.handleChange.bind(this, value.key)} key={value.key} text={value.text} helptext={value.helptext} />
                     })
                     }
                 </ul>
@@ -67,8 +67,8 @@ class SettingsPanel extends Component {
         );
     }
 
-    handleChange(id, checked) {
-        this.props.handleChange(id, checked);
+    handleChange(key, checked) {
+        this.props.handleChange(key, checked);
     }
 
 }
