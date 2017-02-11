@@ -9,7 +9,6 @@ class CSettingsPanel extends Component {
     constructor(props) {
         super(props);
         this.setInitialState();
-        this.settings = this.settings.bind(this);
         this.switchTab = this.switchTab.bind(this);
     }
 
@@ -29,7 +28,7 @@ class CSettingsPanel extends Component {
                         })}
                     </div>
                     <div className="control-groups">
-                        {this.settings(this.state.activeTab)}
+                        {this.props.content[this.state.activeTab]}
                     </div>
                     {(this.props.footer !== undefined) &&
                     this.props.footer
@@ -45,13 +44,6 @@ class CSettingsPanel extends Component {
         });
     }
 
-    settings(tab) {
-        return (
-            <div className="control-group">
-                {this.props.content[tab]}
-            </div>
-        );
-    }
 
     handleChange(key, checked) {
         this.props.handleChange(key, checked);
