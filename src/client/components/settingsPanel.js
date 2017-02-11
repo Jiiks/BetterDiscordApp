@@ -8,6 +8,14 @@ class SettingsPanel extends Component {
     
     constructor(props) {
         super(props);
+        this.tabs = [
+            { "id": "core", "text": "Core" },
+            { "id": "ui", "text": "UI" },
+            { "id": "emotes", "text": "Emotes" },
+            { "id": "css", "text": "Custom CSS" },
+            { "id": "plugins", "text": "Plugins" },
+            { "id": "themes", "text": "Themes" }
+        ];
         this.settings = this.settings.bind(this);
         this.switchTab = this.switchTab.bind(this);
         this.setInitialState();
@@ -25,12 +33,9 @@ class SettingsPanel extends Component {
                 <div className="scroller-wrap">
                     <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
                         <div className="tab-bar TOP">
-                            <div onClick={() => this.switchTab("core")} className={this.state.activeTab === "core" ? "tab-bar-item selected" : "tab-bar-item"}>Core</div>
-                            <div onClick={() => this.switchTab("ui")} className={this.state.activeTab === "ui" ? "tab-bar-item selected" : "tab-bar-item"}>UI</div>
-                            <div onClick={() => this.switchTab("emotes")} className={this.state.activeTab === "emotes" ? "tab-bar-item selected" : "tab-bar-item"}>Emotes</div>
-                            <div onClick={() => this.switchTab("css")} className={this.state.activeTab === "css" ? "tab-bar-item selected" : "tab-bar-item"}>Custom CSS</div>
-                            <div onClick={() => this.switchTab("plugins")} className={this.state.activeTab === "plugins" ? "tab-bar-item selected" : "tab-bar-item"}>Plugins</div>
-                            <div onClick={() => this.switchTab("themes")} className={this.state.activeTab === "themes" ? "tab-bar-item selected" : "tab-bar-item"}>Themes</div>
+                            {this.tabs.map(value => {
+                            return <div key={value.id} onClick={() => this.switchTab(value.id)} className={this.state.activeTab === value.id ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
+                            })}
                         </div>
                         <div>
                             {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
