@@ -14,11 +14,12 @@ class CSettingsPanel extends Component {
 
     setInitialState() {
         this.state = {
-            activeTab: "core"
+            activeTab: this.props.initialTab
         };
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className="scroller-wrap">
                 <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
