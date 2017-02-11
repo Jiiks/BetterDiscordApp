@@ -3,8 +3,6 @@ const ISingleton = require('../interfaces/isingleton');
 const { EventEmitter } = require('events');
 const emitter = new EventEmitter();
 
-let instance = null;
-
 class Events extends ISingleton {
 
     constructor() {
