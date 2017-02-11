@@ -13,7 +13,7 @@ class CCheckboxGroup extends Component {
     render() {
         return (
             <ul className="checkbox-group">
-            {this.props.item.map(value => {
+            {this.props.items.map(value => {
                 return <CCheckbox checked={value.checked} onChange={value.onChange} key={value.key} text={value.text} helptext={value.helptext} />
             })}
             </ul>
