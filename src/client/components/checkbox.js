@@ -7,16 +7,24 @@ class CheckBox extends Component {
     
     constructor(props) {
         super(props);
+        this.onClick = this.onClick.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.setInitialState();
     }
 
+    setInitialState() {
+        this.state = {
+            checked: this.props.checked
+        };
+    }
 
     render() {
         return (
             <span>
                 <li>
-                    <div className="checkbox">
+                    <div onClick={this.onClick} className="checkbox">
                         <div className="checkbox-inner">
-                            <input type="checkbox"/>
+                            <input onChange={this.onChange} checked={this.state.checked} type="checkbox"/>
                             <span/>
                         </div>
                         <span>{this.props.text}</span>
@@ -31,6 +39,16 @@ class CheckBox extends Component {
         )
     }
 
+    onClick() {
+        this.setState({
+            checked: !this.state.checked
+        });
+        this.props.onChange(!this.state.checked);
+    }
+
+    onChange() {
+
+    }
 }
 
 export default CheckBox;

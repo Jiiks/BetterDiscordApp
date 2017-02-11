@@ -8,19 +8,14 @@ class SettingsPanel extends Component {
     
     constructor(props) {
         super(props);
-        this.coreSettings.bind(this);
+        this.settings = this.settings.bind(this);
+        this.switchTab = this.switchTab.bind(this);
         this.setInitialState();
-        //Just for testing
-        this.items = [
-            {"id": 0, "text": "Option 1", "helptext": "Option 1 helptext"},
-            {"id": 1, "text": "Option 2", "helptext": "Option 2 helptext"},
-            {"id": 2, "text": "Option 3", "helptext": "Option 3 helptext"}
-        ];
     }
 
     setInitialState() {
         this.state = {
-            activePanel: "core"
+            activeTab: "core"
         };
     }
 
@@ -30,15 +25,17 @@ class SettingsPanel extends Component {
                 <div className="scroller-wrap">
                     <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
                         <div className="tab-bar TOP">
-                            <div className="tab-bar-item selected">Core</div>
-                            <div className="tab-bar-item">UI</div>
-                            <div className="tab-bar-item">Emotes</div>
-                            <div className="tab-bar-item">Custom CSS</div>
-                            <div className="tab-bar-item">Plugins</div>
-                            <div className="tab-bar-item">Themes</div>
+                            <div onClick={() => this.switchTab("core")} className={this.state.activeTab === "core" ? "tab-bar-item selected" : "tab-bar-item"}>Core</div>
+                            <div onClick={() => this.switchTab("ui")} className={this.state.activeTab === "ui" ? "tab-bar-item selected" : "tab-bar-item"}>UI</div>
+                            <div onClick={() => this.switchTab("emotes")} className={this.state.activeTab === "emotes" ? "tab-bar-item selected" : "tab-bar-item"}>Emotes</div>
+                            <div onClick={() => this.switchTab("css")} className={this.state.activeTab === "css" ? "tab-bar-item selected" : "tab-bar-item"}>Custom CSS</div>
+                            <div onClick={() => this.switchTab("plugins")} className={this.state.activeTab === "plugins" ? "tab-bar-item selected" : "tab-bar-item"}>Plugins</div>
+                            <div onClick={() => this.switchTab("themes")} className={this.state.activeTab === "themes" ? "tab-bar-item selected" : "tab-bar-item"}>Themes</div>
                         </div>
                         <div>
-                            {this.coreSettings()}
+                            {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
+                            this.settings()
+                            }
                         </div>
                     </div>
                 </div>
@@ -46,12 +43,18 @@ class SettingsPanel extends Component {
         )
     }
 
-    coreSettings() {
+    switchTab(tab) {
+        this.setState({
+            activeTab: tab
+        });
+    }
+
+    settings() {
         return (
             <div className="control-group">
                 <ul className="checkbox-group">
-                    {this.items.map(value => {
-                        return <Checkbox key={value.id} text={value.text} helptext={value.helptext} />
+                    {this.props.settings[this.state.activeTab].map(value => {
+                        return <Checkbox checked={value.checked} onChange={this.handleChange.bind(this, value.id)} key={value.id} text={value.text} helptext={value.helptext} />
                     })
                     }
                 </ul>
@@ -59,8 +62,10 @@ class SettingsPanel extends Component {
         );
     }
 
+    handleChange(id, checked) {
+        this.props.handleChange(id, checked);
+    }
+
 }
-
-
 
 export default SettingsPanel;
