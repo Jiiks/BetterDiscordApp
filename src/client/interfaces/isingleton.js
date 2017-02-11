@@ -1,9 +1,9 @@
-let instance = null;
+let instances = [];
 
 class ISingleton {
-    constructor() {
+    constructor(name) {
         this.created_at = new Date();
-        return instance || (instance = this);
+        return instances[name] || (instances[name] = this);
     }
 }
 
