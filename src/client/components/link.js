@@ -10,7 +10,7 @@ class CLink extends Component {
     }
 
     render() {
-        return <a onClick={() => this.props.onClick(this.props.id)}>{this.props.text}</a>
+        return <a style={this.props.style} onClick={() => this.props.onClick(this.props.id)}>{this.props.text}</a>
     }
 
 }
