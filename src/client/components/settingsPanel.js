@@ -29,20 +29,29 @@ class CSettingsPanel extends Component {
 
     render() {
         return (
-           <div className="scroller-wrap">
-               <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
-                   <div className="tab-bar TOP">
-                       {this.tabs.map(value => {
-                       return <div key={value.key} onClick={() => this.switchTab(value.key)} className={this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
-                       })}
-                   </div>
-                   <div>
-                       {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
-                       this.settings()
-                       }
-                   </div>
-               </div>
-           </div>
+            <div className="scroller-wrap">
+                <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
+                    <div className="tab-bar TOP">
+                        {this.tabs.map(value => {
+                        return <div key={value.key} onClick={() => this.switchTab(value.key)} className={this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
+                        })}
+                    </div>
+                    <div className="control-groups">
+                        {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
+                        this.settings()
+                        }
+                    </div>
+                    <div data-bd="protip" className="protip">
+                        <div className="tip">
+                            BetterDiscord v0.3.0-1.8 by 
+                            <a target="_blank" href="https://github.com/Jiiks">Jiiks</a> 
+                            <a style={{float: "right"}} target="_blank" href="#">BetterDiscord.net</a> 
+                            <span style={{float: "right",}}>-</span> 
+                            <a style={{float: "right"}} target="_blank" href="#">changelog</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 
