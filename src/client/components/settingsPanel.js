@@ -46,7 +46,7 @@ class CSettingsPanel extends Component {
                             BetterDiscord v0.3.0-1.8 by 
                             <a target="_blank" href="https://github.com/Jiiks">Jiiks</a> 
                             <a style={{float: "right"}} target="_blank" href="#">BetterDiscord.net</a> 
-                            <span style={{float: "right",}}>-</span> 
+                            <span style={{float: "right"}}>-</span> 
                             <a style={{float: "right"}} target="_blank" href="#">changelog</a> 
                         </div>
                     </div>
