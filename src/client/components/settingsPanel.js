@@ -4,7 +4,7 @@ const React = require("React");
 import { Component } from 'React';
 import Checkbox from './checkbox';
 
-class SettingsPanel extends Component {
+class CSettingsPanel extends Component {
     
     constructor(props) {
         super(props);
@@ -71,4 +71,4 @@ class SettingsPanel extends Component {
 
 }
 
-export default SettingsPanel;
+export default CSettingsPanel;
