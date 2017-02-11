@@ -10,14 +10,19 @@ const webpackConfig = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015', 'react']
                 }
             }
         ]
+    },
+    externals: {
+        "react": "window.require('react')",
+        "React": "window.require('react')",
+        "ReactDOM": "window.require('react-dom')"
     }
 }
 

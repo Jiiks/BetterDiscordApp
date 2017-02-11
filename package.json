@@ -24,6 +24,7 @@
         "style-loader": "^0.13.1"
     },
     "scripts": {
-        "build": ""
+        "build-client": "webpack --progress --colors",
+        "watch-client": "webpack --progress --colors --watch"
     }
 }
