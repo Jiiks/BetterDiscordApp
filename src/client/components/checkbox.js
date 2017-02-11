@@ -3,7 +3,7 @@
 const React = require("React");
 import { Component } from 'React';
 
-class CheckBox extends Component {
+class CCheckBox extends Component {
     
     constructor(props) {
         super(props);
@@ -51,4 +51,4 @@ class CheckBox extends Component {
     }
 }
 
-export default CheckBox;
+export default CCheckBox;
