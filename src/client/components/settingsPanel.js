@@ -44,11 +44,6 @@ class CSettingsPanel extends Component {
         });
     }
 
-
-    handleChange(key, checked) {
-        this.props.handleChange(key, checked);
-    }
-
 }
 
 export default CSettingsPanel;
