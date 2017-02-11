@@ -29,22 +29,20 @@ class SettingsPanel extends Component {
 
     render() {
         return (
-            <div className="settings-inner">
-                <div className="scroller-wrap">
-                    <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
-                        <div className="tab-bar TOP">
-                            {this.tabs.map(value => {
-                            return <div key={value.key} onClick={() => this.switchTab(value.key)} className={this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
-                            })}
-                        </div>
-                        <div>
-                            {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
-                            this.settings()
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
+           <div className="scroller-wrap">
+               <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
+                   <div className="tab-bar TOP">
+                       {this.tabs.map(value => {
+                       return <div key={value.key} onClick={() => this.switchTab(value.key)} className={this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
+                       })}
+                   </div>
+                   <div>
+                       {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
+                       this.settings()
+                       }
+                   </div>
+               </div>
+           </div>
         )
     }
 
