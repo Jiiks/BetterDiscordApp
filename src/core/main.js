@@ -17,8 +17,8 @@ class BetterDiscord {
         _bd_logger.log(`v${_bd_config.version} starting up`);
 
         this.fastHook();
-        this.domReady();
         this.initIpc();
+        this.domReady();
         this.clientPrep();
     }
 
@@ -27,12 +27,23 @@ class BetterDiscord {
         const { mainWindow } = this.options;
         var self = this;
         mainWindow.webContents.on('dom-ready', () => {
-            
+            _bd_logger.log("dom-ready", 'DBG');
+            if(_bd_config.debug) {
+                //If we're debugging then load the main script locally
+                let waiter = setInterval(() => {
+                    //Wait for fasthook
+                    if(!self.wsHooked) return;
+                    BDUtils.injectDevScript(mainWindow, "main.js");
+                    clearInterval(waiter);
+                }, 100);
+                
+            }
         });
     }
 
     //ipc injection. will be nulled later and not accessible to plugins/outside users.
     initIpc() {
+        _bd_logger.log("initIpc", 'DBG');
         const { mainWindow } = this.options;
         var self = this;
         this.ipcMain = _bd_IPC;
@@ -79,6 +90,7 @@ class BetterDiscord {
         const { mainWindow } = this.options;
         var self = this;
         mainWindow.webContents.on('did-get-response-details', () => {
+
             if(self.wsHooked) return;
             BDUtils.execJs(mainWindow, `if(window._bd === undefined) window._bd = {};
                                         if(window._bd.fastHook !== undefined && window._bd.ipc !== undefined) {
@@ -102,7 +114,7 @@ class BetterDiscord {
     clientPrep() {
         const { mainWindow } = this.options;
         //Make sure _bd exists
-        BDUtils.execJs(mainWindow, "window._bd = {}");
+        BDUtils.execJs(mainWindow, "if(window._bd === undefined) { window._bd = {} }");
         //Inject jQuery
         BDUtils.injectScript(mainWindow, "window._bd.$ = window._bd.jQuery", "jquery.2.2.4.min.js");
         //Inject some initial css(move to separate file eventually)

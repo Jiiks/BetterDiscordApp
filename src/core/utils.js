@@ -25,6 +25,11 @@ class BDUtils {
         this.execJs(window, `${variable} = require("${path}");`);
     }
 
+    injectDevScript(window, file) {
+        let path = `${__dirname}/../client/dist/${file}`.replace(/\\/g, '/');
+        this.execJs(window, `require("${path}");`);
+    }
+
     injectCss(window, css, id) {
         this.execJs(window, `window._bd.$("head").append('<style data-bd="${id}">${css}></style>');`);
     }
