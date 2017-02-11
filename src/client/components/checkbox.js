@@ -43,7 +43,7 @@ class CCheckBox extends Component {
         this.setState({
             checked: !this.state.checked
         });
-        this.props.onChange(!this.state.checked);
+        this.props.onChange(this.props.id, !this.state.checked);
     }
 
     onChange() {

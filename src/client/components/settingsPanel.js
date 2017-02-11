@@ -29,9 +29,7 @@ class CSettingsPanel extends Component {
                         })}
                     </div>
                     <div className="control-groups">
-                        {(this.state.activeTab === "core" || this.state.activeTab === "ui" || this.state.activeTab === "emotes") &&
-                        this.settings()
-                        }
+                        {this.settings(this.state.activeTab)}
                     </div>
                     {(this.props.footer !== undefined) &&
                     this.props.footer
@@ -47,15 +45,10 @@ class CSettingsPanel extends Component {
         });
     }
 
-    settings() {
+    settings(tab) {
         return (
             <div className="control-group">
-                <ul className="checkbox-group">
-                    {this.props.settings[this.state.activeTab].map(value => {
-                        return <CCheckbox checked={value.checked} onChange={this.handleChange.bind(this, value.key)} key={value.key} text={value.text} helptext={value.helptext} />
-                    })
-                    }
-                </ul>
+                {this.props.content[tab]}
             </div>
         );
     }
