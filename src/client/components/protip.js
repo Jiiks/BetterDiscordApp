@@ -1,6 +1,6 @@
 "use strict";
 
-const React = require("React");
+const React = require("../vendor/react");
 import { Component } from 'React';
 import CLink from './link';
 

@@ -3,16 +3,16 @@
 const React = require("../vendor/react");
 import { Component } from 'React';
 
-class CLink extends Component {
+class CPluginList extends Component {
 
     constructor(props) {
         super(props);
     }
 
     render() {
-        return <a style={this.props.style} onClick={() => this.props.onClick(this.props.id)}>{this.props.text}</a>
+        return (<ul></ul>)
     }
 
 }
 
-export default CLink;
+export default CPluginList;

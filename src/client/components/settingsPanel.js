@@ -1,6 +1,6 @@
 "use strict";
 
-const React = require("React");
+const React = require("../vendor/react");
 import { Component } from 'React';
 import CCheckbox from './checkbox';
 
@@ -19,13 +19,13 @@ class CSettingsPanel extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="scroller-wrap">
                 <div className="scroller settings-wrapper settings-panel user-settings-text-chat">
                     <div className="tab-bar TOP">
                         {this.props.tabs.map(value => {
-                        return <div key={value.key} onClick={() => this.switchTab(value.key)} className={this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item"}>{value.text}</div>
+                        let cn = this.state.activeTab === value.key ? "tab-bar-item selected" : "tab-bar-item";
+                        return <div key={value.key} onClick={() => this.switchTab(value.key)} className={cn}>{value.text}</div>
                         })}
                     </div>
                     <div className="control-groups">
