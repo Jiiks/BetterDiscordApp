@@ -1,6 +1,18 @@
+/**
+ * BetterDiscord Settings Panel Module
+ * Copyright (c) 2015-present Jiiks - https://jiiks.net
+ * All rights reserved.
+ * https://github.com/Jiiks/BetterDiscordApp - https://betterdiscord.net
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree. 
+ */
+
+'use strict';
+
 const Events = require('./events');
-const ReactDOM = require("../vendor/reactdom");
-const React = require("../vendor/react");
+const ReactDOM = require('../vendor/reactdom');
+const React = require('../vendor/react');
 
 const Settings = require('./settings');
 const Renderer = require('./renderer');
@@ -15,9 +27,10 @@ import CPluginList from '../components/pluginlist';
 class SettingsPanel {
     
     constructor() {
-        this.initSettings();//This will be moved to another class eventually
+        let self = this;
 
-        var self = this;
+        self.initUi();
+        
         Events.on("mutation", mutation => {
             if(mutation.type !== 'childList') return;
             if(mutation.addedNodes.length <= 0) return;
@@ -27,161 +40,83 @@ class SettingsPanel {
         });
     }
 
-    initSettings() {
+    initUi() {
+        let self = this;
 
-        function toggleSetting(array, key, checked) {
-            array.filter(value => value.key === key)[0].checked = checked;
-        }
-
-        this.coreItems = [
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.coreItems, key, checked),
-                "key": "public-servers",
-                "text": "Public Servers",
-                "helptext": "Display public servers button"
+        self.ui = {
+            "root": $("<div/>", { class: "settings-inner", css: { display: "none" } }),
+            "button": $("<div/>", { "data-bd": "tbi-settings", class: "tab-bar-item", click: self.showSettings.bind(self) }).append($("<span/>", { text: "Better"  })).append($("<span/>", { text: "Discord" })),
+            "footer": {
+                "link": { "key": "splink", "text": "Jiiks", "onClick": (key) => { window.open("https://github.com/Jiiks", "_blank") } },
+                "links": [
+                    {"key": "splinks0", "text": "BetterDiscord.net", "onClick": (key) => { window.open("https://betterdiscord.net", "_blank") }},
+                    {"key": "splinks1", "text": "changelog", "onClick": (key) => { console.log("show changelog"); }}
+                ]
             },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.coreItems, key, checked),
-                "key": "voice-disconnect",
-                "text": "Voice Disconnect",
-                "helptext": "Disconnect from voice server when Discord closes"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.coreItems, key, checked),
-                "key": "developer-mode",
-                "text": "Developer Mode",
-                "helptext": "BetterDiscord developer mode"
-            }
-        ];
-
-        this.emoteItems = [
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "twitch-emotes",
-                "text": "Twitch Emotes",
-                "helptext": "Show Twitch emotes"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "ffz-emotes",
-                "text": "FrankerFaceZ Emotes",
-                "helptext": "Show FrankerFaceZ emotes"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "bttv-emotes",
-                "text": "BetterTTV Emotes",
-                "helptext": "Show BetterTTV emotes"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "emote-menu",
-                "text": "Emote Menu",
-                "helptext": "Show Twitch/Favourite emotes in emote menu"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "emoji-menu",
-                "text": "Emoji Menu",
-                "helptext": "Show Discord emoji menu"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "emote-autocap",
-                "text": "Emote Auto Capitalization",
-                "helptext": "Automatically capitalize emotes as you type"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "emote-tooltips",
-                "text": "Emote Tooltips",
-                "helptext": "Show emote tooltips when you hover over them"
-            },
-            {
-                "checked": false,
-                "onChange": (key, checked) => toggleSetting(this.emoteItems, key, checked),
-                "key": "emote-modifiers",
-                "text": "Emote Modifiers",
-                "helptext": "Enable emote modifiers"
-            }
-        ]
-
-        this.tabs = [
-            { "key": "core", "text": "Core"},
-            { "key": "ui", "text": "UI" },
-            { "key": "emotes", "text": "Emotes" },
-            { "key": "css", "text": "Custom CSS" },
-            { "key": "plugins", "text": "Plugins" },
-            { "key": "themes", "text": "Themes" }
-        ];
-
-        this.content = {
-            "core": (
-                <div className="control-group">
-                    <CCheckboxGroup items={this.coreItems}/>
-                </div>
+            "content": {
+                "core": (
+                    <div className="control-group">
+                        <CCheckboxGroup items={Settings.getCoreSettings} onChange={(key, checked) => self.onChange("core", key, checked)}/>
+                    </div>
                 ),
-            "plugins": (
-                <div className="control-group">
-                    <CPluginList />
-                </div>
+                "ui": (
+                    <div className="control-group">
+                        <CCheckboxGroup items={Settings.getUiSettings} onChange={(key, checked) => self.onChange("ui", key, checked)}/>
+                    </div>
                 ),
-            "emotes": (
-                <div className="control-group">
-                    <CCheckboxGroup items={this.emoteItems}/>
-                </div>
+                "emotes": (
+                    <div className="control-group">
+                        <CCheckboxGroup items={Settings.getEmoteSettings} onChange={(key, checked) => self.onChange("emotes", key, checked)}/>
+                    </div>
                 )
+            },
+            "settings": [],
+            "tabs": [
+                { "key": "core", "text": "Core"},
+                { "key": "ui", "text": "UI" },
+                { "key": "emotes", "text": "Emotes" },
+                { "key": "css", "text": "Custom CSS" },
+                { "key": "plugins", "text": "Plugins" },
+                { "key": "themes", "text": "Themes" }
+            ]
         };
+
+    }
+
+    onChange(sub, key, checked) {
+        Settings.setSetting(sub, key, checked);
+    }
+
+    showSettings() {
+        let self = this;
+        $(".tab-bar.SIDE .tab-bar-item").removeClass("selected");
+        self.ui.button.addClass("selected");
+        $(".settings-inner").hide();
+        self.ui.root.show();
+    }
+
+    hideSettings() {
+        let self = this;
+        $(".form .settings-right .settings-inner").first().show();
+        self.ui.root.hide();
+        self.ui.button.removeClass("selected");
+    }
+
+    toggleSetting(sub, key, checked) {
+        Settings.setSetting(sub, key, checked);
     }
 
     render() {
-        var self = this;
-        let $root = $("<div/>", { class: "settings-inner", css: { display: "none" } });
-        let $button = $("<div/>", { "data-bd": "tbi-settings", class: "tab-bar-item", click: showSettings })
-        .append($("<span/>", { text: "Better"  }))
-        .append($("<span/>", { text: "Discord" }));
-        $(".tab-bar.SIDE .tab-bar-item").on("click", () => {
-            $(".form .settings-right .settings-inner").first().show();
-            $root.hide();
-            $button.removeClass("selected");
-        });
-        $button.insertBefore($(".change-log-button-container"));
-        function showSettings() {
-            $(".tab-bar.SIDE .tab-bar-item").removeClass("selected");
-            $button.addClass("selected");
-            $(".settings-inner").hide();
-            $root.show();
-        }
+        let self = this;
+        $(".tab-bar.SIDE .tab-bar-item").on("click", self.hideSettings.bind(self));
+        self.ui.button.removeClass("selected");
+        self.ui.root.hide();
+        self.ui.button.insertBefore($(".change-log-button-container"));
 
-        let footerLink = {"key": "ghjlink", "text": "Jiiks", "onClick": (key) => { console.log(key + " CLICKED"); }};
-        let footerLinks = [
-            {"key": "bdlink", "text": "BetterDiscord.net", "onClick": (key) => { console.log(key + " CLICKED"); }},
-            {"key": "cllink", "text": "changelog", "onClick": (key) => { console.log(key + " CLICKED"); }}
-        ];
-        let footer = <CProTip title="BetterDiscord v0.3.0-1.8.0 by" link={footerLink} links={footerLinks} />;
-        let settingsPanel = <CSettingsPanel initialTab="core" content={self.content} tabs={self.tabs} handleChange={self.changeHandler} settings={self.settings} footer={footer} />;
-
-        let componentContainer = Renderer.insertBefore(".form .settings-right .settings-actions", $root, settingsPanel);
+        let footer = <CProTip title="BetterDiscord v0.3.0-1.8.0 by" link={self.ui.footer.link} links={self.ui.footer.links} />;
+        let settingsPanel = <CSettingsPanel initialTab="core" content={self.ui.content} tabs={self.ui.tabs} footer={footer} />;
+        Renderer.insertBefore(".form .settings-right .settings-actions", self.ui.root, settingsPanel);
     }
-
-    
-
-    changeHandler(key, checked) {
-        console.log(`${key} - ${checked}`);
-    }
-
 }
 
 module.exports = SettingsPanel;
-
-
