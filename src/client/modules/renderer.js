@@ -41,8 +41,29 @@ class Renderer  {
         return this.render(root, component);
     }
 
+
     static append(selector, root, component) {
         root.append($(selector));
+        return this.render(root, component);
+    }
+
+    static appendTo(selector, root, component) {
+        root.appendTo($(selector));
+        return this.render(root, component);
+    }
+
+    static prepend(selector, root, component) {
+        $(selector).prepend(root);
+        return this.render(root, component);
+    }
+
+    static prependTo(selector, root, component) {
+        $(selector).prepend(root);
+        return this.render(root, component);
+    }
+
+    static replaceWith(selector, root, component) {
+        $(selector).replaceWith(root);
         return this.render(root, component);
     }
 
