@@ -14,7 +14,7 @@ class CCheckBox extends Component {
 
     setInitialState() {
         this.state = {
-            checked: this.props.checked
+            checked: this.props.checked || this.props.enabled
         };
     }
 
