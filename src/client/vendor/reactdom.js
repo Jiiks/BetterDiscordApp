@@ -2,10 +2,4 @@
 
 const ReactDOMInstance = require("ReactDOM");
 
-class ReactDOM {
-    constructor() {
-        return ReactDOMInstance;
-    }
-}
-
-module.exports = new ReactDOM();
+module.exports = ReactDOMInstance;
