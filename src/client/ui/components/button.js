@@ -10,8 +10,7 @@
 
 'use strict';
 
-const React = require('../vendor/react');
-const ReactDOM = require('../vendor/reactdom');
+const { React } = require('../../vendor');
 import { Component } from 'React';
 
 class CButton extends Component {

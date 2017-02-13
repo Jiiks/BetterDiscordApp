@@ -10,7 +10,7 @@
 
 'use strict';
 
-const { React } = require('../vendor');
+const { React } = require('../../vendor');
 import { Component } from 'React';
 import CCheckbox from './checkbox';
 

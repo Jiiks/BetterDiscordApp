@@ -10,7 +10,7 @@
 
 'use strict';
 
-const React = require('../vendor/react');
+const { React } = require('../../vendor');
 import { Component } from 'React';
 import CLink from './link';
 
