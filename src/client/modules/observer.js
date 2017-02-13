@@ -20,16 +20,17 @@ class ObserverModule extends ISingleton {
     }
 
     observe(options) {
-        if(this.observing) return;
-        this.observing = true;
-        this.observer = new MutationObserver(mutations => mutations.map(value => this.mutationHandler(value)));
-        this.observer.observe(document, options);
+        let self = this;
+        if(self.observing) return;
+        self.observing = true;
+        self.observer = new MutationObserver(mutations => mutations.map(value => self.mutationHandler(value)));
+        self.observer.observe(document, options);
     }
 
     mutationHandler(mutation) {
+        let self = this;
         Events.emit("mutation", mutation);
     }
-
 }
 
 module.exports = new ObserverModule();
