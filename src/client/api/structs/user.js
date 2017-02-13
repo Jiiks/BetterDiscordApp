@@ -1,5 +1,5 @@
 /**
- * BetterDiscord User Object
+ * BetterDiscord User Struct
  * Copyright (c) 2015-present Jiiks - https://jiiks.net
  * All rights reserved.
  * https://github.com/Jiiks/BetterDiscordApp - https://betterdiscord.net

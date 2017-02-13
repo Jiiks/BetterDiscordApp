@@ -1,5 +1,5 @@
 /**
- * BetterDiscord Message Object
+ * BetterDiscord Message Struct
  * Copyright (c) 2015-present Jiiks - https://jiiks.net
  * All rights reserved.
  * https://github.com/Jiiks/BetterDiscordApp - https://betterdiscord.net
@@ -16,8 +16,10 @@ class Message {
     constructor(data) {
         let { message, channel } = data;
         let { author } = message;
+        this.state = message.state;
         this.id = message.id;
         this.content = message.content;
+        this.timestamp = message.timestamp._d || message.timestamp._i;
         this.mentioned = message.mentioned;
         this.mentions = [];
         this.pinned = message.pinned;
