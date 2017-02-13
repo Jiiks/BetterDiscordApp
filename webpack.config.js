@@ -24,7 +24,8 @@ const webpackConfig = {
         "React": "window.require('react')",
         "ReactDOM": "window.require('react-dom')",
         "events": "window.require('events')",
-        "fs": "window.require('fs')"
+        "fs": "window.require('fs')",
+        "electron": "window.require('electron')"
     }
 }
 
