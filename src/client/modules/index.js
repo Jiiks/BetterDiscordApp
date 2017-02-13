@@ -15,7 +15,6 @@ const observer = require('./observer');
 const reflection = require('./reflection');
 const renderer = require('./renderer');
 const settings = require('./settings');
-const settingsPanel = require('./settingsPanel');
 
 module.exports = {
     Cache: cache,
@@ -24,6 +23,5 @@ module.exports = {
     Observer: observer,
     Reflection: reflection,
     Renderer: renderer,
-    Settings: settings,
-    SettingsPanel: settingsPanel
+    Settings: settings
 }
