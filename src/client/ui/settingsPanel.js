@@ -12,7 +12,7 @@
 
 const { React, ReactDOM, $ } = require('../vendor');
 const { Events, Settings, Renderer } = require('../modules');
-import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from '../components';
+import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from './components';
 
 class SettingsPanel {
     
