@@ -15,7 +15,7 @@ class Cache {
     constructor(persistent) {
         this.cache = {};
         if(!persistent) {
-            setInterval(this.clear(), 60000);
+            setInterval(this.clear.bind(this), 60000);
         }
     }
 
