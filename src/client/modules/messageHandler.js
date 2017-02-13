@@ -13,9 +13,8 @@
 const Cache = require('./cache');
 const Events = require('./events');
 const Reflection = require('./reflection');
-const Message = require('../api/message');
-const $ = require('../vendor/jquery');
-const moment = require('../vendor/moment');
+const { Message } = require('../api/structs');
+const { $, moment } = require('../vendor');
 
 class MessageHandler {
 
