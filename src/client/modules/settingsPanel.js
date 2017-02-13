@@ -10,19 +10,13 @@
 
 'use strict';
 
-const Events = require('./events');
-const ReactDOM = require('../vendor/reactdom');
-const React = require('../vendor/react');
+const { React, ReactDOM, $ } = require('../vendor');
 
+const Events = require('./events');
 const Settings = require('./settings');
 const Renderer = require('./renderer');
 
-const $ = require('../vendor/jquery');
-
-import CSettingsPanel from '../components/settingsPanel';
-import CProTip from '../components/protip';
-import CCheckboxGroup from '../components/checkboxGroup';
-import CPluginList from '../components/pluginlist';
+import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from '../components';
 
 class SettingsPanel {
     
@@ -70,7 +64,6 @@ class SettingsPanel {
                     </div>
                 )
             },
-            "settings": [],
             "tabs": [
                 { "key": "core", "text": "Core"},
                 { "key": "ui", "text": "UI" },
