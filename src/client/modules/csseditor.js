@@ -31,13 +31,14 @@ class CssEditor extends ISingleton {
 
     open() {
         let self = this;
-        if(self.editor.open && self.editor.window) {
+        if(self.editor.open || self.editor.window) {
             self.editor.window.focus();
             self.editor.window.flashFrame(true);
             return;
         }
 
         self.editor.window = new remote.BrowserWindow(self.editor.options);
+        self.editor.open = true;
         self.loadURL("file://g:/bd/data/csseditor.html"); //Static path for testing
         self.editor.window.on('close', self.onClose.bind(self));
         self.editor.window.on('resize', self.onResize.bind(self));
