@@ -11,7 +11,7 @@
 'use strict';
 
 const { React, ReactDOM, $ } = require('../vendor');
-const { Events, Settings, Renderer } = require('../modules');
+const { Events, Settings, Renderer, CssEditor } = require('../modules');
 import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from './components';
 
 
@@ -72,7 +72,7 @@ class SettingsPanel {
     }
 
     openCssEditor() {
-        
+        CssEditor.open();
     }
 
     onChange(sub, key, checked) {
