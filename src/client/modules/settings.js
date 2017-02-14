@@ -10,7 +10,6 @@
 
 'use strict';
 
-const fs = require('fs');
 const IPC = require('./ipc');
 const Utils = require('./utils');
 const defaultSettings = require('../data/user.settings.default');
@@ -22,6 +21,7 @@ class SettingsModule {
     static init() {
         let self = this;
         if(self.filePath !== undefined) {
+            //TODO replace with Logger
             console.log("Attempt to reinitialize SettingsModule has been blocked");
             return;
         }
@@ -34,16 +34,21 @@ class SettingsModule {
 
     static load() {
         let self = this;
-        let settings = Utils.tryParse(fs.readFileSync(self.filePath));
-        if(settings === null) {
+        let read = Utils.readFileSync(self.filePath);
+        if(!read) {
             self.settings = defaultSettings;
             return;
         }
-        self.settings = settings;
+
+        let settings = Utils.tryParse(read);
+        self.settings = settings || defaultSettings;
     }
 
     static save() {
-        fs.writeFileSync(this.filePath, JSON.stringify(this.settings));
+        if(!Utils.writeFileSync(this.filePath, JSON.stringify(this.settings))) {
+            //TODO replace with Logger
+            console.log("Failed to write settings file!");
+        }
     }
 
     static get getCoreSettings() { return this.getSettings("core"); }

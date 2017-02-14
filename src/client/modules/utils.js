@@ -10,6 +10,7 @@
 
 'use strict';
 
+const fs = require('fs');
 const Cache = require('./cache');
 
 class Utils {
@@ -23,6 +24,28 @@ class Utils {
             return JSON.parse(data);
         }catch(err) {
             return null;
+        }
+    }
+
+    fileExistsSync(path) {
+        try {
+            return fs.statSync(path).isFile();
+        }catch(err) {
+            return false;
+        }
+    }
+
+    readFileSync(path) {
+        if(!this.fileExistsSync(path)) return null;
+        return fs.readFileSync(path);
+    }
+
+    writeFileSync(path, data, encoding) {
+        try {
+            fs.writeFileSync(path, data, encoding || 'utf8');
+            return true;
+        } catch(err) {
+            return false;
         }
     }
 
