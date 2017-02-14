@@ -9,7 +9,9 @@
 */
 
 const settingsPanel = require('./settingsPanel');
+const contextMenu = require('./contextMenu');
 
 module.exports = {
-    SettingsPanel: settingsPanel
+    SettingsPanel: settingsPanel,
+    ContextMenu: contextMenu
 }
