@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
-const { Events, Renderer } = require('../modules');
+const { Events, Renderer, CssEditor } = require('../modules');
 const { React, ReactDOM, $ } = require('../vendor');
 import { CContextMenu } from './components';
 
@@ -50,7 +50,8 @@ class ContextMenu {
             {
                 "key": "css-editor",
                 "text": "CSS Editor",
-                "type": "button"
+                "type": "button",
+                "onClick": () => { CssEditor.open() }
             }
         ];
 
