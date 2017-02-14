@@ -12,6 +12,8 @@
 
 const { remote } = require('electron');
 const ISingleton = require('../interfaces/isingleton');
+const { Events } = require('./events');
+const { $ } = require('../vendor');
 
 class CssEditor extends ISingleton {
 
@@ -23,10 +25,15 @@ class CssEditor extends ISingleton {
             open: false,
             options: {
                 'frame': false, 
-                'minWidth': 700, 
+                'minWidth': 760, 
                 'minHeight': 400
             }
         };
+        $("head").append('<style id="customcss"></style>');
+    }
+
+    updateCss(data) {
+        $("#customcss").text(atob(data) || "");
     }
 
     open() {
