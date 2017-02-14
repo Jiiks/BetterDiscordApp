@@ -21,7 +21,6 @@ class IPC extends ISingleton {
         self.initialized = true;
         self.register = {};
         ipcRenderer.on("bd-async", self.onMessage.bind(self));
-        window.register = self.register;
     }
 
     send(message, cb) {
