@@ -12,6 +12,7 @@
 
 const fs = require('fs');
 const IPC = require('./ipc');
+const Utils = require('./utils');
 
 class SettingsModule {
 
@@ -31,7 +32,13 @@ class SettingsModule {
     }
 
     static load() {
-        this.settings = JSON.parse(fs.readFileSync(this.filePath));
+        let self = this;
+        let settings = Utils.tryParse(fs.readFileSync(self.filePath));
+        if(settings === null) {
+            //Load default settings
+            return;
+        }
+        self.settings = settings;
     }
 
     static save() {
