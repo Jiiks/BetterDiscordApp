@@ -39,9 +39,9 @@ class CssEditor extends ISingleton {
 
         self.editor.window = new remote.BrowserWindow(self.editor.options);
         self.loadURL("file://g:/bd/data/csseditor.html"); //Static path for testing
-        self.editor.window.on('close', self.onClose);
-        self.editor.window.on('resize', self.onResize);
-        self.editor.window.on('move', self.onMove);
+        self.editor.window.on('close', self.onClose.bind(self));
+        self.editor.window.on('resize', self.onResize.bind(self));
+        self.editor.window.on('move', self.onMove.bind(self));
     }
 
     loadURL(url) {
