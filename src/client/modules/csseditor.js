@@ -10,6 +10,8 @@
 
 'use strict';
 
+const { remote } = require('electron');
+
 class CssEditor {
 
     constructor() {
