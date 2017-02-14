@@ -12,7 +12,9 @@
 
 const { React, ReactDOM, $ } = require('../vendor');
 const { Events, Settings, Renderer } = require('../modules');
+const { remote } = require('electron');
 import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from './components';
+
 
 class SettingsPanel {
     
@@ -20,12 +22,8 @@ class SettingsPanel {
         let self = this;
 
         self.initUi();
-        
-        Events.on("mutation", mutation => {
-            if(mutation.type !== 'childList') return;
-            if(mutation.addedNodes.length <= 0) return;
-            let $userSettingsModal = $(mutation.addedNodes[0]).find(".user-settings-modal");
-            if($userSettingsModal.length <= 0) return;
+
+        Events.on('user-settings-modal', e => {
             self.render();
         });
     }
@@ -64,12 +62,18 @@ class SettingsPanel {
                 { "key": "core", "text": "Core"},
                 { "key": "ui", "text": "UI" },
                 { "key": "emotes", "text": "Emotes" },
-                { "key": "css", "text": "Custom CSS" },
                 { "key": "plugins", "text": "Plugins" },
                 { "key": "themes", "text": "Themes" }
+            ],
+            "topbuttons": [
+                { "key": "css", "text": "CSS Editor", onClick: key => self.openCssEditor()}
             ]
         };
 
+    }
+
+    openCssEditor() {
+        
     }
 
     onChange(sub, key, checked) {
@@ -103,7 +107,7 @@ class SettingsPanel {
         self.ui.button.insertBefore($(".change-log-button-container"));
 
         let footer = <CProTip title="BetterDiscord v0.3.0-1.8.0 by" link={self.ui.footer.link} links={self.ui.footer.links} />;
-        let settingsPanel = <CSettingsPanel initialTab="core" content={self.ui.content} tabs={self.ui.tabs} footer={footer} />;
+        let settingsPanel = <CSettingsPanel initialTab="core" content={self.ui.content} tabs={self.ui.tabs} footer={footer} topbuttons={self.ui.topbuttons} />;
         Renderer.insertBefore(".form .settings-right .settings-actions", self.ui.root, settingsPanel);
     }
 }
