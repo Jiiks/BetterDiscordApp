@@ -12,6 +12,7 @@
 
 const ISingleton = require('../interfaces/isingleton');
 const Events = require('./events');
+const { $ } = require('../vendor');
 
 class ObserverModule extends ISingleton {
 
@@ -30,6 +31,29 @@ class ObserverModule extends ISingleton {
     mutationHandler(mutation) {
         let self = this;
         Events.emit("mutation", mutation);
+        self.settingsPanel(mutation);
+        self.contextMenu(mutation);
+    }
+
+    contextMenu(mutation) {
+        if(mutation.type !== 'childList') return;
+        if(!mutation.addedNodes) return;
+        if(mutation.addedNodes.length <= 0) return;
+        let firstChild = mutation.addedNodes[0];
+        if(!firstChild.classList) return;
+        if(firstChild.classList.length !== 2) return;
+        if(firstChild.classList[0] !== 'context-menu') return;
+
+        Events.emit('context-menu', $(".context-menu").first());
+    }
+
+    settingsPanel(mutation) {
+        if(mutation.type !== 'childList') return;
+        if(!mutation.addedNodes) return;
+        if(mutation.addedNodes.length <= 0) return;
+        let $userSettingsModal = $(mutation.addedNodes[0]).find(".user-settings-modal");
+        if($userSettingsModal.length <= 0) return;
+        Events.emit('user-settings-modal', $userSettingsModal);
     }
 }
 
