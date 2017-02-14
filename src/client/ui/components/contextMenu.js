@@ -33,7 +33,7 @@ class CContextMenu extends Component {
                     )
                 }
                 return (
-                    <div key={value.key} className="item">
+                    <div onClick={value.onClick} key={value.key} className="item">
                         <span>{value.text}</span>
                         <div className="hint"></div>
                     </div>
