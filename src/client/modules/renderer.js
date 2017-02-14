@@ -57,7 +57,7 @@ class Renderer  {
 
     //Append root element to supplied selector
     static append(selector, root, component) {
-        root.append($(selector));
+        $(selector).append(root);
         return this.render(root, component);
     }
 
