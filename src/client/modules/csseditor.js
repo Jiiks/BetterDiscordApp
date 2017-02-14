@@ -45,22 +45,26 @@ class CssEditor extends ISingleton {
     }
 
     loadURL(url) {
+        let self = this;
         if(!self.editor.window) return;
         self.editor.window.loadURL(url);
     }
 
     onClose() {
+        let self = this;
         self.editor.open = false;
         self.editor.window = null;
     }
 
     onResize() {
+        let self = this;
         let {width, height} = self.editor.window.getBounds();
         self.editor.options.width = width;
         self.editor.options.height = height;
     }
 
     onMove() {
+        let self = this;
         let {x, y} = self.editor.window.getBounds();
         self.editor.options.x = x;
         self.editor.options.y = y;
