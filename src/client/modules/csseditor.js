@@ -11,7 +11,7 @@
 'use strict';
 
 const { remote } = require('electron');
-const ISingleton = require('../interface/isingleton');
+const ISingleton = require('../interfaces/isingleton');
 
 class CssEditor extends ISingleton {
 
