@@ -17,6 +17,8 @@ import CLink from './link';
 import CPluginList from './pluginlist';
 import CProTip from './protip';
 import CSettingsPanel from './settingsPanel';
+import CContextMenu from './contextMenu';
+import CContextMenuCheckBox from './contextMenuCheckbox';
 
 module.exports = {
     CButton: CButton,
@@ -25,5 +27,7 @@ module.exports = {
     CLink: CLink,
     CPluginList: CPluginList,
     CProTip: CProTip,
-    CSettingsPanel: CSettingsPanel
+    CSettingsPanel: CSettingsPanel,
+    CContextMenu: CContextMenu,
+    CContextMenuCheckBox: CContextMenuCheckBox
 }
