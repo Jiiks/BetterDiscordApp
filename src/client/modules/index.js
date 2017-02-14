@@ -8,6 +8,7 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
+const IPC = require('./ipc');
 const cache = require('./cache');
 const events = require('./events');
 const messageHandler = require('./messageHandler');
@@ -23,5 +24,6 @@ module.exports = {
     Observer: observer,
     Reflection: reflection,
     Renderer: renderer,
-    Settings: settings
+    Settings: settings,
+    IPC: IPC
 }
