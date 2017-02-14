@@ -12,7 +12,6 @@
 
 const { React, ReactDOM, $ } = require('../vendor');
 const { Events, Settings, Renderer } = require('../modules');
-const { remote } = require('electron');
 import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from './components';
 
 
