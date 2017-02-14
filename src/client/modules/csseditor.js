@@ -11,12 +11,14 @@
 'use strict';
 
 const { remote } = require('electron');
+const ISingleton = require('../interface/isingleton');
 
-class CssEditor {
+class CssEditor extends ISingleton {
 
     constructor() {
+        super("css-editor");
         let self = this;
-
+        if(self.editor) return;
         self.editor = {
             open: false,
             options: {
@@ -66,4 +68,4 @@ class CssEditor {
 
 }
 
-module.exports = CssEditor;
+module.exports = new CssEditor();
