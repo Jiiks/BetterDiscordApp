@@ -11,18 +11,23 @@
 'use strict';
 
 const fs = require('fs');
+const IPC = require('./ipc');
 
 class SettingsModule {
 
     constructor() {}
 
-    static init(options) {
-        if(this.filePath !== undefined) {
+    static init() {
+        let self = this;
+        if(self.filePath !== undefined) {
             console.log("Attempt to reinitialize SettingsModule has been blocked");
             return;
         }
-        this.filePath = options.filePath;
-        this.load();
+
+        let getSettings = IPC.sendSync({ 'command': 'getsettings' });
+        let { paths } = getSettings;
+        self.filePath = `${paths.dataPath}/user.settings.json`;
+        self.load();
     }
 
     static load() {
