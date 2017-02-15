@@ -25,7 +25,7 @@ class CssEditor extends ISingleton {
             open: false,
             options: {
                 'frame': false, 
-                'minWidth': 760, 
+                'minWidth': 780, 
                 'minHeight': 400
             }
         };
@@ -33,7 +33,14 @@ class CssEditor extends ISingleton {
     }
 
     updateCss(data) {
-        $("#customcss").text(atob(data) || "");
+        $("#customcss").text(data);
+    }
+
+    setExEditorCss(data) {
+        let self = this;
+        if(self.editor.window) {
+            self.editor.window.webContents.send('set-css', data);
+        }
     }
 
     open() {
