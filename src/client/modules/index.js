@@ -16,6 +16,7 @@ const observer = require('./observer');
 const reflection = require('./reflection');
 const renderer = require('./renderer');
 const settings = require('./settings');
+const CssEditor = require('./csseditor');
 
 module.exports = {
     Cache: cache,
@@ -25,5 +26,6 @@ module.exports = {
     Reflection: reflection,
     Renderer: renderer,
     Settings: settings,
-    IPC: IPC
+    IPC: IPC,
+    CssEditor: CssEditor
 }
