@@ -12,7 +12,7 @@
 
 const { remote } = require('electron');
 const ISingleton = require('../interfaces/isingleton');
-const { Events } = require('./events');
+const IPC = require('./ipc');
 const { $ } = require('../vendor');
 
 class CssEditor extends ISingleton {
@@ -30,7 +30,24 @@ class CssEditor extends ISingleton {
             }
         };
         $("head").append('<style id="customcss"></style>');
+
+        IPC.on('css-editor', (sender, args) => {
+            let { command } = args;
+            switch(command) {
+                case 'update-css':
+                    let { css } = args;
+                    self.updateCss(css);
+                    break;
+            }
+        });
+
+
+        IPC.send({ 'command': 'getconfig' }, data => {
+            let { dataPath } = data.data;
+            self.dataPath = dataPath;
+        });
     }
+
 
     updateCss(data) {
         $("#customcss").text(data);
@@ -53,7 +70,7 @@ class CssEditor extends ISingleton {
 
         self.editor.window = new remote.BrowserWindow(self.editor.options);
         self.editor.open = true;
-        self.loadURL("file://g:/bd/data/csseditor.html"); //Static path for testing
+        self.loadURL(`file://${self.dataPath}/csseditor/index.html`);
         self.editor.window.on('close', self.onClose.bind(self));
         self.editor.window.on('resize', self.onResize.bind(self));
         self.editor.window.on('move', self.onMove.bind(self));
