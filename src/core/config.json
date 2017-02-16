@@ -1,4 +1,7 @@
 {
     "version": "0.3.0",
-    "debug": true
+    "debug": true,
+    "dataPath": "G:/Github/BetterDiscordApp/devdata",
+    "windowsTest": "G:/Github/BetterDiscordApp/devdata",
+    "macTest": "/volumes/VMWare Shared Folders/BetterDiscordApp/devdata"
 }
