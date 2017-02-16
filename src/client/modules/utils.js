@@ -35,9 +35,9 @@ class Utils {
         }
     }
 
-    readFileSync(path) {
+    readFileSync(path, encoding) {
         if(!this.fileExistsSync(path)) return null;
-        return fs.readFileSync(path);
+        return fs.readFileSync(path, encoding || 'utf8');
     }
 
     writeFileSync(path, data, encoding) {
