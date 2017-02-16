@@ -42,6 +42,10 @@ class IPC extends ISingleton {
         }
     }
 
+    on(event, cb) {
+        ipcRenderer.on(event, cb);
+    }
+
 }
 
 module.exports = new IPC();
