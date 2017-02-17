@@ -23,6 +23,7 @@ class Utils {
         try {
             return JSON.parse(data);
         }catch(err) {
+            console.log(err);
             return null;
         }
     }
