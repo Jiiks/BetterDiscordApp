@@ -26,21 +26,25 @@ class SettingsModule {
             return;
         }
 
-        let getSettings = IPC.sendSync({ 'command': 'getsettings' });
-        let { paths } = getSettings;
-        self.filePath = `${paths.dataPath}/user.settings.json`;
+        let getSettings = IPC.sendSync({ 'command': 'getconfig' });
+
+        let { dataPath } = getSettings.data;
+        console.log(dataPath);
+        self.filePath = `${dataPath}/user.settings.json`;
         self.load();
     }
 
     static load() {
         let self = this;
         let read = Utils.readFileSync(self.filePath);
+
         if(!read) {
             self.settings = defaultSettings;
             return;
         }
 
         let settings = Utils.tryParse(read);
+        
         self.settings = settings || defaultSettings;
     }
 
