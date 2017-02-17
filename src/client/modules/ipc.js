@@ -11,6 +11,7 @@
 //Initialize new ipc instance
 const { ipcRenderer } = require('electron');
 const ISingleton = require('../interfaces/isingleton');
+const Events = require('./events');
 
 class IPC extends ISingleton {
 
@@ -39,7 +40,18 @@ class IPC extends ISingleton {
         if(self.register[args.id]) {
             self.register[args.id](args);
             delete self.register[args.id];
+            return; //Registered event
         }
+
+        let { command } = args;
+
+        switch(command) {
+            case 'browser-event':
+            let { event } = args;
+            Events.emit('browser-event', event);
+            break;
+        }
+
     }
 
     on(event, cb) {
