@@ -29,6 +29,7 @@ class CCheckBox extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <span>
                 <li>
@@ -42,7 +43,12 @@ class CCheckBox extends Component {
                 </li>
                 {this.props.helptext !== undefined &&
                 <li>
-                    <div className="help-text">{this.props.helptext}</div>
+                    <div className="help-text">
+                        {this.props.helptext}
+                        {this.props.link !== undefined &&
+                        <a style={{display: "block"}} href={this.props.link.href} target="_blank">{this.props.link.text}</a>
+                        }
+                    </div>
                 </li>
                 }
             </span>
