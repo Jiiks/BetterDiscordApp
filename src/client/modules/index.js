@@ -8,6 +8,8 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
+const Utils = require('./utils');
+const Logger = require('./logger');
 const IPC = require('./ipc');
 const cache = require('./cache');
 const events = require('./events');
@@ -17,8 +19,12 @@ const reflection = require('./reflection');
 const renderer = require('./renderer');
 const settings = require('./settings');
 const CssEditor = require('./csseditor');
+const Emotes = require('./emotes');
+const PluginManager = require('./pluginmanager');
 
 module.exports = {
+    Utils: Utils,
+    Logger: Logger,
     Cache: cache,
     Events: events,
     MessageHandler: messageHandler,
@@ -27,5 +33,7 @@ module.exports = {
     Renderer: renderer,
     Settings: settings,
     IPC: IPC,
-    CssEditor: CssEditor
+    CssEditor: CssEditor,
+    Emotes: Emotes,
+    PluginManager: PluginManager
 }

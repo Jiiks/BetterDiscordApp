@@ -50,6 +50,16 @@ class Utils {
         }
     }
 
+    readDir(path, cb) {
+        fs.readdir(path, (err, files) => {
+            if (err) {
+                cb(null);
+                return;
+            }
+            cb(files);
+        });
+    }
+
 }
 
 module.exports = new Utils();

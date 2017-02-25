@@ -29,6 +29,7 @@ class ObserverModule extends ISingleton {
     }
 
     mutationHandler(mutation) {
+    
         let self = this;
         Events.emit("mutation", mutation);
         self.settingsPanel(mutation);

@@ -25,6 +25,10 @@ class Events extends ISingleton {
         emitter.on(eventName, callBack);
     }
 
+    off(eventName, callBack) {
+        emitter.removeListener(eventName, callBack);
+    }
+
     emit(...args) {
         emitter.emit(...args);
     }

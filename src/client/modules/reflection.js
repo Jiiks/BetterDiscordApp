@@ -8,31 +8,139 @@
  * LICENSE file in the root directory of this source tree. 
  */
 
- 'use strict';
+'use strict';
 
- class Reflection {
+const { $ } = require('../vendor');
+
+class Reflection {
 
     constructor() {}
 
-    getReactInternalInstance(node) {
-        if(!node) return null;
-        let instance = node[Object.keys(node).filter(key => key.indexOf("__reactInternalInstance") !== -1)];
+    getReactInternalInstance(o) {
+        if(!o) return null;
+        if(o instanceof $) o = o.last()[0];
+        let instance = o[Object.keys(o).filter(key => key.indexOf("__reactInternalInstance") !== -1)];
         if(!instance) return null;
         return instance;
     }
 
-    getProps(node) {
-        if(node.props) return node.props;
-        if(!node[0]) return null;
-        if(node[0].props) return node[0].props;
+    getProps(o) {
+        if(o.props) return o.props;
+        if(!o[0]) return null;
+        if(o[0].props) return o[0].props;
         return null;
     }
 
-    getChildren(node) {
-        if(node.children) return node.children;
-        if(!node[0]) return null;
-        if(node[0].children) return node[0].children;
+    getChildren(o) {
+        if(o.children) return o.children;
+        if(!o[0]) return null;
+        if(o[0].children) return o[0].children;
         return null;
+    }
+
+    next(o) {
+        return o.props ? { t: 'p', p: o.props } : o.children ? { t: 'c', c: o.children} : null;
+    }
+
+    scan(t, o, p) {
+        let self = this;
+        if(!o) return null;
+        if(self.ic(o, $)) o = self.getReactInternalInstance(o);
+
+        if(o.hasOwnProperty(p)) return o[p];
+
+        switch(t) {
+            case 'p':
+                return self.sp(o, p);
+            case 's':
+                return self.ss(o, p);
+        }
+    }
+
+    sp(o, p) {
+        if(!o) return null;
+        let self = this;
+
+        if(o.hasOwnProperty(p)) return o[p];
+        if(o.hasOwnProperty('_currentElement')) o = o._currentElement;
+
+        let n = self.next(o);
+        if(!n) return null;
+
+
+        return {
+            'p': self.sp(n.p, p),
+            'c': (() => {
+                if(!self.ic(n.c, Array)) return self.sp(n.c, p);
+                for(var i = 0 ; i < n.c.length ; i++) {
+                    let c = n.c[i];
+                    if(self.ic(c, Array)) {
+                        let r = self.sp(c[0], p);
+                        if(r) {
+                            return r;
+                        }
+                    } else {
+                        let r = self.sp(c, p);
+                        if(r) {
+                            return r;
+                        }
+                    } 
+                }
+                return null;
+            })()
+        }[n.t];
+
+    }
+
+    ss(o, p) {
+        if(!o) return null;
+        let self = this;
+        if(o.hasOwnProperty(p)) return o[p];
+        if(o.hasOwnProperty('_renderedChildren')) o = o._renderedChildren;
+        if(o.hasOwnProperty('_instance')) return self.ss(o._instance, p);
+        if(o.hasOwnProperty('state')) return self.ss(o.state, p);
+
+        if(!self.ic(o, Object)) return null;
+
+        let os = o[Object.keys(o).filter(k => {
+            if(!o[k].hasOwnProperty('_instance')) return false;
+            let instance = o[k]._instance;
+            if(!instance.hasOwnProperty('state')) return false;
+            return instance.state;
+        })];
+
+        if(os) {
+            return self.ss(os, p);
+        }
+        
+        return null;
+
+    }
+
+    ic(o, t) {
+        return o instanceof t;
+    }
+
+    getFirstInstance(o) {
+        let self = this;
+
+        o = self.getReactInternalInstance(o);
+        if (!o) return null;
+
+        if (!o.hasOwnProperty("_renderedChildren")) return null;
+        let rc = o._renderedChildren;
+        let f = rc[Object.keys(rc)[0]];
+
+        if (!f.hasOwnProperty("_instance")) return null;
+        return f._instance;
+    }
+
+    overrideFunction(s, o, n) {
+        s = s || this;
+        return function(...args) {
+            n.apply(s, args);
+            o.apply(s, args);
+        }
     }
 
     getMessageProps(node, cb) {
@@ -93,6 +201,9 @@
         return types.some(type => typeof e === type);
     }
 
- }
+}
 
 module.exports = new Reflection();
+
+
+
