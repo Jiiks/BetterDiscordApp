@@ -204,6 +204,7 @@ button:focus, button:active {
     transition: 0.2s all ease;
     opacity: 0;
     font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+    pointer-events: none;
 }
 #hints.visible {
     opacity: 1;
@@ -230,6 +231,7 @@ button:focus, button:active {
     transition: 0.2s all ease;
     opacity: 0;
     font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+    pointer-events: none;
 }
 #cmhints.visible {
     opacity: 1;
