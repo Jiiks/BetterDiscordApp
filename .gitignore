@@ -2,3 +2,4 @@ node_modules
 test_*
 dev*
 .vs
+.sass-cache
