@@ -46,9 +46,7 @@ class CSettingsPanel extends Component {
                         </div>
                         }
                     </div>
-                    <div className="control-groups">
-                        {this.props.content[this.state.activeTab]}
-                    </div>
+                    {this.props.content[this.state.activeTab]}
                     {(this.props.footer !== undefined) &&
                     this.props.footer
                     }

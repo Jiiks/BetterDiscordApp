@@ -21,7 +21,9 @@ class CButton extends Component {
 
     render() {
         return (
-            <button>{this.props.text}</button>
+            <div className="btn btn-primary">
+                {this.props.text}
+            </div>
         )
     }
 

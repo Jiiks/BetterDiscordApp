@@ -29,7 +29,19 @@ class CCheckBox extends Component {
     }
 
     render() {
-        console.log(this.props);
+
+        if (!this.props.li) {
+            return (
+                <div onClick={this.onClick} className="checkbox">
+                    <div className="checkbox-inner">
+                        <input onChange={this.onChange} checked={this.state.checked} type="checkbox" />
+                        <span/>
+                    </div>
+                    <span>{this.props.text}</span>
+                </div>
+            );
+        }
+
         return (
             <span>
                 <li>
@@ -56,10 +68,10 @@ class CCheckBox extends Component {
     }
 
     onClick() {
-        this.setState({
+       if (!this.props.onChange(this.props.id, !this.state.checked)) return;
+       this.setState({
             checked: !this.state.checked
         });
-        this.props.onChange(this.props.id, !this.state.checked);
     }
 
     onChange() {
