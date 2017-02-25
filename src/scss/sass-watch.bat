@@ -1,0 +1,1 @@
+sass --watch main.scss:../css/betterdiscord.css
