@@ -8,7 +8,9 @@
  * LICENSE file in the root directory of this source tree. 
  */
 
-const { Message, Channel, User } = require('./api/structs');
+const { Message, Channel, User, Guild, Role } = require('./api/structs');
+const { Reflection } = require('./modules');
+const { $ } = require('./vendor');
 
 
 class Api {
@@ -17,9 +19,33 @@ class Api {
         this.structs = {
             Message: Message,
             Channel: Channel,
-            User: User
+            User: User,
+            Guild: Guild,
+            Role: Role
         }
     }
+
+    getCurrentGuild() {
+        let selectedGuild = $(".guild.selected");
+        if(!selectedGuild) return null;
+        let instance = Reflection.getReactInternalInstance(selectedGuild.last()[0]);
+        if(!instance) return null;
+
+        try {
+            let props = Reflection.getProps(instance._currentElement);
+            let children = Reflection.getChildren(props);
+
+            let d = children[0].props.children.props.guild;
+
+            return new Guild(d);
+
+        }catch(err) {
+            console.log(err);
+            return null;
+        }
+    }
+
+
 
 }
 
