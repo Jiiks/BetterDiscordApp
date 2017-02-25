@@ -11,7 +11,7 @@
 'use strict';
 
 const { React, ReactDOM, $ } = require('../vendor');
-const { Events, Settings, Renderer, CssEditor } = require('../modules');
+const { Events, Settings, Renderer, CssEditor, PluginManager } = require('../modules');
 import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from './components';
 
 
@@ -42,19 +42,28 @@ class SettingsPanel {
             },
             "content": {
                 "core": (
-                    <div className="control-group">
-                        <CCheckboxGroup items={Settings.getCoreSettings} onChange={(key, checked) => self.onChange("core", key, checked)}/>
+                    <div className="control-groups">
+                        <div className="control-group">
+                            <CCheckboxGroup items={Settings.getCoreSettings} onChange={(key, checked) => self.onChange("core", key, checked)}/>
+                        </div>
                     </div>
                 ),
                 "ui": (
-                    <div className="control-group">
-                        <CCheckboxGroup items={Settings.getUiSettings} onChange={(key, checked) => self.onChange("ui", key, checked)}/>
+                    <div className="control-groups">
+                        <div className="control-group">
+                            <CCheckboxGroup items={Settings.getUiSettings} onChange={(key, checked) => self.onChange("ui", key, checked)}/>
+                        </div>
                     </div>
                 ),
                 "emotes": (
-                    <div className="control-group">
-                        <CCheckboxGroup items={Settings.getEmoteSettings} onChange={(key, checked) => self.onChange("emotes", key, checked)}/>
+                    <div className="control-groups">
+                        <div className="control-group">
+                            <CCheckboxGroup items={Settings.getEmoteSettings} onChange={(key, checked) => self.onChange("emotes", key, checked)}/>
+                        </div>
                     </div>
+                ),
+                "plugins": (
+                    <CPluginList PluginManager={PluginManager} />   
                 )
             },
             "tabs": [
@@ -62,7 +71,8 @@ class SettingsPanel {
                 { "key": "ui", "text": "UI" },
                 { "key": "emotes", "text": "Emotes" },
                 { "key": "plugins", "text": "Plugins" },
-                { "key": "themes", "text": "Themes" }
+                { "key": "themes", "text": "Themes" },
+                { "key": "security", "text": "Security" }
             ],
             "topbuttons": [
                 { "key": "css", "text": "CSS Editor", onClick: key => self.openCssEditor()}
@@ -71,12 +81,17 @@ class SettingsPanel {
 
     }
 
+    refreshLocalPlugins(cb) {
+        PluginLoader.loadPlugins(plugins => cb(plugins));
+    }
+
     openCssEditor() {
         CssEditor.open();
     }
 
     onChange(sub, key, checked) {
         Settings.setSetting(sub, key, checked);
+        return true;
     }
 
     showSettings() {
@@ -105,7 +120,7 @@ class SettingsPanel {
         self.ui.root.hide();
         self.ui.button.insertBefore($(".change-log-button-container"));
 
-        let footer = <CProTip title="BetterDiscord v0.3.0-1.8.0 by" link={self.ui.footer.link} links={self.ui.footer.links} />;
+        let footer = <CProTip title="BetterDiscord v0.3.0-DEVELOPER PREVIEW 1 by" link={self.ui.footer.link} links={self.ui.footer.links} />;
         let settingsPanel = <CSettingsPanel initialTab="core" content={self.ui.content} tabs={self.ui.tabs} footer={footer} topbuttons={self.ui.topbuttons} />;
         Renderer.insertBefore(".form .settings-right .settings-actions", self.ui.root, settingsPanel);
     }
