@@ -1,4 +1,4 @@
 node_modules
-dist
 test_*
 dev*
+.vs
