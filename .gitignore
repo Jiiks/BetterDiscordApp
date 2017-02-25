@@ -4,3 +4,4 @@ dev*
 .vs
 .sass-cache
 dist
+*p.*
