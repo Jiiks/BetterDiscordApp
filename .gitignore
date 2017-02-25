@@ -3,3 +3,4 @@ test_*
 dev*
 .vs
 .sass-cache
+dist
