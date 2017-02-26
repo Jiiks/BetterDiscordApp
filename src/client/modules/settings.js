@@ -128,6 +128,7 @@ class SettingsModule {
     constructor() {}
 
     static init() {
+        console.log("INIT!");
         let self = this;
         if(self.filePath !== undefined) {
             //TODO replace with Logger
@@ -137,7 +138,7 @@ class SettingsModule {
 
         let getSettings = IPC.sendSync({ 'command': 'getconfig' });
         self.settings = getSettings.data;
-
+        
         self.load();
     }
 
@@ -146,6 +147,7 @@ class SettingsModule {
         let read = Utils.readFileSync(`${self.settings.dataPath}/user.settings.json`);
 
         if(!read) {
+            console.log(self.settings.dataPath);
             self.userSettings = defaultSettings;
             return;
         }
@@ -166,11 +168,13 @@ class SettingsModule {
     static get getCoreSettings() { return this.getSettings("core"); }
     static get getUiSettings() { return this.getSettings("ui"); }
     static get getEmoteSettings() { return this.getSettings("emotes"); }
+    static get getSecuritySettings() { return this.getSettings("security"); }
     static getSettings(key) { return this.userSettings[key]; }
 
     static getCoreSetting(key)  { return this.getSetting("core",   key); }
     static getUiSetting(key)    { return this.getSetting("ui",     key); }
-    static getEoteSetting(key) { return this.getSetting("emotes", key); }
+    static getEmoteSetting(key) { return this.getSetting("emotes", key); }
+    static getSecuritySetting(key) { return this.getSetting("security", key); }
     static getSetting(sub, key) {
         return this.userSettings[sub].filter(value => value.key === key)[0];
     }
@@ -178,6 +182,7 @@ class SettingsModule {
     static setCoreSetting(key, enabled) { this.setSetting("core", key, enabled); }
     static setUiSetting(key, enabled) { this.setSetting("ui", key, enabled); }
     static setEmoteSetting(key, enabled) { this.setSetting("emotes", key, enabled); }
+    static setSecuritySetting(key, enabled) { this.setSetting("security", key, enabled); }
     static setSetting(sub, key, enabled) {
         this.getSetting(sub, key).enabled = enabled;
         this.save();

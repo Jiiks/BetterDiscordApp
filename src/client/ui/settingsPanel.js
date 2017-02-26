@@ -64,6 +64,11 @@ class SettingsPanel {
                 ),
                 "plugins": (
                     <CPluginList PluginManager={PluginManager} />   
+                ),
+                "security": (
+                    <div className="control-group" >
+                        <CCheckboxGroup items={Settings.getSecuritySettings} onChange={(key, checked) => self.onChange("security", key, checked)} />
+                    </div>
                 )
             },
             "tabs": [

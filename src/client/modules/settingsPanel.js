@@ -62,6 +62,11 @@ class SettingsPanel {
                     <div className="control-group">
                         <CCheckboxGroup items={Settings.getEmoteSettings} onChange={(key, checked) => self.onChange("emotes", key, checked)}/>
                     </div>
+                ),
+                "security": (
+                    <div className="control-group" >
+                        <CCheckboxGroup items={Settings.getSecuritySettings} onChange={(key, checked) => self.onChange("security", key, checked)} />
+                    </div>
                 )
             },
             "tabs": [

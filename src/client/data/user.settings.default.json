@@ -106,5 +106,13 @@
       "helptext": "Enable emote modifiers",
       "enabled": false
     }
+  ],
+  "security": [
+    {
+      "key": "iframe-cw",
+      "text": "Block iframe contentWindow access",
+      "helptext": "Block any script/plugin from accessing iframe contentWindow which holds your token",
+      "enabled":  true
+    }
   ]
 }
