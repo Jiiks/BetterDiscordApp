@@ -10,29 +10,26 @@
 
 'use strict';
 
-const ISingleton = require('../interfaces/isingleton');
-
 const { EventEmitter } = require('events');
 const emitter = new EventEmitter();
 
-class Events extends ISingleton {
+class Events {
 
     constructor() {
-        super("events");
     }
 
-    on(eventName, callBack) {
+    static on(eventName, callBack) {
         emitter.on(eventName, callBack);
     }
 
-    off(eventName, callBack) {
+    static off(eventName, callBack) {
         emitter.removeListener(eventName, callBack);
     }
 
-    emit(...args) {
+    static emit(...args) {
         emitter.emit(...args);
     }
 
 }
 
-module.exports = new Events();
+module.exports = Events;
