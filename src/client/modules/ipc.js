@@ -10,13 +10,11 @@
 
 //Initialize new ipc instance
 const { ipcRenderer } = require('electron');
-const ISingleton = require('../interfaces/isingleton');
 const Events = require('./events');
 
-class IPC extends ISingleton {
+class IPC  {
 
     constructor() {
-        super("ipcmodule");
         let self = this;
         if(self.initialized) return;
         self.initialized = true;

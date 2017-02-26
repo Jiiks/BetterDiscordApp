@@ -18,7 +18,7 @@ class Emotes {
         let self = this;
 
         Events.on('new-message', message => {
-            self.inspectMessage(messaage);
+            self.inspectMessage(message);
         });
 
     }
@@ -28,4 +28,4 @@ class Emotes {
     }
 }
 
-module.exports = Emotes;
+module.exports = new Emotes();

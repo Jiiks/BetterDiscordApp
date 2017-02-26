@@ -38,13 +38,13 @@ const authorizedPlugins = [];
 
 class PluginManager {
 
-    static init() {
+    constructor() {
         let self = this;
         self.pluginPath = `${Settings.settings.basePath}/plugins`;
         self.loadPlugins(() => { });
     }
 
-    static loadPlugins(cb) {
+    loadPlugins(cb) {
         let self = this;
         Utils.readDir(self.pluginPath, files => {
             if (!files) {
@@ -61,7 +61,7 @@ class PluginManager {
         });
     }
 
-    static loadPluginv2(name, reload, all) {
+    loadPluginv2(name, reload, all) {
         let self = this;
 
         let basePath = `${self.pluginPath}/${name}`;
@@ -114,7 +114,7 @@ class PluginManager {
         });
     }
 
-    static loadPlugin(name, reload) {
+    loadPlugin(name, reload) {
         let self = this; 
 
         if (self.plugins.hasOwnProperty(name) && !reload) return;
@@ -160,7 +160,7 @@ class PluginManager {
         return pluginInstance;
     }
 
-    static validatePlugin(path) {
+    validatePlugin(path) {
         let pluginData = Utils.readFileSync(path);
         if (!pluginData) {
             Logger.log('PluginLoader', `Attempted to load a plugin that does not seem to exist: ${path}`, 'warn');
@@ -185,7 +185,7 @@ class PluginManager {
         return true;
     }
 
-    static reloadPlugin(id) {
+    reloadPlugin(id) {
         if (!Plugins.hasOwnProperty(id)) {
             Logger.log('PluginManager', `Attempted to reload a plugin that is not loaded: ${id}`, 'warn');
             return null;
@@ -196,7 +196,7 @@ class PluginManager {
         return this.loadPluginv2(Plugins[id].internal.path, true);
     }
 
-    static startPlugin(id) {
+    startPlugin(id) {
         if (!Plugins.hasOwnProperty(id)) {
             Logger.log('PluginManager', `Attempted to start a plugin that is not loaded: ${id}`, 'err');
             return;
@@ -207,7 +207,7 @@ class PluginManager {
         return true;
     }
 
-    static stopPlugin(id) {
+    stopPlugin(id) {
         if (!Plugins.hasOwnProperty(id)) {
             Logger.log('PluginManager', `Attempted to stop a plugin that is not loaded: ${id}`, 'err');
             return;
@@ -218,10 +218,10 @@ class PluginManager {
         return true;
     }
 
-    static get plugins() {
+    get plugins() {
         return Plugins;
     }
 
 }
 
-module.exports = PluginManager;
+module.exports = new PluginManager();

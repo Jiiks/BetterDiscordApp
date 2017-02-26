@@ -10,16 +10,11 @@
 
 'use strict';
 
-
 const Events = require('./events');
 
 class BrowserEvents {
 
     constructor() {
-
-    }
-
-    static init() {
         let self = this;
         self.prev = {
             'server': undefined,
@@ -44,8 +39,8 @@ class BrowserEvents {
             }
         });
     }
-
-    static parseUrl(url) {
+    
+    parseUrl(url) {
         let splice = url.split('/').splice(4);
         return {
             'server': splice[0],
@@ -56,4 +51,4 @@ class BrowserEvents {
 
 }
 
-module.exports = BrowserEvents;
+module.exports = new BrowserEvents();
