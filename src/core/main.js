@@ -40,6 +40,11 @@ class BetterDiscord {
     listeners() {
         let self = this;
         self.fastHooked = true;
+        let { webContents } = self.options.mainWindow;
+
+        webContents.on('did-navigate-in-page', (event, url, isMainFrame) => {
+            webContents.send('bd-async', { 'command': 'browser-event', 'event': { 'type': 'did-navigate-in-page', 'url': url } });
+        });
     }
 
     //dom ready listener
