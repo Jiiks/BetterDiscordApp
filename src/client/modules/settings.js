@@ -19,13 +19,15 @@ const defaultSettings = {
             "key": "voice-disconnect",
             "text": "Voice Disconnect",
             "helptext": "Disconnect from voice server when Discord closes",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "developer-mode",
             "text": "Developer Mode",
             "helptext": "BetterDiscord developer mode",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         }
     ],
     "ui": [
@@ -33,31 +35,36 @@ const defaultSettings = {
             "key": "public-servers",
             "text": "Public Servers",
             "helptext": "Display public servers button",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "minimal-mode",
             "text": "Minimal Mode",
             "helptext": "Hide elements and reduce size of certain elements",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "voice-mode",
             "text": "Voice Mode",
             "helptext": "Only show voice chat",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "hide-channels",
             "text": "Hide Channels",
             "helptext": "Hide server channels in minimal mode",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "dark-mode",
             "text": "Dark Mode(wip)",
             "helptext": "Make certain elements dark by default",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "timestamp",
@@ -77,51 +84,61 @@ const defaultSettings = {
             "key": "twitch-emotes",
             "text": "Twitch Emotes",
             "helptext": "Show Twitch emotes",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "ffz-emotes",
             "text": "FrankerFaceZ Emotes",
             "helptext": "Show FrankerFaceZ emotes",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "bttv-emotes",
             "text": "BetterTTV Emotes",
             "helptext": "Show BetterTTV emotes",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "emote-menu",
             "text": "Emote Menu",
             "helptext": "Show Twitch/Favourite emotes in emote menu",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "emoji-menu",
             "text": "Emoji Menu",
             "helptext": "Show Discord emoji menu",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "emote-autocap",
             "text": "Emote Auto Capitalization",
             "helptext": "Automatically capitalize emotes as you type",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "emote-tooltips",
             "text": "Emote Tooltips",
             "helptext": "Show emote tooltips when you hover over them",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         },
         {
             "key": "emote-modifiers",
             "text": "Emote Modifiers",
             "helptext": "Enable emote modifiers",
-            "enabled": false
+            "enabled": false,
+            "disabled": true
         }
-    ]
+    ],
+    "security": {
+    }
 }
 
 class SettingsModule {

@@ -45,7 +45,7 @@ class CCheckBox extends Component {
         return (
             <span>
                 <li>
-                    <div onClick={this.onClick} className="checkbox">
+                    <div onClick={this.onClick} className={this.props.disabled ? 'checkbox disabled' : 'checkbox'}>
                         <div className="checkbox-inner">
                             <input onChange={this.onChange} checked={this.state.checked} type="checkbox"/>
                             <span/>

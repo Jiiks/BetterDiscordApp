@@ -4,7 +4,8 @@
       "key": "voice-disconnect",
       "text": "Voice Disconnect",
       "helptext": "Disconnect from voice server when Discord closes",
-      "enabled": false
+      "enabled": false,
+      "disabled":  true
     },
     {
       "key": "developer-mode",

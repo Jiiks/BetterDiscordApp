@@ -24,7 +24,7 @@ class CCheckboxGroup extends Component {
         return (
             <ul className="checkbox-group">
             {this.props.items.map(value => {
-                return <CCheckbox li={true} checked={value.checked || value.enabled} onChange={this.props.onChange} key={value.key} id={value.key} text={value.text} helptext={value.helptext} link={value.link}/>
+                    return <CCheckbox li={true} disabled={value.disabled} checked={value.checked || value.enabled} onChange={this.props.onChange} key={value.key} id={value.key} text={value.text} helptext={value.helptext} link={value.link}/>
             })}
             </ul>
             )
