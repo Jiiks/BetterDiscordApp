@@ -125,7 +125,7 @@ class SettingsPanel {
         self.ui.root.hide();
         self.ui.button.insertBefore($(".change-log-button-container"));
 
-        let footer = <CProTip title="BetterDiscord v0.3.0-DEVELOPER PREVIEW 1 by" link={self.ui.footer.link} links={self.ui.footer.links} />;
+        let footer = <CProTip title="BetterDiscord v0.3.0-DEVELOPER PREVIEW 2 by" link={self.ui.footer.link} links={self.ui.footer.links} />;
         let settingsPanel = <CSettingsPanel initialTab="core" content={self.ui.content} tabs={self.ui.tabs} footer={footer} topbuttons={self.ui.topbuttons} />;
         Renderer.insertBefore(".form .settings-right .settings-actions", self.ui.root, settingsPanel);
     }
