@@ -24,6 +24,7 @@ class MessageHandler {
     }
 
     handler(mutation) {
+
         var self = this;
         //Check that mutation is a message
         if(mutation.target.classList.length !== 2) return;
@@ -50,4 +51,4 @@ class MessageHandler {
 
 }
 
-module.exports = MessageHandler;
+module.exports = new MessageHandler();
