@@ -16,6 +16,7 @@ const { $ } = require('../../vendor');
 class TimeStamps {
 
     constructor() {
+        if (Settings.getUiSetting('timestamp').disabled) return;
         let self = this;
 
         Events.on('channel-switch', () => self.replaceAll());

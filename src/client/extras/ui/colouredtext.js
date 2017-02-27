@@ -16,8 +16,9 @@ const { $ } = require('../../vendor');
 class ColouredText {
 
     constructor() {
+        if (Settings.getUiSetting('coloured-text').disabled) return;
         let self = this;
-
+        
         Events.on('channel-switch', () => self.replaceAll());
         Events.on('server-switch', () => self.replaceAll());
     }
