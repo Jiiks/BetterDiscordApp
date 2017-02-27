@@ -11,6 +11,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
 class Utils {
 
@@ -55,6 +56,36 @@ class Utils {
         });
     }
 
+    static createDirRecursiveSync(filepath) {
+        let path = path.dirname(filepath);
+        if (fs.existsSync(path)) return true;
+
+        return path.split('/').reduce((path, subdir) => {
+            path = `${path}${subdir}/`;
+            if (!fs.existsSync(path)) {
+                fs.mkdirSync(path);
+            }
+
+            return path;
+        }, '') ? true : false;
+    }
+
 }
 
 module.exports = Utils;
+
+
+
+function createDirsRecursive(path) {
+    if (fs.existsSync(path)) return true;
+
+    return path.split('/').reduce((path, subdir) => {
+        path += `${subdir}/`;
+        if (!fs.existsSync(path)) {
+            fs.mkdirSync(path);
+        }
+
+        return path;
+    }, '') ? true : false;
+
+}
