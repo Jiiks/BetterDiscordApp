@@ -11,7 +11,7 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
+const _path = require('path');
 
 class Utils {
 
@@ -38,6 +38,7 @@ class Utils {
     }
 
     static writeFileSync(path, data, encoding) {
+        self.createDirRecursiveSync(_path.dirname(path));
         try {
             fs.writeFileSync(path, data, encoding || 'utf8');
             return true;
@@ -56,8 +57,7 @@ class Utils {
         });
     }
 
-    static createDirRecursiveSync(filepath) {
-        let path = path.dirname(filepath);
+    static createDirRecursiveSync(path) {
         if (fs.existsSync(path)) return true;
 
         return path.split('/').reduce((path, subdir) => {
