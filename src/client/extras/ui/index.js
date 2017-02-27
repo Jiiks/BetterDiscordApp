@@ -10,5 +10,6 @@
 
 
 module.exports = {
-    TimeStamps: require('./timestamps')
+    TimeStamps: require('./timestamps'),
+    ColouredText: require('./colouredtext')
 }
