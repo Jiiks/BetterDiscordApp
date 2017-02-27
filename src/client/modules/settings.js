@@ -12,6 +12,7 @@
 
 const IPC = require('./ipc');
 const Utils = require('./utils');
+const Logger = require('./logger');
 const defaultSettings = {
     "core": [
         {
@@ -126,13 +127,7 @@ const defaultSettings = {
 class SettingsModule {
 
     constructor() {
-        console.log("INIT!");
         let self = this;
-        if (self.filePath !== undefined) {
-            //TODO replace with Logger
-            console.log("Attempt to reinitialize SettingsModule has been blocked");
-            return;
-        }
 
         let getSettings = IPC.sendSync({ 'command': 'getconfig' });
         self.settings = getSettings.data;
@@ -145,7 +140,7 @@ class SettingsModule {
         let read = Utils.readFileSync(`${self.settings.dataPath}/user.settings.json`);
 
         if(!read) {
-            console.log(self.settings.dataPath);
+            Logger.log('SettingsModule', 'Failed to read settings file', 'warn');
             self.userSettings = defaultSettings;
             return;
         }
@@ -158,8 +153,7 @@ class SettingsModule {
     save() {
         let self = this;
         if (!Utils.writeFileSync(`${self.settings.dataPath}/user.settings.json`, JSON.stringify(self.userSettings))) {
-            //TODO replace with Logger
-            console.log("Failed to write settings file!");
+            Logger.log('SettingsModule', 'Failed to save settings file', 'err');
         }
     }
 

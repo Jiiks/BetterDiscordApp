@@ -10,14 +10,12 @@
 
 'use strict';
 
-const ISingleton = require('../interfaces/isingleton');
 const Events = require('./events');
 const { $ } = require('../vendor');
 
-class ObserverModule extends ISingleton {
+class ObserverModule {
 
     constructor() {
-        super("observer");
     }
 
     observe(options) {

@@ -15,8 +15,6 @@ const ReactDOM = require('../vendor/reactdom');
 const $ = require('../vendor/jquery');
 
 class Renderer  {
-    
-    constructor() { }
 
     //Get react instance
     static get react() {

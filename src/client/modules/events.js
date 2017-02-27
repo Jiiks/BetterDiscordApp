@@ -15,9 +15,6 @@ const emitter = new EventEmitter();
 
 class Events {
 
-    constructor() {
-    }
-
     static on(eventName, callBack) {
         emitter.on(eventName, callBack);
     }

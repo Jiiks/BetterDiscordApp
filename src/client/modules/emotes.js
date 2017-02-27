@@ -24,7 +24,7 @@ class Emotes {
     }
 
     inspectMessage(message) {
-
+        console.log(message);
     }
 }
 

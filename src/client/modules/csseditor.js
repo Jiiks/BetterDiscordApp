@@ -11,14 +11,12 @@
 'use strict';
 
 const { remote } = require('electron');
-const ISingleton = require('../interfaces/isingleton');
 const IPC = require('./ipc');
 const { $ } = require('../vendor');
 
-class CssEditor extends ISingleton {
+class CssEditor  {
 
     constructor() {
-        super("css-editor");
         let self = this;
         if(self.editor) return;
         self.editor = {

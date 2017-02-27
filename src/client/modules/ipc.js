@@ -8,7 +8,6 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
-//Initialize new ipc instance
 const { ipcRenderer } = require('electron');
 const Events = require('./events');
 
@@ -16,8 +15,6 @@ class IPC  {
 
     constructor() {
         let self = this;
-        if(self.initialized) return;
-        self.initialized = true;
         self.register = {};
         ipcRenderer.on("bd-async", self.onMessage.bind(self));
     }

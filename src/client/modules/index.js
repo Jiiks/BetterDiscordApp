@@ -8,32 +8,21 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
-const Utils = require('./utils');
-const Logger = require('./logger');
-const IPC = require('./ipc');
-const cache = require('./cache');
-const events = require('./events');
-const messageHandler = require('./messageHandler');
-const observer = require('./observer');
-const reflection = require('./reflection');
-const renderer = require('./renderer');
-const settings = require('./settings');
-const CssEditor = require('./csseditor');
-const Emotes = require('./emotes');
-const PluginManager = require('./pluginmanager');
+
 
 module.exports = {
-    Utils: Utils,
-    Logger: Logger,
-    Cache: cache,
-    Events: events,
-    MessageHandler: messageHandler,
-    Observer: observer,
-    Reflection: reflection,
-    Renderer: renderer,
-    Settings: settings,
-    IPC: IPC,
-    CssEditor: CssEditor,
-    Emotes: Emotes,
-    PluginManager: PluginManager
+    BrowserEvents: require('./browserEvents'),
+    Cache: require('./cache'),
+    CssEditor: require('./csseditor'),
+    Emotes: require('./emotes'),
+    Events: require('./events'),
+    IPC: require('./ipc'),
+    Logger: require('./logger'),
+    MessageHandler: require('./messageHandler'),
+    Observer: require('./observer'),
+    PluginManager: require('./pluginManager'),
+    Reflection: require('./reflection'),
+    Renderer: require('./renderer'),
+    Settings: require('./settings'),
+    Utils: require('./utils')
 }

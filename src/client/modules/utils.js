@@ -11,15 +11,10 @@
 'use strict';
 
 const fs = require('fs');
-const Cache = require('./cache');
 
 class Utils {
 
-    constructor() {
-
-    }
-
-    tryParse(data) {
+    static tryParse(data) {
         try {
             return JSON.parse(data);
         }catch(err) {
@@ -28,7 +23,7 @@ class Utils {
         }
     }
 
-    fileExistsSync(path) {
+    static fileExistsSync(path) {
         try {
             return fs.statSync(path).isFile();
         }catch(err) {
@@ -36,12 +31,12 @@ class Utils {
         }
     }
 
-    readFileSync(path, encoding) {
+    static readFileSync(path, encoding) {
         if(!this.fileExistsSync(path)) return null;
         return fs.readFileSync(path, encoding || 'utf8');
     }
 
-    writeFileSync(path, data, encoding) {
+    static writeFileSync(path, data, encoding) {
         try {
             fs.writeFileSync(path, data, encoding || 'utf8');
             return true;
@@ -50,7 +45,7 @@ class Utils {
         }
     }
 
-    readDir(path, cb) {
+    static readDir(path, cb) {
         fs.readdir(path, (err, files) => {
             if (err) {
                 cb(null);
@@ -62,4 +57,4 @@ class Utils {
 
 }
 
-module.exports = new Utils();
+module.exports = Utils;
