@@ -137,17 +137,27 @@ class SettingsModule {
 
     load() {
         let self = this;
+        self.userSettings = defaultSettings;
         let read = Utils.readFileSync(`${self.settings.dataPath}/user.settings.json`);
 
         if(!read) {
             Logger.log('SettingsModule', 'Failed to read settings file', 'warn');
-            self.userSettings = defaultSettings;
             return;
         }
 
         let settings = Utils.tryParse(read);
+
+        if (settings) {
+            Object.keys(self.userSettings).some(cat => {
+                if (!settings.hasOwnproperty(cat)) return true;
+
+                self.userSettings[cat].some(setting => {
+                    let userSetting = settings[cat].find(value => { return value.key === setting.key; });
+                    if (userSetting) setting.enabled = userSetting.enabled;
+                });
+            });
+        }
         
-        self.userSettings = settings || defaultSettings;
     }
 
     save() {
