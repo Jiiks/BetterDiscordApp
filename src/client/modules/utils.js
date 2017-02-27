@@ -38,6 +38,7 @@ class Utils {
     }
 
     static writeFileSync(path, data, encoding) {
+        let self = this;
         self.createDirRecursiveSync(_path.dirname(path));
         try {
             fs.writeFileSync(path, data, encoding || 'utf8');

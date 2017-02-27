@@ -149,7 +149,7 @@ class SettingsModule {
 
         if (settings) {
             Object.keys(self.userSettings).some(cat => {
-                if (!settings.hasOwnproperty(cat)) return true;
+                if (!settings.hasOwnProperty(cat)) return true;
 
                 self.userSettings[cat].some(setting => {
                     let userSetting = settings[cat].find(value => { return value.key === setting.key; });
