@@ -5,3 +5,4 @@ dev*
 .sass-cache
 dist
 *p.*
+depr
