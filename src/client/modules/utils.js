@@ -12,6 +12,7 @@
 
 const fs = require('fs');
 const _path = require('path');
+const { moment } = require('../vendor');
 
 class Utils {
 
@@ -71,22 +72,24 @@ class Utils {
         }, '') ? true : false;
     }
 
+    static fileAgeSync(path) {
+
+        try {
+            let stats = fs.statSync(path);
+            let diff = moment.duration(moment().diff(stats.mtime));
+
+            return {
+                'days': diff.days(),
+                'hours': diff.hours(),
+                'minutes': diff.minutes(),
+                'seconds': diff.seconds()
+            }
+        } catch (err) {
+            return null;
+        }
+
+    }
+
 }
 
 module.exports = Utils;
-
-
-
-function createDirsRecursive(path) {
-    if (fs.existsSync(path)) return true;
-
-    return path.split('/').reduce((path, subdir) => {
-        path += `${subdir}/`;
-        if (!fs.existsSync(path)) {
-            fs.mkdirSync(path);
-        }
-
-        return path;
-    }, '') ? true : false;
-
-}
