@@ -30,8 +30,8 @@ class CEmote extends Component {
     render() {
         return (
             <span className="bd-emotewrapper">
-                <img class="bd-emote" src={this.props.src} />
-                <input onClick={this.favourite} type="button" title="Favourite!" class="bd-emote-fav"/>
+                <img className="bd-emote" src={this.props.src} />
+                <input onClick={this.favourite} type="button" title="Favourite!" className="bd-emote-fav"/>
             </span>
         )
     }
