@@ -20,13 +20,21 @@ class ContextMenu {
             $(".context-menu .item").on("mouseover", () => {
                 $("[data-bd=context-menu-sub]").remove();
             });
-            self.button = $("<div/>", { 
+            self.button = $("<div/>", {
                 class: "item item-subMenu",
                 'data-bd': "context-menu",
                 hover: () => self.render()
-            }).append($("<span/>", { 
-                text: "BetterDiscord" 
-            }));
+            }).append($("<span/>", {
+                text: "Better",
+                css: {
+                    'color': '#3E82E5'
+                }
+            }).append($("<span/>", {
+                text: "Discord",
+                css: {
+                    'color': '#FFF'
+                }
+            })));
             contextMenu.prepend(self.button);
         });
     }
