@@ -33,7 +33,8 @@ class Renderer  {
 
     //Main render method, returns the root element, component and removal function
     static render(root, component) {
-        let re = ReactDOM.render(component, root[0]);
+        if (root instanceof $) root = root[0];
+        let re = ReactDOM.render(component, root);
         return {
             "root": root,
             "element": re,
