@@ -15,11 +15,13 @@ import CCheckBox from './checkbox';
 import CCheckboxGroup from './checkboxGroup';
 import CLink from './link';
 import CPluginList from './pluginlist';
+import CThemeList from './themelist';
 import CProTip from './protip';
 import CSettingsPanel from './settingsPanel';
 import CContextMenu from './contextMenu';
 import CContextMenuCheckBox from './contextMenuCheckbox';
 import CContextMenuSub from './contextMenuSub';
+import CEmote from './emote';
 
 module.exports = {
     CButton: CButton,
@@ -27,9 +29,11 @@ module.exports = {
     CCheckboxGroup: CCheckboxGroup,
     CLink: CLink,
     CPluginList: CPluginList,
+    CThemeList: CThemeList,
     CProTip: CProTip,
     CSettingsPanel: CSettingsPanel,
     CContextMenu: CContextMenu,
     CContextMenuCheckBox: CContextMenuCheckBox,
-    CContextMenuSub: CContextMenuSub
+    CContextMenuSub: CContextMenuSub,
+    CEmote: CEmote
 }
