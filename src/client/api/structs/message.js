@@ -31,6 +31,7 @@ class Message {
         this.nick = message.nick;
         this.author = new User(author);
         this.channel = new Channel(channel);
+        this.ref = data.ref;
     }
 }
 

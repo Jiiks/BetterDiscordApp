@@ -39,6 +39,8 @@ class MessageHandler {
 
             if(self.messageCache.cached(id)) return;
 
+            msg.ref = lastMessage;
+
             let message = new Message(msg);
             if(moment.duration(Date.now() - new Date(message.timestamp))._milliseconds >= 3000) return;
 
