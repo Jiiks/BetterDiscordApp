@@ -19,6 +19,7 @@ import CProTip from './protip';
 import CSettingsPanel from './settingsPanel';
 import CContextMenu from './contextMenu';
 import CContextMenuCheckBox from './contextMenuCheckbox';
+import CContextMenuSub from './contextMenuSub';
 
 module.exports = {
     CButton: CButton,
@@ -29,5 +30,6 @@ module.exports = {
     CProTip: CProTip,
     CSettingsPanel: CSettingsPanel,
     CContextMenu: CContextMenu,
-    CContextMenuCheckBox: CContextMenuCheckBox
+    CContextMenuCheckBox: CContextMenuCheckBox,
+    CContextMenuSub: CContextMenuSub
 }

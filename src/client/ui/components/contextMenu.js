@@ -13,12 +13,14 @@
 const { React } = require('../../vendor');
 import { Component } from 'React';
 import CContextMenuCheckBox from './contextMenuCheckbox';
+import CContextMenuSub from './contextMenuSub';
 
 class CContextMenu extends Component {
     
     constructor(props) {
         super(props);
     }
+
 
     render() {
         return (
@@ -30,6 +32,11 @@ class CContextMenu extends Component {
                             <div className="label">{value.text}</div>
                             <CContextMenuCheckBox />
                         </div>
+                    )
+                }
+                if (value.type === 'submenu') {
+                    return (
+                        <CContextMenuSub text={value.text} items={value.items} />
                     )
                 }
                 return (

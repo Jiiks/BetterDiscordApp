@@ -21,6 +21,7 @@ module.exports = {
     MessageHandler: require('./messageHandler'),
     Observer: require('./observer'),
     PluginManager: require('./pluginManager'),
+    ThemeManager: require('./themeManager'),
     Reflection: require('./reflection'),
     Renderer: require('./renderer'),
     Settings: require('./settings'),

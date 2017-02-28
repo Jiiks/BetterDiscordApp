@@ -27,7 +27,7 @@ class ContextMenu {
             }).append($("<span/>", { 
                 text: "BetterDiscord" 
             }));
-            contextMenu.append(self.button);
+            contextMenu.prepend(self.button);
         });
     }
 
@@ -38,14 +38,51 @@ class ContextMenu {
 
         let items = [
             {
-                "key": "voice-disconnect",
-                "text": "Voice Disconnect",
-                "type": "toggle"
+                "key": "core",
+                "text": "Core",
+                "type": "submenu",
+                "items": [
+                    {
+                        "key": "voice-disconnect",
+                        "text": "Voice Disconnect",
+                        "type": "toggle"
+                    },
+                    {
+                        "key": "developer-mode",
+                        "text": "Developer Mode",
+                        "type": "toggle"
+                    }
+                ]
             },
             {
-                "key": "developer-mode",
-                "text": "Developer Mode",
-                "type": "toggle"
+                "key": "ui",
+                "text": "UI",
+                "type": "submenu",
+                "items": []
+            },
+            {
+                "key": "emotes",
+                "text": "Emotes",
+                "type": "submenu",
+                "items": []
+            },
+            {
+                "key": "plugins",
+                "text": "Plugins",
+                "type": "submenu",
+                "items": []
+            },
+            {
+                "key": "themes",
+                "text": "Themes",
+                "type": "submenu",
+                "items": []
+            },
+            {
+                "key": "security",
+                "text": "Security",
+                "type": "submenu",
+                "items": []
             },
             {
                 "key": "css-editor",
@@ -55,7 +92,7 @@ class ContextMenu {
             }
         ];
 
-        let contexMenu = <CContextMenu top={`${top + $cmpos.top}px`} left={`${left + $cmpos.left}px`} items={items} />;
+        let contexMenu = <CContextMenu top={`${top + $cmpos.top}px`} left={`${left + $cmpos.left}px`} items={items} />
         let subMenu = Renderer.append("[data-bd=context-menu]", $("<div/>", { "data-bd": "context-menu-sub" }), contexMenu);
 
     }
