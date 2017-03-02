@@ -43,10 +43,48 @@
 
 .bd-plugin-container {
     display: flex;
+    flex-direction: column;
     border-bottom: 1px solid #f0f0f0;
     padding-bottom: 3px;
     min-height: 95px;
     margin-bottom: 10px;
+
+    .bd-plugin-main {
+        display: flex;
+    }
+
+    .bd-plugin-settings {
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+        max-height: 0;
+        overflow: hidden;
+        border: none;
+        border-color: #f0f0f0;
+        -webkit-transition: .5s ease-in-out;
+
+        .scroller-wrap {
+            flex-grow: 1;
+            padding-top: 5px;
+
+            .control-group {
+                input {
+                    margin: 0;
+                }
+            }
+        }
+
+        .bd-plugin-settings-controls {
+            .btn {
+                float: right;
+            }
+        }
+
+        &.open {
+            border-top: 1px solid #f0f0f0;
+            max-height: 200px;
+        }
+    }
 
     .bd-plugin-info {
         flex-grow: 1;

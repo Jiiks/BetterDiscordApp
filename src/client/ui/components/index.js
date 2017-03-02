@@ -22,6 +22,7 @@ import CContextMenu from './contextMenu';
 import CContextMenuCheckBox from './contextMenuCheckbox';
 import CContextMenuSub from './contextMenuSub';
 import CEmote from './emote';
+import CToolTip from './tooltip';
 
 module.exports = {
     CButton: CButton,
@@ -35,5 +36,6 @@ module.exports = {
     CContextMenu: CContextMenu,
     CContextMenuCheckBox: CContextMenuCheckBox,
     CContextMenuSub: CContextMenuSub,
-    CEmote: CEmote
+    CEmote: CEmote,
+    CToolTip: CToolTip
 }
