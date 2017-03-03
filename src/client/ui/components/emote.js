@@ -19,6 +19,7 @@ class CEmote extends Component {
 
     constructor(props) {
         super(props);
+        this.onLoad = this.onLoad.bind(this);
         this.favourite = this.favourite.bind(this);
         this.onMouseOver = this.onMouseOver.bind(this);
         this.onMouseOut = this.onMouseOut.bind(this);
@@ -28,25 +29,40 @@ class CEmote extends Component {
     setInitialState() {
         this.state = {
             'hover': false,
-            'favourite': this.props.favourite || false
+            'favourite': this.props.favourite || false,
+            'loaded': false
         }
     }
 
     render() {
         return (
-            <span className={this.state.favourite ? "bd-emotewrapper fav" : "bd-emotewrapper"} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+            <span className={(this.state.favourite ? "bd-emotewrapper fav" : "bd-emotewrapper") + (this.state.loaded ? '' : ' bd-emotewrapper-loading') } onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
                 {this.state.hover && 
-                    <CToolTip top={-40} left={-17} pos="top" text="4Head" />
+                    <CToolTip top={-40} left={-17} pos="top" text={this.props.name} />
                 }
-                <img alt="4Head" className="bd-emote" src={this.props.src} />
+                {!this.state.loaded &&
+                    <div className="bd-emote bd-emote-placeholder">
+                        <div className="bd-emote-spinner-cube">
+                            <div className="bd-emote-spinner-cube1" />
+                            <div className="bd-emote-spinner-cube2"/>
+                        </div>
+                    </div>
+                }
+                <img alt={this.props.name} className="bd-emote" src={this.props.src} onLoad={this.onLoad}/>
                 <input onClick={this.favourite} type="button" className="bd-emote-fav" />
             </span>
         )
     }
 
+    onLoad() {
+        this.setState({
+            'loaded': true
+        });
+    }
+
     favourite() {
         this.setState({
-            'favourite': true
+            'favourite': !this.state.favourite
         });
     }
 
