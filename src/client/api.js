@@ -44,9 +44,6 @@ class Api {
             return null;
         }
     }
-
-
-
 }
 
 module.exports = new Api();
