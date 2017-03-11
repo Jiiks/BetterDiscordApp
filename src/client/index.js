@@ -10,12 +10,11 @@
 
 'use strict';
 
-const { Observer, Settings, IPC, Events, PluginManager, Utils, Logger, Reflection } = require('./modules');
+const { Observer, Settings, IPC, Events, PluginManager, Utils, Logger, Reflection, BrowserEvents } = require('./modules');
 const Api = require('./api');
 const { SettingsPanel, ContextMenu } = require('./ui');
 const { $ } = require('./vendor');
 
-const BrowserEvents = require('./modules/browserevents');
 
 class BDCore {
 
