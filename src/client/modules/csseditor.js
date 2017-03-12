@@ -13,6 +13,7 @@
 const { remote } = require('electron');
 const IPC = require('./ipc');
 const { $ } = require('../vendor');
+const { ipcRenderer } = require('electron');
 
 class CssEditor  {
 
@@ -29,12 +30,11 @@ class CssEditor  {
         };
         $("head").append('<style id="customcss"></style>');
 
-        IPC.on('css-editor', (sender, args) => {
-            let { command } = args;
+        IPC.on('bd-css-editor', (sender, args) => {
+            let { command, data } = args;
             switch(command) {
                 case 'update-css':
-                    let { css } = args;
-                    self.updateCss(css);
+                    self.updateCss(data);
                     break;
             }
         });
@@ -73,7 +73,8 @@ class CssEditor  {
         self.editor.window.on('resize', self.onResize.bind(self));
         self.editor.window.on('move', self.onMove.bind(self));*/
 
-        IPC.send({'command': 'css-editor', 'data': 'open'});
+        // IPC.send({'command': 'css-editor', 'data': 'open'});
+        ipcRenderer.send('bd-css-editor', { 'command': 'open' });
     }
 
     loadURL(url) {

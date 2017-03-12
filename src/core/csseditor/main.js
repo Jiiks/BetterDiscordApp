@@ -7,6 +7,10 @@ const { remote } = require('electron');
 const { ipcRenderer } = require('electron');
 
 ipcRenderer.on('set-css', (event, data) => {
+    if (data.error) {
+        alert(JSON.stringify(data.message));
+        return;
+    }
     mycm.setValue(data);
     document.getElementById("spinner").className = "hidden";
 });
@@ -31,15 +35,15 @@ ipcRenderer.on('save-error', (event, err) => {
 });
 
 window.onbeforeunload = (e) => {
-    ipcRenderer.send('css-editor', { 'command': 'close-ext-editor' });
+    ipcRenderer.send('bd-css-editor', { 'command': 'close-ext-editor' });
 }
 
 function save() {
-    ipcRenderer.send('css-editor', { 'command': 'save', 'css': mycm.getValue() });
+    ipcRenderer.send('bd-css-editor', { 'command': 'save', 'data': mycm.getValue() });
 }
 
 function update() {
-    ipcRenderer.send('css-editor', { 'command': 'update-css', 'css': mycm.getValue() });
+    ipcRenderer.send('bd-css-editor', { 'command': 'update-css', 'data': mycm.getValue() });
 }
 
 function closeWindow() {
@@ -158,7 +162,7 @@ var mycm = CodeMirror(document.getElementById("cm-container"), {
     dialog: { "position": "bottom" }
 });
 
-ipcRenderer.send('css-editor', { 'command': 'get-css' });
+ipcRenderer.send('bd-css-editor', { 'command': 'get-css' });
 
 var ExcludedIntelliSenseTriggerKeys = {
     "8": "backspace",

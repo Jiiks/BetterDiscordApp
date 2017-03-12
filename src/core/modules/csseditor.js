@@ -10,6 +10,7 @@
 
 'use strict';
 
+const _bd_fs = require('fs');
 const _bd_electron = require('electron');
 const _bd_IPC = _bd_electron.ipcMain;
 const _bd_config = require('../config');
@@ -31,17 +32,26 @@ class CssEditor {
     constructor() {
         let self = this;
         self.ipcAsync = self.ipcAsync.bind(self);
-        _bd_IPC.on('bd-async', self.ipcAsync);
+        _bd_IPC.on('bd-css-editor', self.ipcAsync);
+    }
+
+    setMainWindow(mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     ipcAsync(event, args) {
         let self = this;
-        const { command, data, id } = args;
-        if (command !== 'css-editor') return;
+        const { command, data } = args;
 
-        switch (data) {
+        switch (command) {
             case 'open':
                 self.openEditor();
+                break;
+            case 'get-css':
+                self.loadCss(event);
+                break;
+            case 'update-css':
+                self.mainWindow.webContents.send('bd-css-editor', { 'command': 'update-css', 'data': data });
                 break;
         }
     }
@@ -59,6 +69,18 @@ class CssEditor {
         _bd_csseditor.open = true;
         _bd_csseditor.window.webContents.on('close', () => {
             _bd_csseditor.open = false;
+        });
+    }
+
+    loadCss(event) {
+        _bd_fs.readFile(`${_bd_config.dataPath}/custom.css`, 'utf-8', (err, content) => {
+            if (err) {
+                console.log(err);
+                event.sender.send('set-css', '');
+                return;
+            }
+
+            event.sender.send('set-css', content);
         });
     }
 

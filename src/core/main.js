@@ -5,7 +5,7 @@
 const { BDStorage, BDPluginStorage } = require('./storage');
 const { BDLogger, BDUtils } = require('./utils');
 const { BDEmoteModule } = require('./modules/modules');
-const { CssEditor } = require('./modules/csseditor');
+const CssEditor = require('./modules/csseditor');
 const IpcStruct = require('./modules/ipcstruct');
 const _bd_fs = require('fs');
 const _bd_config = require('./config');
@@ -25,6 +25,8 @@ class BetterDiscord {
 
         if (!self.validateOptions(options)) return;
         self.options = options;
+
+        CssEditor.setMainWindow(mainWindow);
 
         _bd_logger.log(`v${_bd_config.version} starting up`);
 
@@ -86,7 +88,7 @@ class BetterDiscord {
 
         self.ipcMain.on('bd-async2', (e, a) => self.ipcAsync2(new IpcStruct(e, a)));
 
-        self.customCssEditor();
+        //self.customCssEditor();
 
         BDUtils.execJs(mainWindow, `if(window._bd === undefined) window._bd = {};
                                     window._bd.ipc = require("electron").ipcRenderer;
