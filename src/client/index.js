@@ -19,17 +19,13 @@ const { $ } = require('./vendor');
 class BDCore {
 
     constructor() {
-        BrowserEvents.init();
+
         window.Events = Events;
         window.Reflection = Reflection;
 
-        Settings.init();
-        
         let css = Utils.readFileSync(`${Settings.settings.dataPath}/betterdiscord.css`);
 
         $("head").append(`<style>${css}</style>`);
-
-        PluginManager.init();
 
         window.onbeforeunload = (e) => {
             IPC.send({ "command": "reset" });

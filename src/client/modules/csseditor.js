@@ -59,7 +59,7 @@ class CssEditor  {
     }
 
     open() {
-        let self = this;
+        /*let self = this;
         if(self.editor.open || self.editor.window) {
             self.editor.window.focus();
             self.editor.window.flashFrame(true);
@@ -71,7 +71,9 @@ class CssEditor  {
         self.loadURL(`file://${self.dataPath}/csseditor/index.html`);
         self.editor.window.on('close', self.onClose.bind(self));
         self.editor.window.on('resize', self.onResize.bind(self));
-        self.editor.window.on('move', self.onMove.bind(self));
+        self.editor.window.on('move', self.onMove.bind(self));*/
+
+        IPC.send({'command': 'css-editor', 'data': 'open'});
     }
 
     loadURL(url) {

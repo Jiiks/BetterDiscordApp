@@ -5,6 +5,7 @@
 const { BDStorage, BDPluginStorage } = require('./storage');
 const { BDLogger, BDUtils } = require('./utils');
 const { BDEmoteModule } = require('./modules/modules');
+const { CssEditor } = require('./modules/csseditor');
 const IpcStruct = require('./modules/ipcstruct');
 const _bd_fs = require('fs');
 const _bd_config = require('./config');
