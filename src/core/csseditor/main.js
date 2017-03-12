@@ -30,7 +30,6 @@ ipcRenderer.on('save-error', (event, err) => {
     }, 1500);
 });
 
-
 window.onbeforeunload = (e) => {
     ipcRenderer.send('css-editor', { 'command': 'close-ext-editor' });
 }
@@ -55,7 +54,7 @@ function toggleAot(e) {
 }
 
 function toggleOption(e, n) {
-    switch(n) {
+    switch (n) {
         case 'live-update':
             window.liveUpdate = !window.liveUpdate;
             e.className = window.liveUpdate ? 'checkbox-container checked' : 'checkbox-container';
@@ -70,7 +69,7 @@ function toggleOption(e, n) {
             break;
         case 'external-editor':
             window.extEditor = !window.extEditor;
-            if(window.extEditor) {
+            if (window.extEditor) {
                 ipcRenderer.send('css-editor', { 'command': 'open-ext-editor' });
                 mycm.setOption('readOnly', true);
                 document.getElementById("windowtitle").innerText = "CSS Editor - Read Only Mode";
@@ -85,7 +84,7 @@ function toggleOption(e, n) {
                 document.getElementById("cbAutoSave").className = "checkbox-container";
                 document.getElementById("btnSave").className = "";
             }
-        
+
             mycm.setOption('readOnly', window.extEditor);
             e.className = window.extEditor ? 'checkbox-container checked' : 'checkbox-container';
             break;
@@ -96,12 +95,12 @@ window.controlDown = false;
 document.onkeyup = (e) => {
     e = e || window.event;
     var ctrl = false;
-    if("key" in e) {
+    if ("key" in e) {
         ctrl = (e.key === "Control" || e.key === "Ctrl");
     } else {
         ctrl = (e.keyCode === 17);
     }
-    if(ctrl) {
+    if (ctrl) {
         window.controlDown = false;
         document.getElementById("hints").className = "";
         document.getElementById("cmhints").className = "";
@@ -112,47 +111,51 @@ document.onkeydown = (e) => {
     e = e || window.event;
     var isEscape = false;
     var ctrl = false;
-    var save = false;
+    var saveDown = false;
+    var updateDown = false;
     var alt = false;
-    if("key" in e) {
+    if ("key" in e) {
         isEscape = (e.key === "Escape" || e.key === "Esc");
         ctrl = (e.key === "Control" || e.key === "Ctrl");
-        save = (e.key === "s");
+        saveDown = (e.key === "s");
+        updateDown = (e.key === "h");
         alt = (e.key === "Alt");
     } else {
         isEscape = (e.keyCode === 27);
         ctrl = (e.keyCode === 17);
-        save = (e.keyCode === 83);
+        saveDown = (e.keyCode === 83);
+        updateDown = (e.keyCode === 72)
         alt = (e.keyCode === 18);
     }
-    if(isEscape) {
+    if (isEscape) {
         window.close();
     }
 
-    if(alt) {
+    if (alt) {
         ctrl = false;
         window.controlDown = false;
         document.getElementById("hints").className = "";
         document.getElementById("cmhints").className = "";
     }
 
-    if(ctrl) {
+    if (ctrl) {
         window.controlDown = true;
         document.getElementById("hints").className = "visible";
         document.getElementById("cmhints").className = "visible";
     }
 
-    if(save && window.controlDown) console.log("SAVE!");
+    if (saveDown && window.controlDown) save();
+    if (updateDown && window.controlDown) update();
 }
 
-var mycm = CodeMirror(document.getElementById("cm-container"), {  
+var mycm = CodeMirror(document.getElementById("cm-container"), {
     lineNumbers: true,
     mode: 'css',
     indentUnit: 4,
     theme: 'material',
     scrollbarStyle: 'overlay',
-    extraKeys: {"Ctrl-Space": "autocomplete"},
-    dialog: {"position": "bottom"}
+    extraKeys: { "Ctrl-Space": "autocomplete" },
+    dialog: { "position": "bottom" }
 });
 
 ipcRenderer.send('css-editor', { 'command': 'get-css' });
@@ -209,13 +212,14 @@ var ExcludedIntelliSenseTriggerKeys = {
     "222": "quote"
 }
 
-mycm.on("keyup", function(editor, event) {
-    if(ExcludedIntelliSenseTriggerKeys[event.keyCode]) return;
+mycm.on("keyup", function (editor, event) {
+    if (window.controlDown) return;
+    if (ExcludedIntelliSenseTriggerKeys[event.keyCode]) return;
     CodeMirror.commands.autocomplete(editor, null, { completeSingle: false });
 });
 
 
 mycm.on("change", cm => {
-    if(window.liveUpdate) update();
-    if(window.autoSave) save();
+    if (window.liveUpdate) update();
+    if (window.autoSave) save();
 });
