@@ -44,6 +44,8 @@ class CssEditor  {
             let { dataPath } = data.data;
             self.dataPath = dataPath;
         });
+
+        ipcRenderer.send('bd-css-editor', { 'command': 'load-css' });
     }
 
 

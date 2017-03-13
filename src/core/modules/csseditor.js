@@ -24,7 +24,8 @@ const _bd_csseditor = {
         'frame': false,
         'minWidth': 780,
         'minHeight': 400
-    }
+    },
+    'css': ''
 };
 
 class CssEditor {
@@ -48,10 +49,15 @@ class CssEditor {
                 self.openEditor();
                 break;
             case 'get-css':
-                self.loadCss(event);
+                self.loadCss(css => { event.sender.send('set-css', css); });
                 break;
             case 'update-css':
                 self.mainWindow.webContents.send('bd-css-editor', { 'command': 'update-css', 'data': data });
+                break;
+            case 'load-css':
+                self.loadCss(css => {
+                    self.mainWindow.webContents.send('bd-css-editor', { 'command': 'update-css', 'data': css });
+                });
                 break;
             case 'save':
                 self.saveCss(event, data);
@@ -75,15 +81,13 @@ class CssEditor {
         });
     }
 
-    loadCss(event) {
+    loadCss(cb) {
         _bd_fs.readFile(`${_bd_config.dataPath}/custom.css`, 'utf-8', (err, content) => {
             if (err) {
-                console.log(err);
-                event.sender.send('set-css', '');
+                cb('');
                 return;
             }
-
-            event.sender.send('set-css', content);
+            cb(content);
         });
     }
 
