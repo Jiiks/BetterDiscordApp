@@ -17,7 +17,7 @@ const _bd_config = require('../config');
 const _bd_path = require('path');
 
 const _bd_csseditor = {
-    'path': _bd_path.resolve(__dirname, '../csseditor') + '/index.html',
+    'path': `file://${_bd_path.resolve(__dirname, '../csseditor')}/index.html`,
     'open': false,
     'window': null,
     'options': {
@@ -53,6 +53,9 @@ class CssEditor {
             case 'update-css':
                 self.mainWindow.webContents.send('bd-css-editor', { 'command': 'update-css', 'data': data });
                 break;
+            case 'save':
+                self.saveCss(event, data);
+                break;
         }
     }
 
@@ -65,7 +68,7 @@ class CssEditor {
         }
 
         _bd_csseditor.window = new _bd_electron.BrowserWindow(_bd_csseditor.options);
-        _bd_csseditor.window.loadURL(`file://${_bd_csseditor.path}`);
+        _bd_csseditor.window.loadURL(_bd_csseditor.path);
         _bd_csseditor.open = true;
         _bd_csseditor.window.webContents.on('close', () => {
             _bd_csseditor.open = false;
@@ -81,6 +84,16 @@ class CssEditor {
             }
 
             event.sender.send('set-css', content);
+        });
+    }
+
+    saveCss(event, css) {
+        _bd_fs.writeFile(`${_bd_config.dataPath}/custom.css`, css, 'utf-8', err => {
+            if (err) {
+                event.sender.send('save-error', err);
+                return;
+            }
+            event.sender.send('save-ok');
         });
     }
 
