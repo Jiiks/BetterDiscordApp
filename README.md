@@ -14,7 +14,7 @@ v2 is currently in development and can be found over [here](/Jiiks/BetterDiscord
 
 If you need help, [please join the Discord server here](https://discord.gg/0Tmfo5ZbORCRqbAd)
 
-**All plugins must be named** `*.plugin.js` **and all themes must be named **`*.theme.css` 
+**All plugins must be named** `*.plugin.js` **and all themes must be named** `*.theme.css` 
 
 ## Instillation
 
