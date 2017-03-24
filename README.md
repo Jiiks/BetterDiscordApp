@@ -2,8 +2,6 @@
 
 BetterDiscord is a tool used to enhance Discord with themes, plugins, and neat little modifications. Currently, it is available for the desktop application, with an automatic installer available for Windows.
 
-![ss](http://puu.sh/oIO58.png)
-
 ## Notes
 
 v1, currently `master` is depricated, but it is the latest stable release
@@ -61,7 +59,6 @@ Only display voice channels
 
 **Public Servers:**
 A modal window for public servers [DiscordServers.com](https://www.discordservers.com/) 
-![ss](http://puu.sh/o9oNl.png)
 
 **Custom CSS**
 BetterDiscord supports custom CSS for styling Discord to your liking.
