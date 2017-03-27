@@ -16,7 +16,7 @@ If you need help, [please join the Discord server here](https://discord.gg/0Tmfo
 
 **All plugins must be named** `*.plugin.js` **and all themes must be named** `*.theme.css` 
 
-## Instillation
+## Installation
 
 ### Windows Universal Installer
 * Download the latest installer from [releases](https://github.com/Jiiks/BetterDiscordApp/releases)
@@ -24,14 +24,14 @@ If you need help, [please join the Discord server here](https://discord.gg/0Tmfo
 * .NET 4.0 required https://www.microsoft.com/en-us/download/details.aspx?id=30653
 * Windows Installer users asar.net https://github.com/Jiiks/asar.net
 
-### Auto Instillation
+### Auto Installation
 * Download the latest package from [releases](https://github.com/Jiiks/BetterDiscordApp/releases)
 * Run the installer
 * Installer requires [node](https://nodejs.org/en/download/) download the binaries and place in the same folder as the installer if you don't have node installed.
 * Installer uses [asar](https://github.com/atom/asar) which is bundled with the installer.
 * Installer uses [wrench](https://github.com/ryanmcgrath/wrench-js) which is bundled with the installer.
 
-### Manual Instillation
+### Manual Installation
 * Extract app.asar
 * Add BetterDiscord as a dependency
 * Add init to Discord load event
