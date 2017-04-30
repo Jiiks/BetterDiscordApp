@@ -1,31 +1,37 @@
-Note that this whole branch is deprecated. all further development is going on here: https://github.com/Jiiks/BetterDiscordApp/tree/v2
+# BetterDiscord
 
-# BetterDiscordApp
+BetterDiscord is a tool used to enhance Discord with themes, plugins, and neat little modifications. Currently, it is available for the desktop application, with an automatic installer available for Windows.
 
-# If you have issues then join the BD Discord server: [Here](https://discord.gg/0Tmfo5ZbORCRqbAd)
+## Notes
 
-# Do not contact Discord support about BD issues. 
+v1, currently `master` is depricated, but it is the latest stable release
 
-## All plugins must be named `*.plugin.js` and all themes must be named `*.theme.css`
+v2 is currently in development and can be found over [here](/Jiiks/BetterDiscordApp/tree/v2)
 
-Better Discord App enhances the Discord desktop app with new features.
+## Support
 
-![ss](http://puu.sh/oIO58.png)
+**PLEASE don't contact Discord with issues you have with BetterDiscord**
 
-## Windows Universal Installer
+If you need help, [please join the Discord server here](https://discord.gg/0Tmfo5ZbORCRqbAd)
+
+**All plugins must be named** `*.plugin.js` **and all themes must be named** `*.theme.css` 
+
+## Installation
+
+### Windows Universal Installer
 * Download the latest installer from [releases](https://github.com/Jiiks/BetterDiscordApp/releases)
 * Follow the instructions
 * .NET 4.0 required https://www.microsoft.com/en-us/download/details.aspx?id=30653
 * Windows Installer users asar.net https://github.com/Jiiks/asar.net
 
-## Auto Installation
+### Auto Installation
 * Download the latest package from [releases](https://github.com/Jiiks/BetterDiscordApp/releases)
 * Run the installer
 * Installer requires [node](https://nodejs.org/en/download/) download the binaries and place in the same folder as the installer if you don't have node installed.
 * Installer uses [asar](https://github.com/atom/asar) which is bundled with the installer.
 * Installer uses [wrench](https://github.com/ryanmcgrath/wrench-js) which is bundled with the installer.
 
-## Manual Installation
+### Manual Installation
 * Extract app.asar
 * Add BetterDiscord as a dependency
 * Add init to Discord load event
@@ -53,7 +59,6 @@ Only display voice channels
 
 **Public Servers:**
 A modal window for public servers [DiscordServers.com](https://www.discordservers.com/) 
-![ss](http://puu.sh/o9oNl.png)
 
 **Custom CSS**
 BetterDiscord supports custom CSS for styling Discord to your liking.
