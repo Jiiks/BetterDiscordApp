@@ -354,20 +354,23 @@ Core.prototype.initObserver = function () {
                     $(".timestamp").not("[data-24]").each(function() {
                         var t = $(this);
                         t.attr("data-24", true);
-                        var text = t.text();
-                        var matches = /(.*)?at\s+(\d{1,2}):(\d{1,2})\s+(.*)/.exec(text);
+                        var elementHTML = t.html();
+                        var matches = /(\d{1,2}):(\d{1,2})\s+(am|AM|PM|pm)/.exec(elementHTML);
                         if(matches == null) return true;
-                        if(matches.length < 5) return true;
+                        if(matches.length < 4) return true;
                         
-                        var h = parseInt(matches[2]);
-                        if(matches[4] == "AM") {
+                        var h = parseInt(matches[1]);
+                        if(matches[3] == "AM") {
                             if(h == 12) h -= 12;
-                        }else if(matches[4] == "PM") {
+                        }else if(matches[3] == "PM") {
                             if(h < 12) h += 12;
                         }
-                    
-                        matches[2] = ('0' + h).slice(-2);
-                        t.text(matches[1] + " at " + matches[2] + ":" + matches[3]);
+                        matches[1] = ('0' + h).slice(-2);
+
+                        //Replace the original match completely by our updated time, this preserves the surrounding HTML and comments.					
+                        formattedTime = matches[1] + ":" + matches[2];
+                        t.html(elementHTML.replace(matches[0],formattedTime));
+
                     });
                 }
                 if(settingsCookie["bda-gs-7"]) {
