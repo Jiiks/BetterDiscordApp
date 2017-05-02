@@ -28,7 +28,8 @@ class CChangeLog extends Component {
                     <strong>What's new in BetterDiscord</strong>(v0.30:DP2)
                     <button onClick={self.props.close} className="markdown-modal-close"></button>
                 </div>
-                <CScroller fade={true} dark={true} children={self.renderChanges}/>
+                <CScroller fade={true} dark={true} children={self.renderChanges} />
+                <div className="markdown-modal-footer"></div>
             </div>    
         );
     }
@@ -37,8 +38,21 @@ class CChangeLog extends Component {
         console.log("close!");
     }
 
-    renderChanges() {
-        return <h3>HI!</h3>;
+    get renderChanges() {
+        return (
+            <span>
+                <h1 className="changelog-added changelog-margin-top">New</h1>
+                <ul>
+                    <li>New Thing</li>
+                    <li>Another new thing</li>
+                </ul>
+                <h1 className="changelog-fixed changelog-margin-top">Fixed</h1>
+                <ul>
+                    <li>Fixed thing</li>
+                    <li>Another fixed thing</li>
+                </ul>
+            </span>
+        );
     }
 
 }
