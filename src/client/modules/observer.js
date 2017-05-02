@@ -46,7 +46,17 @@ class ObserverModule {
         Events.emit('context-menu', $(".context-menu").first());
     }
 
-    settingsPanel(mutation) {
+	settingsPanel(mutation) {
+		if(mutation.type !== 'childList') return;
+        if(!mutation.addedNodes) return;
+        if(!mutation.addedNodes.length) return;
+		if(!mutation.target.classList.contains("layers")) return;
+		if(!$(".ui-tab-bar-header:contains('App Settings')").length) return;
+
+		Events.emit('user-settings-layer', mutation.addedNodes[0]);
+	}
+
+    settingsPanelOld(mutation) {
         if(mutation.type !== 'childList') return;
         if(!mutation.addedNodes) return;
         if(mutation.addedNodes.length <= 0) return;
