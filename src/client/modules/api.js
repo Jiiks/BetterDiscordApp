@@ -10,6 +10,7 @@
 
 const { Message, Channel, User, Guild, Role } = require('../api/structs');
 const DeepReflection = require('./reflection_deep');
+const Settings = require('./settings');
 const { $ } = require('../vendor');
 
 class Api {
@@ -22,6 +23,28 @@ class Api {
 	static get currentChannel() {
 		let channel = new Channel(DeepReflection.scan(".title-wrap", "channel"));
 		return channel.null ? null : channel;
+	}
+
+	static injectStyle(id, css) {
+		Settings.styleContainer.append($("<style/>", {
+			'data-bd': id,
+			'text': css
+		}));
+	}
+
+	static removeStyle(id) {
+		Settings.styleContainer.find(`[data-bd='${id}']`).remove();
+	}
+
+	static injectScript(id, script) {
+		Settings.scriptContainer.append($("<script/>", {
+			'data-bd': id,
+			'text': script
+		}));
+	}
+
+	static removeScript(id) {
+		Settings.scriptContainer.find(`[data-bd='${id}']`).remove();
 	}
 
 }
