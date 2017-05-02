@@ -96,7 +96,7 @@ class Reflection {
         if(!o) return null;
         let self = this;
         if(o.hasOwnProperty(p)) return o[p];
-        if(o.hasOwnProperty('_renderedChildren')) o = o._renderedChildren;
+        if(o.hasOwnProperty('_renderedChildren')) return self.ss(o._renderedChildren, p);
         if(o.hasOwnProperty('_instance')) return self.ss(o._instance, p);
         if(o.hasOwnProperty('state')) return self.ss(o.state, p);
 
