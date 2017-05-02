@@ -24,7 +24,6 @@ const Vendor = {
     'React': React
 };
 
-
 //Heuristic keyword ban
 const blockedKeywords = {
     'token':        'ACCESS USER TOKEN',

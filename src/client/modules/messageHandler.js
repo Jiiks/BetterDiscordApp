@@ -25,7 +25,7 @@ class MessageHandler {
 
     handler(mutation) {
 
-        var self = this;
+        let self = this;
         //Check that mutation is a message
         if(mutation.target.classList.length !== 2) return;
         if(mutation.target.classList[1] !== "messages" && mutation.addedNodes.length) return;
