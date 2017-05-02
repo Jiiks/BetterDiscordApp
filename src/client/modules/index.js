@@ -22,8 +22,9 @@ module.exports = {
     Observer: require('./observer'),
     PluginManager: require('./pluginManager'),
     ThemeManager: require('./themeManager'),
-    Reflection: require('./reflection'),
+	Reflection: require('./reflection_deep'),
     Renderer: require('./renderer'),
     Settings: require('./settings'),
-    Utils: require('./utils')
+    Utils: require('./utils'),
+	Api: require('./api')
 }
