@@ -14,6 +14,9 @@ const Settings = require('./settings');
 const { $ } = require('../vendor');
 
 class Api {
+	
+	static get bdVersion() { return Settings.version; }
+	static get jsVersion() { return Settings.jsversion; }
 
 	static get currentGuild() {
 		let guild = new Guild(DeepReflection.scan(".title-wrap", "guild"));
