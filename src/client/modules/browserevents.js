@@ -51,28 +51,28 @@ class BrowserEvents {
 
 		if(!self.page.previous.guild) {
 			Logger.debug("BrowserEvents", "Server Switch");
-			console.log(self.page);
+			Events.emit('server-switch', self.page);
 			self.page.previous = self.page.current;
 			return;
 		}
 
 		if(self.page.previous.guild.id !== self.page.current.guild.id) {
 			Logger.debug("BrowserEvents", "Server Switch");
-			console.log(self.page);
+			Events.emit('server-switch', self.page);
 			self.page.previous = self.page.current;
 			return;
 		}
 
 		if(!self.page.previous.channel) {
 			Logger.debug("BrowserEvents", "Channel Switch");
-			console.log(self.page);
+			Events.emit('server-switch', self.page);
 			self.page.previous = self.page.current;
 			return;
 		}
 
 		if(self.page.previous.channel.id !== self.page.current.channel.id) {
 			Logger.debug("BrowserEvents", "Channel Switch");
-			console.log(self.page);
+			Events.emit('server-switch', self.page);
 			self.page.previous = self.page.current;
 			return;
 		}
