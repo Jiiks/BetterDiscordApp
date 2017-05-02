@@ -8,12 +8,18 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
+const Settings = require('./settings');
 
 class Logger {
 
     static log(moduleName, message, level) {
         console.log(`%c[%cBetter%cDiscord%c:${moduleName}%c]%c ${message} `, ...this.style(level || 'info'));
     }
+
+	static debug(moduleName, message, level) {
+		if(!Settings.debug) return;
+		console.log(`%c[%cBetter%cDiscord%c:${moduleName}%c|DBG]%c ${message} `, ...this.style(level || 'info'));
+	}
 
     static style(level) {
         return {
