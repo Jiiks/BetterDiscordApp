@@ -13,133 +13,7 @@
 const IPC = require('./ipc');
 const Utils = require('./utils');
 const Logger = require('./logger');
-const defaultSettings = {
-    "core": [
-        {
-            "key": "voice-disconnect",
-            "text": "Voice Disconnect",
-            "helptext": "Disconnect from voice server when Discord closes",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "developer-mode",
-            "text": "Developer Mode",
-            "helptext": "BetterDiscord developer mode",
-            "enabled": false,
-            "disabled": true
-        }
-    ],
-    "ui": [
-        {
-            "key": "public-servers",
-            "text": "Public Servers",
-            "helptext": "Display public servers button",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "minimal-mode",
-            "text": "Minimal Mode",
-            "helptext": "Hide elements and reduce size of certain elements",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "voice-mode",
-            "text": "Voice Mode",
-            "helptext": "Only show voice chat",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "hide-channels",
-            "text": "Hide Channels",
-            "helptext": "Hide server channels in minimal mode",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "dark-mode",
-            "text": "Dark Mode(wip)",
-            "helptext": "Make certain elements dark by default",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "timestamp",
-            "text": "24 Hour Timestamps",
-            "helptext": "Replace 12 hour timestamps with proper ones",
-            "enabled": false
-        },
-        {
-            "key": "coloured-text",
-            "text": "Coloured Text",
-            "helptext": "Make text colour the same as role colour",
-            "enabled": false
-        }
-    ],
-    "emotes": [
-        {
-            "key": "twitch-emotes",
-            "text": "Twitch Emotes",
-            "helptext": "Show Twitch emotes",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "ffz-emotes",
-            "text": "FrankerFaceZ Emotes",
-            "helptext": "Show FrankerFaceZ emotes",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "bttv-emotes",
-            "text": "BetterTTV Emotes",
-            "helptext": "Show BetterTTV emotes",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "emote-menu",
-            "text": "Emote Menu",
-            "helptext": "Show Twitch/Favourite emotes in emote menu",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "emoji-menu",
-            "text": "Emoji Menu",
-            "helptext": "Show Discord emoji menu",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "emote-autocap",
-            "text": "Emote Auto Capitalization",
-            "helptext": "Automatically capitalize emotes as you type",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "emote-tooltips",
-            "text": "Emote Tooltips",
-            "helptext": "Show emote tooltips when you hover over them",
-            "enabled": false,
-            "disabled": true
-        },
-        {
-            "key": "emote-modifiers",
-            "text": "Emote Modifiers",
-            "helptext": "Enable emote modifiers",
-            "enabled": false,
-            "disabled": true
-        }
-    ],
-    "security": {
-    }
-}
+const defaultSettings = require('../data/user.settings.default');
 
 class SettingsModule {
 
@@ -166,15 +40,14 @@ class SettingsModule {
 
         if (settings) {
             Object.keys(self.userSettings).some(cat => {
-                if (!settings.hasOwnProperty(cat)) return true;
-
+                if(!settings.hasOwnProperty(cat)) return true;
+				if(!settings[cat].length) return true;
                 self.userSettings[cat].some(setting => {
                     let userSetting = settings[cat].find(value => { return value.key === setting.key; });
                     if (userSetting) setting.enabled = userSetting.enabled;
                 });
             });
         }
-        
     }
 
     save() {
@@ -184,16 +57,20 @@ class SettingsModule {
         }
     }
 
+	get version() { return this.settings.version; }
+	get jsversion() { return "DP2"; }
+	get debug() { return this.settings.debug; }
+	get basePath() { return this.settings.basePath; }
+	get dataPath() { return this.settings.dataPath; }
+
     get getCoreSettings() { return this.getSettings("core"); }
     get getUiSettings() { return this.getSettings("ui"); }
     get getEmoteSettings() { return this.getSettings("emotes"); }
-    get getSecuritySettings() { return this.getSettings("security"); }
     getSettings(key) { return this.userSettings[key]; }
 
-    getCoreSetting(key)  { return this.getSetting("core",   key); }
-    getUiSetting(key)    { return this.getSetting("ui",     key); }
+    getCoreSetting(key) { return this.getSetting("core", key); }
+    getUiSetting(key) { return this.getSetting("ui", key); }
     getEmoteSetting(key) { return this.getSetting("emotes", key); }
-    getSecuritySetting(key) { return this.getSetting("security", key); }
     getSetting(sub, key) {
         return this.userSettings[sub].filter(value => value.key === key)[0];
     }
@@ -201,7 +78,6 @@ class SettingsModule {
     setCoreSetting(key, enabled) { this.setSetting("core", key, enabled); }
     setUiSetting(key, enabled) { this.setSetting("ui", key, enabled); }
     setEmoteSetting(key, enabled) { this.setSetting("emotes", key, enabled); }
-    setSecuritySetting(key, enabled) { this.setSetting("security", key, enabled); }
     setSetting(sub, key, enabled) {
         this.getSetting(sub, key).enabled = enabled;
         this.save();
