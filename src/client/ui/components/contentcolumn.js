@@ -1,5 +1,5 @@
 /**
- * BetterDiscord Settings Panel Component
+ * BetterDiscord Content Column Component
  * Copyright (c) 2015-present Jiiks - https://jiiks.net
  * All rights reserved.
  * https://github.com/Jiiks/BetterDiscordApp - https://betterdiscord.net
@@ -13,26 +13,21 @@
 const { React } = require('../../vendor');
 import { Component } from 'React';
 
-import CSwitch from './switch';
+class CContentColumn extends Component {
 
-class CSettingsPanel extends Component {
-    
     constructor(props) {
         super(props);
     }
 
     render() {
-		let self = this;
-		let { settings, title, onChange } = self.props;
-		return (
+        return (
 			<div className="content-column default">
-				<h2 className="ui-form-title h2 margin-reset margin-bottom-20">{title}</h2>
-				{settings.map((setting, index) => {
-					return <CSwitch key={setting.key} id={setting.key} text={setting.text} info={setting.helptext} checked={setting.enabled} onChange={onChange} />;
-				})}
+				<h2 className="ui-form-title h2 margin-reset margin-bottom-20">{this.props.title}</h2>
+				{this.props.children}
 			</div>
 		);
     }
+
 }
 
-export default CSettingsPanel;
+export default CContentColumn;

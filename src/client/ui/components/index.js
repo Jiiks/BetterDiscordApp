@@ -6,36 +6,24 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
-'use strict';
-
-import CButton from './button';
-import CCheckBox from './checkbox';
-import CCheckboxGroup from './checkboxGroup';
-import CLink from './link';
-import CPluginList from './pluginlist';
-import CThemeList from './themelist';
-import CProTip from './protip';
-import CSettingsPanel from './settingsPanel';
-import CContextMenu from './contextMenu';
-import CContextMenuCheckBox from './contextMenuCheckbox';
-import CContextMenuSub from './contextMenuSub';
-import CEmote from './emote';
-import CToolTip from './tooltip';
-
-module.exports = {
-    CButton: CButton,
-    CCheckBox: CCheckBox,
-    CCheckboxGroup: CCheckboxGroup,
-    CLink: CLink,
-    CPluginList: CPluginList,
-    CThemeList: CThemeList,
-    CProTip: CProTip,
-    CSettingsPanel: CSettingsPanel,
-    CContextMenu: CContextMenu,
-    CContextMenuCheckBox: CContextMenuCheckBox,
-    CContextMenuSub: CContextMenuSub,
-    CEmote: CEmote,
-    CToolTip: CToolTip
-}
+export { default as CButton } from './button';
+export { default as CCheckBox } from './checkbox';
+export { default as CCheckboxGroup } from './checkboxGroup';
+export { default as CLink } from './link';
+export { default as CPluginList } from './pluginlist';
+export { default as CThemeList } from './themelist';
+export { default as CProTip } from './protip';
+export { default as CSettingsPanel } from './settingsPanel';
+export { default as CContextMenu } from './contextMenu';
+export { default as CContextMenuCheckBox } from './contextMenuCheckbox';
+export { default as CContextMenuSub } from './contextMenuSub';
+export { default as CEmote } from './emote';
+export { default as CToolTip } from './tooltip';
+export { default as CTabBarItem } from './tabbar/item';
+export { default as CTabBarSeparator } from './tabbar/separator';
+export { default as CTabBarHeader } from './tabbar/header';
+export { default as CContentColumn } from './contentcolumn';
+export { default as CScroller } from './scroller';
+export { default as CSwitch } from './switch';
