@@ -11,12 +11,14 @@
 const { Message, Channel, User, Guild, Role } = require('../api/structs');
 const DeepReflection = require('./reflection_deep');
 const Settings = require('./settings');
+const Dom = require('./dom');
 const { $ } = require('../vendor');
 
 class Api {
 	
 	static get bdVersion() { return Settings.version; }
-	static get jsVersion() { return Settings.jsversion; }
+    static get jsVersion() { return Settings.jsversion; }
+    static get Reflection() { return DeepReflection; }
 
 	static get currentGuild() {
 		let guild = new Guild(DeepReflection.scan(".title-wrap", "guild"));
@@ -29,25 +31,25 @@ class Api {
 	}
 
 	static injectStyle(id, css) {
-		Settings.styleContainer.append($("<style/>", {
+        Dom.styleContainer.append($("<style/>", {
 			'data-bd': id,
 			'text': css
 		}));
 	}
 
 	static removeStyle(id) {
-		Settings.styleContainer.find(`[data-bd='${id}']`).remove();
+        Dom.styleContainer.find(`[data-bd='${id}']`).remove();
 	}
 
 	static injectScript(id, script) {
-		Settings.scriptContainer.append($("<script/>", {
+        Dom.scriptContainer.append($("<script/>", {
 			'data-bd': id,
 			'text': script
 		}));
 	}
 
 	static removeScript(id) {
-		Settings.scriptContainer.find(`[data-bd='${id}']`).remove();
+        Dom.scriptContainer.find(`[data-bd='${id}']`).remove();
 	}
 
 }
