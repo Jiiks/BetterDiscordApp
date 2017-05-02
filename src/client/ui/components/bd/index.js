@@ -10,3 +10,4 @@
 
 export { default as CSP_Sidebar } from './settingspanel_sidebar';
 export { default as CSP_Content } from './settingspanel_content';
+export { default as CChangeLog } from './changelog';
