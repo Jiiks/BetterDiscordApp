@@ -30,7 +30,6 @@ class BrowserEvents {
 			'current': this.prev
 		};
 
-
         Events.on('browser-event', e => {
             let { type, url } = e;
             switch (type) {
@@ -85,7 +84,6 @@ class BrowserEvents {
             'channel': splice[1]
         };
     }
-
 
 }
 
