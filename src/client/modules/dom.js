@@ -23,19 +23,21 @@ class Dom {
         if (self.containers) return;
 
         self.containers = {
-            'styleContainer': $("<span/>", { 'data-bd': 'style-container' }),
-            'scriptContainer': $("<span/>", { 'data-bd': 'script-container' }),
+            'head': $("<bd-head/>"),
+            'body': $("<bd-body/>"),
             'modalContainer': $("<div/>", { 'data-bd': 'modal-container' })
         };
 
-        self.containers.styleContainer.insertBefore($("body"));
-        self.containers.scriptContainer.insertAfter($("body"));
-        self.containers.modalContainer.insertAfter($(".modal-container").first());
+        self.containers.head.appendTo($("head"));
+        self.containers.body.appendTo($("body"));
+        self.containers.modalContainer.appendTo(self.containers.body);
 
     }
 
-    get styleContainer() { return this.containers.styleContainer; }
-    get scriptContainer() { return this.containers.scriptContainer; }
+    get head() { return this.containers.head; }
+    get styleContainer() { return this.head; }
+    get body() { return this.containers.body; }
+    get scriptContainer() { return this.body; }
     get modalContainer() { return this.containers.modalContainer; }
 
 }
