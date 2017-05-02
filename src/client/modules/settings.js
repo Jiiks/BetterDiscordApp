@@ -22,7 +22,7 @@ class SettingsModule {
 
         let getSettings = IPC.sendSync({ 'command': 'getconfig' });
         self.settings = getSettings.data;
-
+        Logger.debugObject('SettingsModule', 'Settings:', self.settings, 'info', true);
         self.load();
     }
 
@@ -31,8 +31,8 @@ class SettingsModule {
         self.userSettings = defaultSettings;
         let read = Utils.readFileSync(`${self.settings.dataPath}/user.settings.json`);
 
-        if(!read) {
-            Logger.log('SettingsModule', 'Failed to read settings file', 'warn');
+        if (!read) {
+            Logger.log('SettingsModule', `Failed to read settings file: ${self.settings.dataPath}/user.settings.json. Loading default settings.`, 'warn');
             return;
         }
 
@@ -48,6 +48,8 @@ class SettingsModule {
                 });
             });
         }
+
+        Logger.debugObject('SettingsModule', 'Loaded user settings', self.userSettings, 'info', true);
     }
 
     save() {
