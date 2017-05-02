@@ -8,13 +8,13 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-const { Plugin, PluginApi, PluginStorage } = require('../plugins');
+const { Plugin, PluginApi, PluginStorage, PluginEvents } = require('../plugins');
 const { jQuery, React } = require('../vendor');
 const IPC = require('./ipc');
 
 const Utils = require('./utils');
 const Logger = require('./logger');
-const Events = require('./events');
+//const Events = require('./events');
 const Settings = require('./settings');
 
 const Plugins = {};
@@ -87,7 +87,7 @@ class PluginManager {
             let BD = {
                 'Api': new PluginApi(config.info),
                 'Storage': new PluginStorage(basePath, config.defaultSettings),
-                'Events': Events
+                'Events': PluginEvents
             }
 
             let plugin = null;
@@ -146,7 +146,7 @@ class PluginManager {
             'Api': new PluginApi(pluginInstance.props),
             'Vendor': Vendor,
             'Storage': storage,
-            'Events': Events
+            'Events': PluginEvents
         });
 
         pluginInstance.internal = {

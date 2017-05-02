@@ -10,6 +10,8 @@
 
 'use strict';
 
+const { PluginEvents } = require('../plugins');
+
 const { EventEmitter } = require('events');
 const emitter = new EventEmitter();
 
@@ -25,6 +27,7 @@ class Events {
 
     static emit(...args) {
         emitter.emit(...args);
+        PluginEvents.emit(...args);
     }
 
 }
