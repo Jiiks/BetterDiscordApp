@@ -64,14 +64,14 @@ class BrowserEvents {
 
 		if(!self.page.previous.channel) {
 			Logger.debug("BrowserEvents", "Channel Switch");
-			Events.emit('server-switch', self.page);
+			Events.emit('channel-switch', self.page);
 			self.page.previous = self.page.current;
 			return;
 		}
 
 		if(self.page.previous.channel.id !== self.page.current.channel.id) {
 			Logger.debug("BrowserEvents", "Channel Switch");
-			Events.emit('server-switch', self.page);
+			Events.emit('channel-switch', self.page);
 			self.page.previous = self.page.current;
 			return;
 		}
