@@ -10,9 +10,21 @@
 
 class Channel {
     constructor(data) {
-        this.id = data.guild_id;
-        this.name = data.name;
-        this.topic = data.topic;
+		if(!data) {
+			this.null = true;
+			return;
+		}
+        this.application_id = data.application_id;
+		this.bitrate = data.bitrate;
+		this.guild_id = data.guild_id;
+		this.icon = data.icon;
+		this.id = data.id;
+		this.name = data.name;
+		this.ownerId = data.ownerId;
+		this.position = data.position;
+		this.topic = data.topic;
+		this.type = data.type;
+		this.userLimit = data.userLimit;
     }
 }
 

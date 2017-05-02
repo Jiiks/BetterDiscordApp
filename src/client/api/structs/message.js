@@ -14,6 +14,10 @@ const User = require('./user');
 
 class Message {
     constructor(data) {
+		if(!data) {
+			this.null = true;
+			return;
+		}
         let { message, channel } = data;
         let { author } = message;
         this.state = message.state;

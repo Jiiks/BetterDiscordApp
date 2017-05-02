@@ -10,6 +10,10 @@
 
 class Role {
     constructor(data) {
+		if(!data) {
+			this.null = true;
+			return;
+		}
         this.color = data.color;
         this.colorString = data.colorString;
         this.hoist = data.hoist;

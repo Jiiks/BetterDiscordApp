@@ -11,6 +11,10 @@
 
 class User {
     constructor(data) {
+		if(!data) {
+			this.null = true;
+			return;
+		}
         this.id = data.id;
         this.username = data.username;
         this.discriminator = data.discriminator;
