@@ -14,10 +14,23 @@ class Logger {
         console.log(`%c[%cBetter%cDiscord%c:${moduleName}%c]%c ${message} `, ...this.style(level || 'info'));
     }
 
-	static debug(moduleName, message, level) {
-		if(!window.BetterDiscord || !window.BetterDiscord.debug) return;
+    static logObject(moduleName, message, object, level) {
+        if (message) this.log(moduleName, message, level);
+        console.log(object);
+    }
+
+    static debug(moduleName, message, level, force) {
+        if (!force) { if (!window.BetterDiscord || !window.BetterDiscord.debug) return; }
+		
 		console.log(`%c[%cBetter%cDiscord%c:${moduleName}%c|DBG]%c ${message} `, ...this.style(level || 'info'));
-	}
+    }
+
+    static debugObject(moduleName, message, object, level, force) {
+        if (!force) { if (!window.BetterDiscord || !window.BetterDiscord.debug) return; }
+
+        if (message) this.debug(moduleName, message, level, force);
+        console.log(object);
+    }
 
     static style(level) {
         return {
