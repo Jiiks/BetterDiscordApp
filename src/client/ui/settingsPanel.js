@@ -12,8 +12,9 @@
 
 const { React, ReactDOM, $ } = require('../vendor');
 const { Events, Settings, Renderer, CssEditor, PluginManager } = require('../modules');
-import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList } from './components';
+import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList, CTabBarItem, CTabBarSeparator, CTabBarHeader } from './components';
 
+import { CSP_Sidebar, CSP_Content } from './components/bd';
 
 class SettingsPanel {
     
@@ -23,8 +24,13 @@ class SettingsPanel {
         self.initUi();
 
         Events.on('user-settings-modal', e => {
-            self.render();
+            console.log("USER SETTINGS OPEN");
         });
+
+		Events.on('user-settings-layer', layer => {
+			self.renderSidebar(layer);
+		});
+
     }
 
     initUi() {
@@ -129,6 +135,46 @@ class SettingsPanel {
         let settingsPanel = <CSettingsPanel initialTab="core" content={self.ui.content} tabs={self.ui.tabs} footer={footer} topbuttons={self.ui.topbuttons} />;
         Renderer.insertBefore(".form .settings-right .settings-actions", self.ui.root, settingsPanel);
     }
+
+	get changeLogButton() {
+		let changeLog = $(".ui-tab-bar-item:contains('Change Log')");
+		if(!changeLog.length) return false;
+		return changeLog;
+	}
+
+	get sidebarRoot() {
+		return $("<span/>", { 'id': 'bd-settings-sidebar' });
+	}
+
+	get contentRoot() {
+		return $("<div/>", { class: 'content-region', 'id': 'bd-settingspane-container',  });
+	}
+
+	sidebar(content) {
+		return <CSP_Sidebar onClick={this.changeTab} content={content}/>;
+	}
+
+	get content() {
+		return <CSP_Content/>;
+	}
+
+	changeTab(id) {
+		
+	}
+
+	injectSidebarRoot() {
+		let self = this;
+		self.sidebarRoot.insertBefore(self.changeLogButton.prev());
+	}
+
+	renderSidebar(layer) {
+		if($("#bd-settings-sidebar").length) return;
+		let self = this;
+		if(!self.changeLogButton) return;
+
+		let content = Renderer.insertAfter(".content-region", self.contentRoot, self.content);
+		Renderer.insertBefore(".ui-tab-bar-item:contains('Change Log')", self.sidebarRoot, self.sidebar(content));
+	}
 }
 
 module.exports = SettingsPanel;
