@@ -2,11 +2,12 @@ module.exports = (Plugin, BD, Vendor) => {
 
     const { Api, Events, Storage } = BD;
     const { $, React } = Vendor;
-
+    
     class V2Plugin extends Plugin {
 
         constructor(props) {
             super(props);
+            console.log(Events);
         }
 
         onStart() {
@@ -42,7 +43,7 @@ module.exports = (Plugin, BD, Vendor) => {
 
         newMessageHandler(channel, server, message) {
             //Print some message data in console
-            Api.log(`New Message from: ${message.author.username} in ${server.name}#${channel.name}: ${message.content}`);
+           // Api.log(`New Message from: ${message.author.username} in ${server.name}#${channel.name}: ${message.content}`);
         }
 
     }
