@@ -173,7 +173,7 @@ class SettingsPanel {
 		if(!self.changeLogButton) return;
 
 		let content = Renderer.insertAfter(".content-region", self.contentRoot, self.content);
-		Renderer.insertBefore(".ui-tab-bar-item:contains('Change Log')", self.sidebarRoot, self.sidebar(content));
+        Renderer.insertBefore($(".ui-tab-bar-item:not(.danger)").last(), self.sidebarRoot, self.sidebar(content));
 	}
 }
 
