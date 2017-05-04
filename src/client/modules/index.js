@@ -26,5 +26,6 @@ module.exports = {
     Renderer: require('./renderer'),
     Settings: require('./settings'),
     Utils: require('./utils'),
-	Api: require('./api')
+    Api: require('./api'),
+    Dom: require('./dom')
 }
