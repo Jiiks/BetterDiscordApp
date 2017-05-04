@@ -23,6 +23,14 @@
     }
   ],
   "ui": [
+    
+    {
+      "key": "bd-contextmenu",
+      "text": "BetterDiscord Context Menu",
+      "helptext": "Show BetterDiscord options in context menu",
+      "enabled": true,
+      "disabled": false
+    },
     {
       "key": "public-servers",
       "text": "Public Servers",

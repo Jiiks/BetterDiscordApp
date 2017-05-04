@@ -18,7 +18,7 @@ class ContextMenu {
         let self = this;
         self.render = self.render.bind(self);
         Events.on('context-menu', contextMenu => {
-  
+            if (!Settings.getUiSetting('bd-contextmenu').enabled) return;
             self.injectRoot(contextMenu);
         });
     }
