@@ -63,14 +63,14 @@
       "text": "24 Hour Timestamps",
       "helptext": "Replace 12 hour timestamps with proper ones",
       "enabled": false,
-      "disabled": true
+      "disabled": false
     },
     {
       "key": "coloured-text",
       "text": "Coloured Text",
       "helptext": "Make text colour the same as role colour",
       "enabled": false,
-      "disabled": true
+      "disabled": false
     },
     {
       "key": "bd-blue",
@@ -86,21 +86,21 @@
       "text": "Twitch Emotes",
       "helptext": "Show Twitch emotes",
       "enabled": false,
-      "disabled": true
+      "disabled": false
     },
     {
       "key": "ffz-emotes",
       "text": "FrankerFaceZ Emotes",
       "helptext": "Show FrankerFaceZ emotes",
       "enabled": false,
-      "disabled": true
+      "disabled": false
     },
     {
       "key": "bttv-emotes",
       "text": "BetterTTV Emotes",
       "helptext": "Show BetterTTV emotes",
       "enabled": false,
-      "disabled": true
+      "disabled": false
     },
     {
       "key": "emote-menu",
