@@ -37,12 +37,13 @@ class CSwitch extends Component {
     render() {
 		let self = this;
         let { text, info, disabled } = self.props;
-		let { checked } = self.state;
+        let { checked } = self.state;
+        let labelClassName = ['ui-switch-wrapper', 'ui-flex-child', disabled ? 'disabled' : ''];
 		return (
             <div className="ui-flex flex-vertical flex-justify-start flex-align-stretch flex-nowrap ui-switch-item">
                 <div className="ui-flex flex-horizontal flex-justify-start flex-align-stretch flex-nowrap">
                     <h3 className="ui-form-title h3 margin-reset margin-reset ui-flex-child">{text}</h3>
-                    <label className={`ui-switch-wrapper ui-flex-child${disabled ? ' disabled' : ''}`} style={{flex: '0 0 auto'}}>
+                    <label className={labelClassName.join(' ')} style={{ flex: '0 0 auto' }}>
                         <input className="ui-switch-checkbox" type="checkbox" checked={checked} onChange={self.onChange}></input>
                         <div className="ui-switch"></div>
                     </label>
