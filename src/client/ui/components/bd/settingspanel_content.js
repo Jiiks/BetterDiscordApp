@@ -16,7 +16,7 @@ import { Component } from 'React';
 
 import { CTabBarSeparator, CTabBarHeader, CTabBarItem } from '../tabbar';
 
-import { CContentColumn, CScroller, CSettingsPanel, CSwitch } from '../';
+import { CContentColumn, CScroller, CSettingsPanel, CSwitch, CButton_Close } from '../';
 
 class CSP_Content extends Component {
 
@@ -83,14 +83,23 @@ class CSP_Content extends Component {
 		}
 	}
 
+    get tools() {
+        return (
+            <div key="tools" className="tools">
+                <CButton_Close onClick={() => { $(".btn-close").first().click(); }} />
+                <div className="esc-text">ESC</div>
+            </div>   
+        );
+    }
+
 	get renderCorePanel() {
-		return <CScroller fade={true} dark={true} children={<CSettingsPanel title="Core Settings" settings={Settings.getCoreSettings} onChange={(id, checked) => this.onChange("core", id, checked)}/>}/>;
+        return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="cs" title="Core Settings" settings={Settings.getCoreSettings} onChange={(id, checked) => this.onChange("core", id, checked)} />, this.tools]}/>;
 	}
 	get renderEmotesPanel() {
-		return <CScroller fade={true} dark={true} children={<CSettingsPanel title="Emote Settings" settings={Settings.getEmoteSettings} onChange={(id, checked) => this.onChange("emotes", id, checked)}/>}/>;
+        return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="es" title="Emote Settings" settings={Settings.getEmoteSettings} onChange={(id, checked) => this.onChange("emotes", id, checked)} />, this.tools]}/>;
 	}
 	get renderUiPanel() {
-		return <CScroller fade={true} dark={true} children={<CSettingsPanel title="UI Settings" settings={Settings.getUiSettings} onChange={(id, checked) => this.onChange("ui", id, checked)}/>}/>;
+        return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="us" title="UI Settings" settings={Settings.getUiSettings} onChange={(id, checked) => this.onChange("ui", id, checked)} />, this.tools]}/>;
 	}
 	get renderPluginsPanel() {
 		return <span>Plugins</span>;
