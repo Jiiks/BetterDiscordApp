@@ -77,13 +77,13 @@ class ContextMenu {
                 "key": "plugins",
                 "text": "Plugins",
                 "type": "submenu",
-                "items": []
+                "items": [{ type: 'text', text: "Not yet implemented", key: "ni" }]
             },
             {
                 "key": "themes",
                 "text": "Themes",
                 "type": "submenu",
-                "items": []
+                "items": [{ type: 'text', text: "Not yet implemented", key: "ni" }]
             },
             {
                 "key": "css-editor",

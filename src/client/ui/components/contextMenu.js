@@ -43,6 +43,13 @@ class CContextMenu extends Component {
                             <CContextMenuSub onChange={onChange} id={value.key} key={value.key} text={value.text} items={value.items} />
                         )
                     }
+                    if (value.type === 'text') {
+                        return (
+                            <div key={value.key} className="item">
+                                <span>{value.text}</span>
+                            </div>
+                        )
+                    }
                     return (
                         <div onClick={value.onClick} key={value.key} className="item">
                             <span>{value.text}</span>
