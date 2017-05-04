@@ -27,3 +27,7 @@ export { default as CTabBarHeader } from './tabbar/header';
 export { default as CContentColumn } from './contentcolumn';
 export { default as CScroller } from './scroller';
 export { default as CSwitch } from './switch';
+export { default as CBackdrop } from './backdrop';
+export { default as CBackdropContainer } from './backdropcontainer';
+export { default as CModal } from './modal';
+export { default as CButton_Close } from './button_close';
