@@ -16,6 +16,7 @@ export { default as CPluginList } from './pluginlist';
 export { default as CThemeList } from './themelist';
 export { default as CProTip } from './protip';
 export { default as CSettingsPanel } from './settingsPanel';
+export { default as CPluginPanel } from './pluginPanel';
 export { default as CContextMenu } from './contextMenu';
 export { default as CContextMenuCheckBox } from './contextMenuCheckbox';
 export { default as CContextMenuSub } from './contextMenuSub';
