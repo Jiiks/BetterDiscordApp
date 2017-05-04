@@ -15,6 +15,7 @@ const { SettingsPanel, ContextMenu } = require('./ui');
 const { $ } = require('./vendor');
 const { CBackdrop, CModal, CBackdropContainer } = require('./ui/components');
 const { CChangeLog } = require('./ui/components/bd');
+const mainCss = require('../scss/main.scss');
 
 class BDCore {
 
@@ -62,8 +63,8 @@ class BDCore {
         window.modal = CModal;
         window.clog = CChangeLog;
 
-        let css = Utils.readFileSync(`${Settings.settings.dataPath}/betterdiscord.css`);
-        Api.injectStyle('bd-main', css);
+       // let css = Utils.readFileSync(`${Settings.settings.dataPath}/betterdiscord.css`);
+        Api.injectStyle('bd-main', mainCss.toString());
 
         Observer.observe({ 'childList': true, 'subtree': true });
 
