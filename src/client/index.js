@@ -69,60 +69,6 @@ class BDCore {
 
         let settingsPanel = new SettingsPanel();
 
-        Api.injectStyle('trans', `
-        .bd-backdrop-container {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            z-index: 1000;
-            opacity: 1;
-        }
-
-        .bd-backdrop-container .bd-backdrop {
-            opacity: 0;
-        }
-        .bd-backdrop-container.visible .bd-backdrop {
-            opacity: .85;
-        }
-
-        .bd-backdrop-container .bd-backdrop-container-content > div {
-            transform: scale(.8);
-            opacity: 0;
-            transition: .15s;
-        }
-
-        .bd-backdrop-container.visible .bd-backdrop-container-content > div {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .bd-backdrop {
-            background: rgb(0,0,0);
-            transition: opacity .3s;
-        }
-
-        .bd-modal {
-            opacity: 1;
-        }
-
-        .markdown-modal {
-            background-color: #2e3136;
-        }
-
-        .markdown-modal .markdown-modal-header {
-            border-bottom: 1px solid hsla(218,5%,47%,.3);
-        }
-
-        .markdown-modal .markdown-modal-footer {
-            background-color: #2b2e33;
-            border-top: 1px solid hsla(218,5%,47%,.3);
-        }
-        
-        .markdown-modal .scroller-wrap .scroller ul li {
-            color: #b9bbbe;
-        }
-        `)
     }
 }
 
