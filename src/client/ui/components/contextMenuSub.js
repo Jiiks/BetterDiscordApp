@@ -45,7 +45,7 @@ class CContextMenuSub extends Component {
             <div ref='menu' className="item item-subMenu" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
                 <span>{this.props.text}</span>
                 {this.state.visible &&
-                    <CContextMenu style={{ display: 'none' }} items={this.props.items} />
+                    <CContextMenu onChange={this.props.onChange} style={{ display: 'none' }} items={this.props.items} />
                 }
             </div>
         )

@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
-const { Events, Renderer, CssEditor } = require('../modules');
+const { Events, Renderer, CssEditor, Settings } = require('../modules');
 const { React, ReactDOM, $ } = require('../vendor');
 import { CContextMenu } from './components';
 
@@ -16,6 +16,7 @@ class ContextMenu {
 
     constructor() {
         let self = this;
+        self.render = self.render.bind(self);
         Events.on('context-menu', contextMenu => {
             $(".context-menu .item").on("mouseover", () => {
                 $("[data-bd=context-menu-sub]").remove();
@@ -49,30 +50,19 @@ class ContextMenu {
                 "key": "core",
                 "text": "Core",
                 "type": "submenu",
-                "items": [
-                    {
-                        "key": "voice-disconnect",
-                        "text": "Voice Disconnect",
-                        "type": "toggle"
-                    },
-                    {
-                        "key": "developer-mode",
-                        "text": "Developer Mode",
-                        "type": "toggle"
-                    }
-                ]
+                "items": Settings.getCoreSettings.reduce((arr, value) => { value.type = "toggle"; value.cat = "core"; arr.push(value); return arr; }, [])
             },
             {
                 "key": "ui",
                 "text": "UI",
                 "type": "submenu",
-                "items": []
+                "items": Settings.getUiSettings.reduce((arr, value) => { value.type = "toggle"; value.cat = "ui"; arr.push(value); return arr; }, [])
             },
             {
                 "key": "emotes",
                 "text": "Emotes",
                 "type": "submenu",
-                "items": []
+                "items": Settings.getEmoteSettings.reduce((arr, value) => { value.type = "toggle"; value.cat = "emotes"; arr.push(value); return arr; }, [])
             },
             {
                 "key": "plugins",
@@ -87,12 +77,6 @@ class ContextMenu {
                 "items": []
             },
             {
-                "key": "security",
-                "text": "Security",
-                "type": "submenu",
-                "items": []
-            },
-            {
                 "key": "css-editor",
                 "text": "CSS Editor",
                 "type": "button",
@@ -100,9 +84,23 @@ class ContextMenu {
             }
         ];
 
-        let contexMenu = <CContextMenu top={`${top + $cmpos.top}px`} left={`${left + $cmpos.left}px`} items={items} />
+        let contexMenu = <CContextMenu onChange={self.onChange} top={`${top + $cmpos.top}px`} left={`${left + $cmpos.left}px`} items={items} />;
         let subMenu = Renderer.append("[data-bd=context-menu]", $("<div/>", { "data-bd": "context-menu-sub" }), contexMenu);
 
+    }
+
+    onChange(id, checked, cat) {
+        switch (cat) {
+            case "core":
+                Settings.setCoreSetting(id, checked);
+                break;
+            case "emotes":
+                Settings.setEmoteSetting(id, checked);
+                break;
+            case "ui":
+                Settings.setUiSetting(id, checked);
+                break;
+        }
     }
 
 }

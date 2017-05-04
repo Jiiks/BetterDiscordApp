@@ -17,18 +17,44 @@ class CContextMenuCheckBox extends Component {
     
     constructor(props) {
         super(props);
+        this.setInitialState();
+        this.bindings();
+    }
+
+    setInitialState() {
+        this.state = {
+            'checked': this.props.checked || this.props.enabled || false,
+            'disabled': this.props.disabled || false
+        };
+    }
+
+    bindings() {
+        this.onClick = this.onClick.bind(this);
     }
 
     render() {
+        let { text } = this.props;
+        let { checked } = this.state;
         return (
-            <div className="checkbox">
-                <div className="checkbox-inner">
-                    <input type="checkbox"></input>
+            <div onClick={this.onClick} className="item item-toggle">
+                <div className="label">{text}</div>
+                <div className="checkbox">
+                    <div className="checkbox-inner">
+                        <input onChange={() => { }} checked={checked} type="checkbox"></input>
+                        <span/>
+                    </div>
                     <span/>
                 </div>
-                <span/>
             </div>
         )
+    }
+
+    onClick() {
+        let checked = !this.state.checked;
+        this.props.onChange(this.props.id, checked, this.props.cat);
+        this.setState({
+            'checked': checked
+        });
     }
 
 }
