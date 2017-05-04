@@ -147,7 +147,7 @@ class SettingsPanel {
 	}
 
 	get contentRoot() {
-		return $("<div/>", { class: 'content-region', 'id': 'bd-settingspane-container',  });
+		return $("<div/>", { class: 'content-region', 'style': 'display:none'  });
 	}
 
 	sidebar(content) {
