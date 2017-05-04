@@ -18,34 +18,43 @@ class ContextMenu {
         let self = this;
         self.render = self.render.bind(self);
         Events.on('context-menu', contextMenu => {
-            $(".context-menu .item").on("mouseover", () => {
-                $("[data-bd=context-menu-sub]").remove();
-            });
-            self.button = $("<div/>", {
-                class: "item item-subMenu",
-                'data-bd': "context-menu",
-                hover: () => self.render()
-            }).append($("<span/>", {
-                text: "Better",
-                css: {
-                    'color': '#3E82E5'
-                }
-            }).append($("<span/>", {
-                text: "Discord",
-                css: {
-                    'color': '#FFF'
-                }
-            })));
-            contextMenu.prepend(self.button);
+  
+            self.injectRoot(contextMenu);
         });
     }
 
-    render() {
+    injectRoot(contextMenu) {
         let self = this;
-        let $cmpos = $(".context-menu").first().position();
-        let {top, left} = self.button.position();
+        if ($("[data-bd='context-menu']").length) return;
 
-        let items = [
+        self.button = self.root;
+        contextMenu.prepend(self.button);
+    }
+
+    get root() {
+        let self = this;
+        return $("<div/>", {
+            class: "item item-subMenu",
+            'data-bd': "context-menu",
+            mouseenter: () => self.render(),
+            mouseleave: () => self.unmount()
+        }).append($("<span/>", {
+            text: "Better",
+            css: {
+                'color': '#3E82E5'
+            }
+        }).append($("<span/>", {
+            text: "Discord",
+            css: {
+                'color': '#FFF'
+            }
+        }))).append($("<div/>", {
+            'data-bd': 'context-menu-sub'
+        }));
+    }
+
+    get items() {
+        return [
             {
                 "key": "core",
                 "text": "Core",
@@ -83,10 +92,20 @@ class ContextMenu {
                 "onClick": () => { CssEditor.open() }
             }
         ];
+    }
 
-        let contexMenu = <CContextMenu onChange={self.onChange} top={`${top + $cmpos.top}px`} left={`${left + $cmpos.left}px`} items={items} />;
-        let subMenu = Renderer.append("[data-bd=context-menu]", $("<div/>", { "data-bd": "context-menu-sub" }), contexMenu);
+    render() {
+        let self = this;
+        let $cmpos = $(".context-menu").first().position();
+        let {top, left} = self.button.position();
+        
+        let contextMenu = <CContextMenu onChange={self.onChange} top={`${top + $cmpos.top}px`} left={`${left + $cmpos.left}px`} items={self.items} />;
+        Renderer.render($("[data-bd=context-menu-sub]"), contextMenu);
+    }
 
+    unmount() {
+        let sub = $("[data-bd='context-menu-sub']");
+        ReactDOM.unmountComponentAtNode(sub[0]);
     }
 
     onChange(id, checked, cat) {
