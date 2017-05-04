@@ -11,12 +11,12 @@
 'use strict';
 
 const { React, $, ReactDOM } = require('../../../vendor');
-const { Settings } = require('../../../modules');
+const { Settings, PluginManager } = require('../../../modules');
 import { Component } from 'React';
 
 import { CTabBarSeparator, CTabBarHeader, CTabBarItem } from '../tabbar';
 
-import { CContentColumn, CScroller, CSettingsPanel, CSwitch, CButton_Close } from '../';
+import { CContentColumn, CScroller, CSettingsPanel, CPluginPanel, CSwitch, CButton_Close } from '../';
 
 class CSP_Content extends Component {
 
@@ -117,8 +117,8 @@ class CSP_Content extends Component {
 	get renderUiPanel() {
         return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="us" title="UI Settings" settings={Settings.getUiSettings} onChange={(id, checked) => this.onChange("ui", id, checked)} />, this.tools]}/>;
 	}
-	get renderPluginsPanel() {
-		return <span>Plugins</span>;
+    get renderPluginsPanel() {
+        return <CScroller fade={true} dark={true} children={[<CPluginPanel key="pp" plugins={PluginManager.plugins} />, this.tools]} />;
 	}
 	get renderThemesPanel() {
 		return <span>Themes</span>;

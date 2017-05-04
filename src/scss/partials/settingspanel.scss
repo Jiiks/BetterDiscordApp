@@ -3,6 +3,59 @@
     &.bd-plugins {
         flex-direction: column;
 
+        .bd-plugin-card {
+            background: #33363c;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            min-height: 180px;
+            max-height: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+
+            .bd-plugin-info {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+
+                > .scroller-wrap {
+                    margin-top: 5px;
+                    font-size: 12px;
+                    color: #FFF;
+                    flex: 1 1 auto;
+                }
+
+                > .ui-switch-item {
+                    border-bottom: 1px solid #3f4146;
+                    padding-bottom: 7px;
+                    color: #87909c;
+                    font-weight: 600;
+                }
+            }
+
+            .bd-plugin-controls {
+                display: flex;
+                flex-direction: row;
+                flex: 0 0 auto;
+
+                button:nth-of-type(1) {
+                    border-radius: 3px 0 0 3px;
+                    border-right: 1px solid #7289da;
+                }
+
+                button:nth-of-type(2) {
+                    border-radius: 0;
+                    border-left: 1px solid #7d95ea;
+                }
+
+                button:nth-of-type(3) {
+                    border-radius: 0 3px 3px 0;
+                    border-left: 1px solid #7d95ea;
+                }
+            }
+        }
+
         .tab-bar.TOP {
             width: 100%;
 
