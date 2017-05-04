@@ -17,7 +17,7 @@ const Logger = require('./logger');
 //const Events = require('./events');
 const Settings = require('./settings');
 
-const Plugins = {};
+const Plugins = [];
 
 const Vendor = {
     'jQuery': jQuery,
@@ -65,7 +65,7 @@ class PluginManager {
 
         let basePath = `${self.pluginPath}/${name}`;
 
-        if (self.plugins.hasOwnProperty(name) && !reload) {
+        if (self.getPlugin(name) && !reload) {
             if (!all) Logger.log('PluginManager', `Attempted to load already loaded plugin: ${name}`, 'warn');
             return;
         }
@@ -82,7 +82,6 @@ class PluginManager {
             if (!self.validatePlugin(`${basePath}/${pluginFile}`)) return;
 
             if (reload) delete window.require.cache[window.require.resolve(`${basePath}/${pluginFile}`)];
-
 
             let BD = {
                 'Api': new PluginApi(config.info),
@@ -107,10 +106,14 @@ class PluginManager {
                 'path': name
             };
 
-            Plugins[config.info.name] = pluginInstance;
+            self.plugins.push(pluginInstance);
 
             if (pluginInstance.internal.storage.getSetting('enabled')) pluginInstance.onStart();
         });
+    }
+
+    getPlugin(name) {
+        this.plugins.find(plugin => { return plugin.name === name; });
     }
 
     loadPlugin(name, reload) {
@@ -185,35 +188,41 @@ class PluginManager {
     }
 
     reloadPlugin(id) {
-        if (!Plugins.hasOwnProperty(id)) {
+        let self = this;
+        let plugin = self.getPlugin(id);
+        if(!plugin) {
             Logger.log('PluginManager', `Attempted to reload a plugin that is not loaded: ${id}`, 'warn');
             return null;
         }
 
-        if (Plugins[id].internal.storage.getSetting('enabled')) Plugins[id].onStop();
+        if (plugin.internal.storage.getSetting('enabled')) plugin.onStop();
 
-        return this.loadPluginv2(Plugins[id].internal.path, true);
+        return this.loadPluginv2(plugin.internal.path, true);
     }
 
     startPlugin(id) {
-        if (!Plugins.hasOwnProperty(id)) {
+        let self = this;
+        let plugin = self.getPlugin(id);
+        if (!plugin) {
             Logger.log('PluginManager', `Attempted to start a plugin that is not loaded: ${id}`, 'err');
             return;
         }
 
-        if (!Plugins[id].onStart()) return false;
-        Plugins[id].internal.storage.setSetting('enabled', true);
+        if (!plugin.onStart()) return false;
+        plugin.internal.storage.setSetting('enabled', true);
         return true;
     }
 
     stopPlugin(id) {
-        if (!Plugins.hasOwnProperty(id)) {
+        let self = this;
+        let plugin = self.getPlugin(id);
+        if (!plugin) {
             Logger.log('PluginManager', `Attempted to stop a plugin that is not loaded: ${id}`, 'err');
             return;
         }
 
-        if (!Plugins[id].onStop()) return false;
-        Plugins[id].internal.storage.setSetting('enabled', false);
+        if (!plugin.onStop()) return false;
+        plugin.internal.storage.setSetting('enabled', false);
         return true;
     }
 
