@@ -11,7 +11,7 @@
 'use strict';
 
 const { React, $ } = require('../../../vendor');
-const { Settings } = require('../../../modules');
+const { Settings, CssEditor } = require('../../../modules');
 import { Component } from 'React';
 
 import { CTabBarSeparator, CTabBarHeader, CTabBarItem } from '../tabbar';
@@ -22,10 +22,12 @@ class CSP_Sidebar extends Component {
 		super(props); 
 		let self = this;
 
-		$('.ui-tab-bar-item').on('click', e => {
+        $('.ui-tab-bar-item').on('click', e => {
+            if (!e.target.classList.contains("selected")) e.target.classList.add("selected");
             self.setState({
                 'selectedItem': null
             });
+            self.props.content.element.changeTab(null);
         });
 
 		self.setInitialState();
@@ -75,7 +77,11 @@ class CSP_Sidebar extends Component {
     }
 
 	onClick(id) {
-		let self = this;
+        let self = this;
+        if (id === 'csseditor') {
+            CssEditor.open();
+            return;
+        }
 		
 		$('.ui-tab-bar-item').removeClass('selected');
 		self.setState({

@@ -10,7 +10,7 @@
 
 'use strict';
 
-const { React, $ } = require('../../../vendor');
+const { React, $, ReactDOM } = require('../../../vendor');
 const { Settings } = require('../../../modules');
 import { Component } from 'React';
 
@@ -29,7 +29,7 @@ class CSP_Content extends Component {
 
 	setInitialState() {
 		this.state = {
-			'selectedPanel': 'core'
+			'selectedPanel': null
 		};
 	}
 
@@ -40,12 +40,26 @@ class CSP_Content extends Component {
 	}
 
 	componentDidMount() {
-		window.woo = Settings;
+        window.foob = this;
 	}
 
-	changeTab(id) {
-		if(id === 'csseditor') return;
-		let self = this;
+    changeTab(id) {
+
+        if (id === 'csseditor') return;
+        let self = this;
+
+        if (!id) {
+            self.setState({
+                'selectedPanel': null
+            });
+            ReactDOM.findDOMNode(self).parentNode.style.display = "none";
+            $(".content-region").first().show();
+            return;
+        }
+
+        ReactDOM.findDOMNode(self).parentNode.style.display = "";
+        $(".content-region").first().hide()
+
 		self.setState({
 			'selectedPanel': id
 		});
@@ -53,7 +67,9 @@ class CSP_Content extends Component {
 
     render() {
 		let self = this;
-		let { selectedPanel } = self.state;
+        let { selectedPanel } = self.state;
+
+        if (!selectedPanel) return <span></span>;
 
 		switch(selectedPanel) {
 			case 'core':
