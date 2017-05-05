@@ -13,18 +13,34 @@
 
 const { React } = require('../../vendor');
 import { Component } from 'React';
+import CFontAwesome from './fontAwesome';
 import CScroller from './scroller';
 import CSwitch from './switch';
+import CToolTip from './tooltip';
 
 class CPluginCard extends Component {
 
     constructor(props) {
         super(props);
+        this.bindings();
+        this.setInitialState();
+    }
+
+    bindings() {
+        this.tooltip = this.tooltip.bind(this);
+    }
+
+    setInitialState() {
+        this.state = {
+            'settings': false,
+            'tooltip': null
+        }
     }
 
     render() {
         let self = this;
         let { plugin } = self.props;
+        let { tooltip, tooltipposition } = self.state;
         return (
             <div className="bd-plugin-card">
                 <div className="bd-plugin-info">
@@ -32,15 +48,33 @@ class CPluginCard extends Component {
                     <CScroller dark={true} fade={true} children={plugin.description} />
                 </div>
                 <div className="bd-plugin-controls">
-                    <div style={{flex: "1 1 auto"}}></div>
-                    <button type="button" className="ui-button filled brand small grow">
-                        <div className="ui-button-contents">Settings</div>
+                    <div style={{ flex: "1 1 auto" }}></div>
+                    {tooltip === 'settings' &&
+                        <span style={{position: "relative", top: "-20px"}}>
+                            <CToolTip pos="top" text="Settings" />
+                        </span>
+                    }
+                    <button onMouseEnter={(e) => { self.tooltip(e, 'settings'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className="ui-button filled brand small grow">
+                        <CFontAwesome name="cog"/>
+                        <div className="ui-button-contents"></div>
                     </button>
-                    <button type="button" className="ui-button filled brand small grow">
-                        <div className="ui-button-contents">Reload</div>
+                    {tooltip === 'reload' &&
+                        <span style={{ position: "relative", top: "-20px", left: "3px" }}>
+                            <CToolTip pos="top" text="Reload" />
+                        </span>
+                    }
+                    <button onMouseEnter={(e) => { self.tooltip(e, 'reload'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className="ui-button filled brand small grow">
+                        <CFontAwesome name="refresh" />
+                        <div className="ui-button-contents"></div>
                     </button>
-                    <button type="button" className="ui-button filled brand small grow">
-                        <div className="ui-button-contents">Uninstall</div>
+                    {tooltip === 'uninstall' &&
+                        <span style={{ position: "relative", top: "-20px", left: "-3px" }}>
+                            <CToolTip pos="top" text="Uninstall" />
+                        </span>
+                    }
+                    <button onMouseEnter={(e) => { self.tooltip(e, 'uninstall'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className="ui-button filled red small grow">
+                        <CFontAwesome name="close" />
+                        <div className="ui-button-contents"></div>
                     </button>
                 </div>
             </div>
@@ -53,6 +87,12 @@ class CPluginCard extends Component {
                 {this.props.plugin.description}
             </span>    
         );
+    }
+
+    tooltip(e, id) {
+        this.setState({
+            'tooltip': id
+        });
     }
 
 }
