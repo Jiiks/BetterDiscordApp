@@ -33,3 +33,4 @@ export { default as CBackdropContainer } from './backdropcontainer';
 export { default as CModal } from './modal';
 export { default as CButton_Close } from './button_close';
 export { default as CUiCard_Checkbox } from './uicard_checkbox';
+export { default as CFontAwesome } from './fontAwesome';
