@@ -6,7 +6,7 @@
     "homepage": "https://betterdiscord.net",
     "license": "MIT",
     "main": "dist/lib/main.js",
-    "contributors": ["Jiiks"],
+    "contributors": ["Jiiks", "Pohky"],
     "repository": {
         "type": "git",
         "url": "https://github.com/Jiiks/BetterDiscordApp.git"
