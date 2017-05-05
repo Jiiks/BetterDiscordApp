@@ -21,8 +21,10 @@ class CToolTip extends Component {
     }
 
     render() {
+        let self = this;
+        let { pos, top, left, text } = self.props;
         return (
-            <div className={`tooltip tooltip-${this.props.pos || 'top'} tooltip-normal`} style={{ top: `${this.props.top}px`, left: `${this.props.left}px` }}>{this.props.text}</div>
+            <div className={`tooltip tooltip-${pos || 'top'} tooltip-normal`} style={{ top: `${top}px`, left: `${left}px` }}>{text}</div>
         )
     }
 
