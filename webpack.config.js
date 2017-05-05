@@ -30,7 +30,7 @@ const webpackConfig = {
         "events": "window.require('events')",
         "fs": "window.require('fs')",
         "electron": "window.require('electron')"
-    },
+    }
     /*plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false }
