@@ -9,8 +9,6 @@
             border-radius: 5px;
             margin-bottom: 5px;
             min-height: 180px;
-            max-height: 180px;
-            height: 180px;
             display: flex;
             flex-direction: column;
 
@@ -24,6 +22,8 @@
                     font-size: 12px;
                     color: #FFF;
                     flex: 1 1 auto;
+                    min-height: 100px;
+                    max-height: 100px;
                 }
 
                 > .ui-switch-item {
@@ -54,6 +54,16 @@
                     border-left: 1px solid #7d95ea;
                 }
             }
+
+            .bd-plugin-settings {
+                height: 200px;
+                max-height: 0;
+                flex: 0 0 auto;
+                border-top: 1px solid #3f4146;
+                margin-top: 5px;
+                transition: max-height .5s ease-in-out;
+            }
+
         }
 
         .tab-bar.TOP {
