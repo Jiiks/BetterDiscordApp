@@ -21,8 +21,9 @@ class CUiDivider extends Component {
     }
 
     render() {
+        let margin = this.props.margin || 10;
         return (
-            <div className="ui-form-divider margin-top-20 margin-bottom-20" style={{ flex: "1 1 auto" }}></div>
+            <div className="ui-form-divider" style={{ flex: "1 1 auto", marginTop: `${margin}px`, marginBottom: `${margin}px`}}></div>
         )
     }
 
