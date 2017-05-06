@@ -48,6 +48,7 @@ class Plugin {
 
     saveSettings() {
         this.storage.save();
+        this.onSave(this.settings);
     }
 
     getSetting(id) {

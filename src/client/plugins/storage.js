@@ -55,6 +55,10 @@ class PluginStorage {
         this.save();
     }
 
+    setSettings(settings) {
+        this.settings = settings;
+    }
+
 }
 
 module.exports = PluginStorage;

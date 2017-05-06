@@ -148,6 +148,7 @@ class ICPluginSettings extends Component {
 
     bindings() {
         this.onChange = this.onChange.bind(this);
+        this.save = this.save.bind(this);
     }
 
     setInitialState() {
@@ -199,7 +200,7 @@ class ICPluginSettings extends Component {
                     <CFontAwesome name="refresh" />
                     <div className="ui-button-contents"></div>
                 </button>
-                <button type="button" className="ui-button filled brand small grow">
+                <button onClick={this.save} type="button" className="ui-button filled brand small grow">
                     <CFontAwesome name="check" />
                     <div className="ui-button-contents"></div>
                 </button>
@@ -213,6 +214,12 @@ class ICPluginSettings extends Component {
         self.setState({
             'settingStore': settingStore.map(setting => { if (setting && setting.id === id) { setting.value = value; } return setting; })
         });
+    }
+
+    save() {
+        let { plugin } = this.props;
+        plugin.storage.setSettings(this.state.settingStore);
+        plugin.saveSettings();
     }
 
     renderSetting(setting) {
