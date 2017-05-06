@@ -38,6 +38,14 @@ class Plugin {
         return this.props.permissions;
     }
 
+    get storage() {
+        return this.internal.storage;
+    }
+
+    get settings() {
+        return this.storage.settings;
+    }
+
 }
 
 module.exports = Plugin;
