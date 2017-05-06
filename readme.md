@@ -1,3 +1,32 @@
+### Manual installation steps for latest developer preview(DP2):
+
+**Step 1**
+Clone the v2 branch
+
+**Step 2**
+Run `npm install` in `BetterDiscordApp` directory
+
+**Step 3**
+Edit the `config.json` file in `src/core` to point to the correct paths
+
+**Step 4**
+Run `npm run build-client` to build or `npm run watch-client` in `BetterDiscordApp` directory to watch
+
+**Step 5**
+Edit Discord `index.js` with the following:
+
+`const { BetterDiscord } = require("PATH TO BD MAIN");` after `'use strict';`
+eg: `const { BetterDiscord } = require("G:/Github/BetterDiscordApp/src/core/main");` in my local system
+
+`let _betterDiscord = new BetterDiscord({ mainWindow: mainWindow });` after `mainWindow = new BrowserWindow(mainWindowOptions`
+
+**Step 6**
+Restart Discord
+
+You can now simply fetch the latest version whenever it's updated.
+
+___
+
 Developer Preview 1 Install instructions:
 
 Extract Discord app.asar(you can use the regular BetterDiscord installer if you don't know how)
