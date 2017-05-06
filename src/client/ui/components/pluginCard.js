@@ -33,6 +33,8 @@ class CPluginCard extends Component {
         this.tooltip = this.tooltip.bind(this);
         this.onChange = this.onChange.bind(this);
         this.reload = this.reload.bind(this);
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
     }
 
     setInitialState() {
@@ -47,8 +49,7 @@ class CPluginCard extends Component {
     render() {
         let self = this;
         let { plugin, reload } = self.state;
-        let { settings, settingsHandler, verified } = self.props;
-        let { tooltip } = self.state;
+        let { settings, verified } = self.props;
 
         return (
             <div className="bd-plugin-card" style={verified ? {} : { border: "1px solid #f04747", boxShadow: "0 0 6px rgba(240,71,71,0.3)"}}>
@@ -56,39 +57,7 @@ class CPluginCard extends Component {
                     <CSwitch text={`${plugin.name} v${plugin.version} by ${plugin.authors.join(", ")}`} info="" checked={plugin.enabled} disabled={reload} onChange={self.onChange} />
                     <CScroller dark={true} fade={true} children={plugin.description} />
                 </div>
-                <div className="bd-plugin-controls">
-                    {!verified && 
-                        <div className="title" style={{ color: "rgb(240, 71, 71)", fontSize: "14px", lineHeight: "32px", fontWeight: "700" }}>Unverified plugin. Use at your own risk!</div>
-                    }
-                    <div style={{ flex: "1 1 auto" }}></div>
-                    {tooltip === 'settings' &&
-                        <span style={{position: "relative", top: "-20px"}}>
-                            <CToolTip pos="top" text="Settings" />
-                        </span>
-                    }
-                    <button onClick={() => { settingsHandler(plugin.name) }} onMouseEnter={(e) => { self.tooltip(e, 'settings'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
-                        <CFontAwesome name="cog"/>
-                        <div className="ui-button-contents"></div>
-                    </button>
-                    {tooltip === 'reload' &&
-                        <span style={{ position: "relative", top: "-20px", left: "3px" }}>
-                            <CToolTip pos="top" text="Reload" />
-                        </span>
-                    }
-                    <button onClick={self.reload} onMouseEnter={(e) => { self.tooltip(e, 'reload'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
-                        <CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />
-                        <div className="ui-button-contents"></div>
-                    </button>
-                    {tooltip === 'uninstall' &&
-                        <span style={{ position: "relative", top: "-20px", left: "-3px" }}>
-                            <CToolTip pos="top" text="Uninstall" />
-                        </span>
-                    }
-                    <button onMouseEnter={(e) => { self.tooltip(e, 'uninstall'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className={`${reload ? 'disabled ' : ''}ui-button filled red small grow`}>
-                        <CFontAwesome name="trash" />
-                        <div className="ui-button-contents"></div>
-                    </button>
-                </div>
+                {self.renderControls}
                 <ICPluginSettings key="ps" plugin={plugin} visible={settings} settingStore={JSON.parse(JSON.stringify(plugin.settings))} />
             </div>
         )
@@ -131,11 +100,49 @@ class CPluginCard extends Component {
         );
     }
 
-    tooltip(e, id) {
-        this.setState({
-            'tooltip': id
-        });
+    get renderControls() {
+        let self = this;
+        let { plugin, reload } = self.state;
+        let { settingsHandler, verified } = self.props;
+        let { showTooltip, hideTooltip } = self;
+
+        return (
+            <div className="bd-plugin-controls">
+                {!verified &&
+                    <div className="title" style={{ color: "rgb(240, 71, 71)", fontSize: "14px", lineHeight: "32px", fontWeight: "700" }}>Unverified plugin. Use at your own risk!</div>
+                }
+                <div style={{ flex: "1 1 auto" }}></div>
+
+                <button type="button" onClick={() => { settingsHandler(plugin.name) }} onMouseEnter={e => { self.showTooltip(e, "tt-settings"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-settings") }} className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
+                    <CToolTip ref="tt-settings" text="Settings" pos="top" top="-25" />
+                    <CFontAwesome name="cog" />
+                    <div className="ui-button-contents"></div>
+                </button>
+
+                <button type="button" onClick={self.reload} onMouseEnter={e => { self.showTooltip(e, "tt-reload"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-reload") }} className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
+                    <CToolTip ref="tt-reload" text="Reload" pos="top" left="3" top="-25" />
+                    <CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />
+                    <div className="ui-button-contents"></div>
+                </button>
+
+                <button type="button" onMouseEnter={e => { self.showTooltip(e, "tt-uninstall"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-uninstall") }} className={`${reload ? 'disabled ' : ''}ui-button filled red small grow`}>
+                    <CToolTip ref="tt-uninstall" text="Uninstall" pos="top" left="-3" top="-25" />
+                    <CFontAwesome name="trash" />
+                    <div className="ui-button-contents"></div>
+                </button>
+            </div>
+        );
     }
+
+    showTooltip(e, id) {
+        this.refs[id].show();
+    }
+
+    hideTooltip(e, id) {
+        this.refs[id].hide();
+    }
+
+    tooltip(e, id) {}
 
 }
 
