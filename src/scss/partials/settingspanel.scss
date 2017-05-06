@@ -63,8 +63,33 @@
                 margin-top: 5px;
                 transition: max-height .5s ease-in-out;
                 overflow: hidden;
-            }
 
+                .scroller-wrap {
+                    max-height: 165px;
+                }
+
+                .ui-switch-item {
+                    .ui-form-title {
+                        color: #b9bbbe;
+                        letter-spacing: .5px;
+                        text-transform: uppercase;
+                        font-size: 12px;
+                        font-family: WhitneyMedium,Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+                    }
+                }
+
+                .bd-plugin-settings-controls {
+                    button:nth-of-type(1) {
+                        border-radius: 3px 0 0 3px;
+                        border-right: 1px solid #7289da;
+                    }
+
+                    button:nth-of-type(2) {
+                        border-radius: 0 3px 3px 0;
+                        border-left: 1px solid #7d95ea;
+                    }
+                }
+            }
         }
 
         .tab-bar.TOP {
