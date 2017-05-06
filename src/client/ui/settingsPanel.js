@@ -29,8 +29,7 @@ class SettingsPanel {
 
 		Events.on('user-settings-layer', layer => {
 			self.renderSidebar(layer);
-		});
-
+        });
     }
 
     initUi() {
