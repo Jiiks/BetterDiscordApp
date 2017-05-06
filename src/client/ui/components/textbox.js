@@ -26,9 +26,14 @@ class CTextbox extends Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.initialValue === this.refs.input.value) return;
+        this.refs.input.value = this.props.initialValue || "";
+    }
+
     render() {
-        let {title, required, placeholder, maxlength} = this.props;
-        let {value} = this.state;
+        let {title, required, placeholder, maxlength, keydown, initialValue, onChange} = this.props;
+        let value = initialValue || "";
 
         return (
             <div className="ui-form-item margin-bottom-20">
@@ -38,7 +43,7 @@ class CTextbox extends Component {
                     }
                 </h5>
                 <div className="ui-text-input flex-vertical">
-                    <input type="text" className="input default" value={value} placeholder={placeholder || ""} maxLength={maxlength || 999}></input>
+                    <input ref="input" onChange={onChange} type="text" className="input default" placeholder={placeholder || ""} maxLength={maxlength || 999}></input>
                 </div>
             </div>
         );

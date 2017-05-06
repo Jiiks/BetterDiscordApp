@@ -37,7 +37,7 @@ class CSwitch extends Component {
     render() {
 		let self = this;
         let { text, info, disabled } = self.props;
-        let { checked } = self.state;
+        let { checked } = self.props;
         let labelClassName = ['ui-switch-wrapper', 'ui-flex-child', disabled ? 'disabled' : ''];
 		return (
             <div className="ui-flex flex-vertical flex-justify-start flex-align-stretch flex-nowrap ui-switch-item">
@@ -56,10 +56,11 @@ class CSwitch extends Component {
 	onChange() {
         let self = this;
         if (self.props.disabled) return;
-		self.props.onChange(self.props.id, !self.state.checked);
+		
 		self.setState({
 			'checked': !self.state.checked
-		});
+        });
+        self.props.onChange(self.props.id, !self.props.checked);
 	}
 
 }

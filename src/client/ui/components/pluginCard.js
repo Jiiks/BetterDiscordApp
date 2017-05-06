@@ -39,7 +39,8 @@ class CPluginCard extends Component {
         this.state = {
             'tooltip': null,
             'plugin': this.props.plugin,
-            'reload': false
+            'reload': false,
+            'settings': false
         }
     }
 
@@ -88,7 +89,7 @@ class CPluginCard extends Component {
                         <div className="ui-button-contents"></div>
                     </button>
                 </div>
-                {self.renderSettings}
+                <ICPluginSettings key="ps" plugin={plugin} visible={settings} settingStore={JSON.parse(JSON.stringify(plugin.settings))} />
             </div>
         )
     }
@@ -128,41 +129,90 @@ class CPluginCard extends Component {
         );
     }
 
-    get renderSettings() {
-        let self = this;
-        
-        let { plugin, settings } = self.props;
+    tooltip(e, id) {
+        this.setState({
+            'tooltip': id
+        });
+    }
 
-        let _settings = null;
+}
 
-        let override = plugin.settingsPanel;
-        if (React.isValidElement(override)) {
-            _settings = override;
-        } else {
-            _settings = plugin.settings.map(setting => {
-                return self.renderSetting(setting);
+/*Internal plugin settings component*/
+class ICPluginSettings extends Component {
+
+    constructor(props) {
+        super(props);
+        this.bindings();
+        this.setInitialState();
+    }
+
+    bindings() {
+        this.onChange = this.onChange.bind(this);
+    }
+
+    setInitialState() {
+        this.state = {
+            'settingStore': JSON.parse(JSON.stringify(this.props.plugin.settings))
+        };
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.visible && !this.props.visible) {
+
+            this.setState({
+                'settingStore': JSON.parse(JSON.stringify(this.props.plugin.settings))
             });
         }
+    }
 
-        let _settingsControls = (<div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
-            <div style={{ flex: "1 1 auto" }}></div>
-            <button type="button" className="ui-button filled brand small grow">
-                <CFontAwesome name="refresh" />
-                <div className="ui-button-contents"></div>
-            </button>
-            <button type="button" className="ui-button filled brand small grow">
-                <CFontAwesome name="check" />
-                <div className="ui-button-contents"></div>
-            </button>
-        </div>);
+    render() {
+        let self = this;
+        let { settingStore } = self.state;
+        let { plugin, visible } = self.props;
+        let { settingsPanel } = plugin;
 
-        let column = <CContentColumn key="sco" style={{ padding: "0", minHeight: "0", marginTop: "10px" }} children={_settings} />;
+        let _panel = null;
+
+        if (React.isValidElement(settingsPanel)) {
+            _panel = settingsPanel;
+        } else {
+            _panel = (<div> {settingStore.map(setting => {
+                return self.renderSetting(setting);
+            })}</div>);
+        }
+
+        let column = <CContentColumn key="sco" style={{ padding: "0", minHeight: "0", marginTop: "10px" }} children={_panel} />;
 
         return (
-            <div className="bd-plugin-settings" style={{ maxHeight: settings ? "200px" : "0" }}>
+            <div className="bd-plugin-settings" style={{ maxHeight: visible ? "200px" : "0" }}>
                 <CScroller dark={true} fade={true} children={column} />
-                {_settingsControls}
-            </div>);
+                {self.controls}
+            </div>
+        );
+    }
+
+    get controls() {
+        return (
+            <div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
+                <div style={{ flex: "1 1 auto" }}></div>
+                <button onClick={() => { this.setState({'settingStore': JSON.parse(JSON.stringify(this.props.plugin.storage.defaultConfig))}) }} type="button" className="ui-button filled brand small grow">
+                    <CFontAwesome name="refresh" />
+                    <div className="ui-button-contents"></div>
+                </button>
+                <button type="button" className="ui-button filled brand small grow">
+                    <CFontAwesome name="check" />
+                    <div className="ui-button-contents"></div>
+                </button>
+            </div>
+        );
+    }
+
+    onChange(id, value) {
+        let self = this;
+        let { settingStore } = self.state;
+        self.setState({
+            'settingStore': settingStore.map(setting => { if (setting && setting.id === id) { setting.value = value; } return setting; })
+        });
     }
 
     renderSetting(setting) {
@@ -171,16 +221,16 @@ class CPluginCard extends Component {
         switch (type) {
             case 'bool':
                 return (
-                    <span>
-                        <CSwitch key={id} text={text} info={description} checked={value} />
+                    <span key={id}>
+                        <CSwitch key={id} id={id} text={text} info={description} checked={value} onChange={this.onChange} />
                         <CUiDivider />
                     </span>
                 );
             case 'text':
                 if (!multiline) {
                     return (
-                        <span>
-                            <CTextbox key={id} title={text} />
+                        <span key={id}>
+                            <CTextbox key={id} initialValue={value} title={text} onChange={e => { this.onChange(id, e.target.value); }} />
                             <CUiDivider />
                         </span>
                     );
@@ -191,15 +241,7 @@ class CPluginCard extends Component {
 
         return null;
     }
-
-    tooltip(e, id) {
-        this.setState({
-            'tooltip': id
-        });
-    }
-
 }
-
 
 export default CPluginCard;
 
