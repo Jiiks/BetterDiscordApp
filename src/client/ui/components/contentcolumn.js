@@ -6,7 +6,7 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
@@ -20,10 +20,14 @@ class CContentColumn extends Component {
     }
 
     render() {
+        let { title, children } = this.props;
+        let style = this.props.style || {};
         return (
-			<div className="content-column default">
-				<h2 className="ui-form-title h2 margin-reset margin-bottom-20">{this.props.title}</h2>
-				{this.props.children}
+            <div style={style} className="content-column default">
+                {title &&
+                    <h2 className="ui-form-title h2 margin-reset margin-bottom-20">{title}</h2>
+                }
+				{children}
 			</div>
 		);
     }
