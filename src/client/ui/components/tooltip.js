@@ -29,16 +29,16 @@ class CToolTip extends Component {
 
     setInitialState() {
         this.state = {
-            'visible': false
+            'visible': this.props.visible || false
         };
     }
 
     render() {
         let self = this;
         let { pos, top, left, text } = self.props;
-        let { visible } = self.state;
+        let { visible } = self.props;
         return (
-            <div className={`tooltip tooltip-${pos || 'top'} tooltip-normal`} style={{ top: `${top}px`, left: `${left}px`, display: visible ? '' : 'none' }}>{text}</div>
+            <div className={`tooltip tooltip-${pos || 'top'} tooltip-normal`} style={{ top: top === "auto" ? "auto" : `${top}px`, left: left === "auto" ? "auto" : `${left}px`, display: visible ? '' : 'none' }}>{text}</div>
         )
     }
 
