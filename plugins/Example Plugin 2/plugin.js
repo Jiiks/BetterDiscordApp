@@ -7,12 +7,11 @@ module.exports = (Plugin, BD, Vendor) => {
 
         constructor(props) {
             super(props);
-            console.log(Events);
         }
 
         onStart() {
             //Called when plugin is started, including after reload if enabled.
-            Api.log('on start2');
+            Api.log('on start 2');
 
             //Let's add a simple event listener.
             Events.on('new-message', this.newMessageHandler);
@@ -23,7 +22,7 @@ module.exports = (Plugin, BD, Vendor) => {
 
         onStop() {
             //Called when plugin is stopped, including before reload if enabled.
-            Api.log('on stop');
+            Api.log('on stop 2');
 
             //Remove our listener
             Events.off('new-message', this.newMessageHandler);

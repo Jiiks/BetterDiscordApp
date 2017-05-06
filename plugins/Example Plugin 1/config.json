@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "Example Plugin 1",
+    "authors": [ "Jiiks" ],
+    "version": "1.3",
+    "description": "Changed description for reload.",
+    "repository": "https://github.com/Jiiks/BetterDiscordApp.git",
+    "homepage": "https://github.com/Jiiks/BetterDiscordApp",
+    "reloadable":  true
+  },
+  "defaultSettings": [
+    {
+      "id": "s8",
+      "type": "text",
+      "multiline": false,
+      "text": "Setting 8",
+      "description": "s8 description",
+      "value": ""
+    },
+    {
+      "id": "s1",
+      "type": "bool",
+      "text": "Setting 4",
+      "description": "s1 description",
+      "value": true
+    },
+    {
+      "id": "s2",
+      "type": "text",
+      "multiline": false,
+      "text": "Setting 2",
+      "description": "s2 description",
+      "value": ""
+    },
+    {
+      "id": "s4",
+      "type": "bool",
+      "text": "Setting 4",
+      "description": "s4 description",
+      "value": true
+    },
+    {
+      "id": "s5",
+      "type": "bool",
+      "text": "Setting 5",
+      "description": "s5 description",
+      "value": true
+    },
+    {
+      "id": "s3",
+      "type": "text",
+      "multiline": true,
+      "text": "Setting 2",
+      "description": "s2 description",
+      "value": ""
+    }
+  ],
+  "permissions": []
+}

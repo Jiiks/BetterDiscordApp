@@ -3,7 +3,7 @@
     "name": "Example Plugin 3",
     "authors": [ "Jiiks" ],
     "version": "1.0",
-    "description": "Example Plugin Description",
+    "description": "Example Plugin 3 Description",
     "repository": "https://github.com/Jiiks/BetterDiscordApp.git",
     "homepage": "https://github.com/Jiiks/BetterDiscordApp",
     "reloadable":  true
