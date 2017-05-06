@@ -20,6 +20,7 @@ import CToolTip from './tooltip';
 import CContentColumn from './contentcolumn';
 import CTextbox from './textbox';
 import CUiDivider from './uidivider';
+import CUiButton from './uibutton';
 
 class CPluginCard extends Component {
 
@@ -30,11 +31,8 @@ class CPluginCard extends Component {
     }
 
     bindings() {
-        this.tooltip = this.tooltip.bind(this);
         this.onChange = this.onChange.bind(this);
         this.reload = this.reload.bind(this);
-        this.showTooltip = this.showTooltip.bind(this);
-        this.hideTooltip = this.hideTooltip.bind(this);
     }
 
     setInitialState() {
@@ -112,37 +110,12 @@ class CPluginCard extends Component {
                     <div className="title" style={{ color: "rgb(240, 71, 71)", fontSize: "14px", lineHeight: "32px", fontWeight: "700" }}>Unverified plugin. Use at your own risk!</div>
                 }
                 <div style={{ flex: "1 1 auto" }}></div>
-
-                <button type="button" onClick={() => { settingsHandler(plugin.name) }} onMouseEnter={e => { self.showTooltip(e, "tt-settings"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-settings") }} className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
-                    <CToolTip ref="tt-settings" text="Settings" pos="top" top="-25" />
-                    <CFontAwesome name="cog" />
-                    <div className="ui-button-contents"></div>
-                </button>
-
-                <button type="button" onClick={self.reload} onMouseEnter={e => { self.showTooltip(e, "tt-reload"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-reload") }} className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
-                    <CToolTip ref="tt-reload" text="Reload" pos="top" left="3" top="-25" />
-                    <CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />
-                    <div className="ui-button-contents"></div>
-                </button>
-
-                <button type="button" onMouseEnter={e => { self.showTooltip(e, "tt-uninstall"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-uninstall") }} className={`${reload ? 'disabled ' : ''}ui-button filled red small grow`}>
-                    <CToolTip ref="tt-uninstall" text="Uninstall" pos="top" left="-3" top="-25" />
-                    <CFontAwesome name="trash" />
-                    <div className="ui-button-contents"></div>
-                </button>
+                <CUiButton type="brand" disabled={reload} onClick={() => { settingsHandler(plugin.name)}} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Settings' }} />
+                <CUiButton type="brand" disabled={reload} onClick={() => { self.reload() }} content={<CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />} tooltip={{ 'text': 'Reload' }} />
+                <CUiButton type="red" disabled={reload} onClick={() => {}} content={<CFontAwesome name="trash" />} tooltip={{ 'text': 'Uninstall' }} />
             </div>
         );
     }
-
-    showTooltip(e, id) {
-        this.refs[id].show();
-    }
-
-    hideTooltip(e, id) {
-        this.refs[id].hide();
-    }
-
-    tooltip(e, id) {}
 
 }
 
@@ -158,8 +131,6 @@ class ICPluginSettings extends Component {
     bindings() {
         this.onChange = this.onChange.bind(this);
         this.save = this.save.bind(this);
-        this.showTooltip = this.showTooltip.bind(this);
-        this.hideTooltip = this.hideTooltip.bind(this);
     }
 
     setInitialState() {
@@ -208,26 +179,10 @@ class ICPluginSettings extends Component {
         return (
             <div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
                 <div style={{ flex: "1 1 auto" }}></div>
-                <button onMouseEnter={e => { self.showTooltip(e, "tt-defaults"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-defaults") }} onClick={() => { this.setState({'settingStore': JSON.parse(JSON.stringify(this.props.plugin.storage.defaultConfig))}) }} type="button" className="ui-button filled brand small grow">
-                    <CToolTip ref="tt-defaults" text="Default" pos="top" left="0" top="-25" />
-                    <CFontAwesome name="refresh" />
-                    <div className="ui-button-contents"></div>
-                </button>
-                <button onMouseEnter={e => { self.showTooltip(e, "tt-save"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-save") }} onClick={this.save} type="button" className="ui-button filled brand small grow">
-                    <CToolTip ref="tt-save" text="Save" pos="top" left="6" top="-25" />
-                    <CFontAwesome name="check" />
-                    <div className="ui-button-contents"></div>
-                </button>
+                <CUiButton type="brand" disabled={false} onClick={() => { this.setState({ 'settingStore': JSON.parse(JSON.stringify(this.props.plugin.storage.defaultConfig)) }) }} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Default' }} />
+                <CUiButton type="brand" disabled={false} onClick={() => { this.save()}} content={<CFontAwesome name="check" />} tooltip={{ 'text': 'Save' }} />
             </div>
         );
-    }
-
-    showTooltip(e, id) {
-        this.refs[id].show();
-    }
-
-    hideTooltip(e, id) {
-        this.refs[id].hide();
     }
 
     onChange(id, value) {
