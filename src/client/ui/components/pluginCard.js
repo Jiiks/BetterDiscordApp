@@ -31,23 +31,28 @@ class CPluginCard extends Component {
 
     bindings() {
         this.tooltip = this.tooltip.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.reload = this.reload.bind(this);
     }
 
     setInitialState() {
         this.state = {
-            'tooltip': null
+            'tooltip': null,
+            'plugin': this.props.plugin,
+            'reload': false
         }
     }
 
     render() {
         let self = this;
-        let { plugin, settings, settingsHandler, verified } = self.props;
+        let { plugin, reload } = self.state;
+        let { settings, settingsHandler, verified } = self.props;
         let { tooltip } = self.state;
 
         return (
             <div className="bd-plugin-card" style={verified ? {} : { border: "1px solid #f04747", boxShadow: "0 0 6px rgba(240,71,71,0.3)"}}>
                 <div className="bd-plugin-info">
-                    <CSwitch text={`${plugin.name} v${plugin.version} by ${plugin.authors.join(", ")}`} info="" checked={false} disabled={false} onChange={() => { }} />
+                    <CSwitch text={`${plugin.name} v${plugin.version} by ${plugin.authors.join(", ")}`} info="" checked={plugin.enabled} disabled={reload} onChange={self.onChange} />
                     <CScroller dark={true} fade={true} children={plugin.description} />
                 </div>
                 <div className="bd-plugin-controls">
@@ -60,7 +65,7 @@ class CPluginCard extends Component {
                             <CToolTip pos="top" text="Settings" />
                         </span>
                     }
-                    <button onClick={() => { settingsHandler(plugin.name) }} onMouseEnter={(e) => { self.tooltip(e, 'settings'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className="ui-button filled brand small grow">
+                    <button onClick={() => { settingsHandler(plugin.name) }} onMouseEnter={(e) => { self.tooltip(e, 'settings'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
                         <CFontAwesome name="cog"/>
                         <div className="ui-button-contents"></div>
                     </button>
@@ -69,8 +74,8 @@ class CPluginCard extends Component {
                             <CToolTip pos="top" text="Reload" />
                         </span>
                     }
-                    <button onMouseEnter={(e) => { self.tooltip(e, 'reload'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className="ui-button filled brand small grow">
-                        <CFontAwesome name="refresh" />
+                    <button onClick={self.reload} onMouseEnter={(e) => { self.tooltip(e, 'reload'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className={`${reload ? 'disabled ' : ''}ui-button filled brand small grow`}>
+                        <CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />
                         <div className="ui-button-contents"></div>
                     </button>
                     {tooltip === 'uninstall' &&
@@ -78,14 +83,41 @@ class CPluginCard extends Component {
                             <CToolTip pos="top" text="Uninstall" />
                         </span>
                     }
-                    <button onMouseEnter={(e) => { self.tooltip(e, 'uninstall'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className="ui-button filled red small grow">
-                        <CFontAwesome name="close" />
+                    <button onMouseEnter={(e) => { self.tooltip(e, 'uninstall'); }} onMouseLeave={(e) => { self.tooltip(e, null); }} type="button" className={`${reload ? 'disabled ' : ''}ui-button filled red small grow`}>
+                        <CFontAwesome name="trash" />
                         <div className="ui-button-contents"></div>
                     </button>
                 </div>
                 {self.renderSettings}
             </div>
         )
+    }
+
+    onChange(id, checked) {
+        let { plugin } = this.state;
+        let { PluginManager } = this.props;
+        if (checked) {
+            PluginManager.startPlugin(plugin.name);
+            return;
+        }
+        PluginManager.stopPlugin(plugin.name);
+    }
+
+    reload() {
+        let self = this;
+        let { plugin } = self.state;
+        let { PluginManager, settingsHandler } = self.props;
+        settingsHandler(null);
+        self.setState({
+            'reload': true
+        });
+
+        PluginManager.reloadPlugin(plugin.name, plugin => {
+            self.setState({
+                'reload': false,
+                'plugin': plugin
+            });
+        });
     }
 
     get renderDescription() {
@@ -108,18 +140,56 @@ class CPluginCard extends Component {
             _settings = override;
         } else {
             _settings = plugin.settings.map(setting => {
-                if (setting.type === "bool") return <CSwitch key={setting.id} text={setting.text} info={setting.description} checked={setting.value} />;
-                return null;
+                return self.renderSetting(setting);
             });
         }
 
-        let column = <CContentColumn style={{ padding: "0", minHeight: "0" }} children={_settings} />;
+        let _settingsControls = (<div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
+            <div style={{ flex: "1 1 auto" }}></div>
+            <button type="button" className="ui-button filled brand small grow">
+                <CFontAwesome name="refresh" />
+                <div className="ui-button-contents"></div>
+            </button>
+            <button type="button" className="ui-button filled brand small grow">
+                <CFontAwesome name="check" />
+                <div className="ui-button-contents"></div>
+            </button>
+        </div>);
+
+        let column = <CContentColumn key="sco" style={{ padding: "0", minHeight: "0", marginTop: "10px" }} children={_settings} />;
 
         return (
             <div className="bd-plugin-settings" style={{ maxHeight: settings ? "200px" : "0" }}>
                 <CScroller dark={true} fade={true} children={column} />
-
+                {_settingsControls}
             </div>);
+    }
+
+    renderSetting(setting) {
+        let { id, type, text, description, value, multiline } = setting;
+
+        switch (type) {
+            case 'bool':
+                return (
+                    <span>
+                        <CSwitch key={id} text={text} info={description} checked={value} />
+                        <CUiDivider />
+                    </span>
+                );
+            case 'text':
+                if (!multiline) {
+                    return (
+                        <span>
+                            <CTextbox key={id} title={text} />
+                            <CUiDivider />
+                        </span>
+                    );
+                } else {
+                    return null;
+                }
+        }
+
+        return null;
     }
 
     tooltip(e, id) {
