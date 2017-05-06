@@ -60,7 +60,7 @@ class PluginManager {
         });
     }
 
-    loadPluginv2(name, reload, all) {
+    loadPluginv2(name, reload, all, cb) {
         let self = this;
 
         let basePath = `${self.pluginPath}/${name}`;
@@ -106,14 +106,24 @@ class PluginManager {
                 'path': name
             };
 
-            self.plugins.push(pluginInstance);
+            if (reload) {
+                let index = self.getPluginIndex(name);
+                self.plugins[index] = pluginInstance;
+            } else {
+                self.plugins.push(pluginInstance);
+            }
 
             if (pluginInstance.internal.storage.getSetting('enabled')) pluginInstance.onStart();
+            if(cb) cb(pluginInstance);
         });
     }
 
+    getPluginIndex(name) {
+        return this.plugins.findIndex(plugin => { return (plugin.name === name || plugin.internal.path === name); });
+    }
+
     getPlugin(name) {
-        this.plugins.find(plugin => { return plugin.name === name; });
+        return this.plugins.find(plugin => { return (plugin.name === name || plugin.internal.path === name); });
     }
 
     loadPlugin(name, reload) {
@@ -187,7 +197,7 @@ class PluginManager {
         return true;
     }
 
-    reloadPlugin(id) {
+    reloadPlugin(id, cb) {
         let self = this;
         let plugin = self.getPlugin(id);
         if(!plugin) {
@@ -197,7 +207,7 @@ class PluginManager {
 
         if (plugin.internal.storage.getSetting('enabled')) plugin.onStop();
 
-        return this.loadPluginv2(plugin.internal.path, true);
+        this.loadPluginv2(plugin.internal.path, true, false, cb);
     }
 
     startPlugin(id) {
