@@ -52,7 +52,8 @@ class BDCore {
             Settings: Settings,
             Reflection: DeepReflection,
             Events: Events,
-            Dom: Dom
+            Dom: Dom,
+            PluginManager: PluginManager
         });
     }
 
