@@ -99,9 +99,11 @@ class CPluginCard extends Component {
         let { PluginManager } = this.props;
         if (checked) {
             PluginManager.startPlugin(plugin.name);
+            this.setState({});
             return;
         }
         PluginManager.stopPlugin(plugin.name);
+        this.setState({});
     }
 
     reload() {
