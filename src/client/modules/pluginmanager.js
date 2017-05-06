@@ -21,7 +21,8 @@ const Plugins = [];
 
 const Vendor = {
     'jQuery': jQuery,
-    'React': React
+    'React': React,
+    '$': jQuery
 };
 
 //Heuristic keyword ban
