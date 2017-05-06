@@ -158,6 +158,8 @@ class ICPluginSettings extends Component {
     bindings() {
         this.onChange = this.onChange.bind(this);
         this.save = this.save.bind(this);
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
     }
 
     setInitialState() {
@@ -202,19 +204,30 @@ class ICPluginSettings extends Component {
     }
 
     get controls() {
+        let self = this;
         return (
             <div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
                 <div style={{ flex: "1 1 auto" }}></div>
-                <button onClick={() => { this.setState({'settingStore': JSON.parse(JSON.stringify(this.props.plugin.storage.defaultConfig))}) }} type="button" className="ui-button filled brand small grow">
+                <button onMouseEnter={e => { self.showTooltip(e, "tt-defaults"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-defaults") }} onClick={() => { this.setState({'settingStore': JSON.parse(JSON.stringify(this.props.plugin.storage.defaultConfig))}) }} type="button" className="ui-button filled brand small grow">
+                    <CToolTip ref="tt-defaults" text="Default" pos="top" left="0" top="-25" />
                     <CFontAwesome name="refresh" />
                     <div className="ui-button-contents"></div>
                 </button>
-                <button onClick={this.save} type="button" className="ui-button filled brand small grow">
+                <button onMouseEnter={e => { self.showTooltip(e, "tt-save"); }} onMouseLeave={e => { self.hideTooltip(e, "tt-save") }} onClick={this.save} type="button" className="ui-button filled brand small grow">
+                    <CToolTip ref="tt-save" text="Save" pos="top" left="6" top="-25" />
                     <CFontAwesome name="check" />
                     <div className="ui-button-contents"></div>
                 </button>
             </div>
         );
+    }
+
+    showTooltip(e, id) {
+        this.refs[id].show();
+    }
+
+    hideTooltip(e, id) {
+        this.refs[id].hide();
     }
 
     onChange(id, value) {
