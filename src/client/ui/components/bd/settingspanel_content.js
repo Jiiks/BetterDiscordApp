@@ -118,7 +118,7 @@ class CSP_Content extends Component {
         return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="us" title="UI Settings" settings={Settings.getUiSettings} onChange={(id, checked) => this.onChange("ui", id, checked)} />, this.tools]}/>;
 	}
     get renderPluginsPanel() {
-        return <CScroller fade={true} dark={true} children={[<CPluginPanel key="pp" plugins={PluginManager.plugins} />, this.tools]} />;
+        return <CScroller fade={true} dark={true} children={[<CPluginPanel key="pp" PluginManager={PluginManager} plugins={PluginManager.plugins} />, this.tools]} />;
 	}
 	get renderThemesPanel() {
 		return <span>Themes</span>;
