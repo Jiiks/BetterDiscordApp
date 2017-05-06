@@ -14,6 +14,7 @@ const { React } = require('../../vendor');
 import { Component } from 'React';
 
 import CSwitch from './switch';
+import CUiDivider from './uidivider';
 
 class CSettingsPanel extends Component {
     
@@ -28,7 +29,12 @@ class CSettingsPanel extends Component {
 			<div className="content-column default">
 				<h2 className="ui-form-title h2 margin-reset margin-bottom-20">{title}</h2>
 				{settings.map((setting, index) => {
-                    return <CSwitch key={setting.key} id={setting.key} text={setting.text} info={setting.helptext} checked={setting.enabled} disabled={setting.disabled} onChange={onChange} />;
+                    return (
+                        <span>
+                            <CUiDivider />
+                            <CSwitch key={setting.key} id={setting.key} text={setting.text} info={setting.helptext} checked={setting.enabled} disabled={setting.disabled} onChange={onChange} />
+                        </span>
+                    )
 				})}
 			</div>
 		);
