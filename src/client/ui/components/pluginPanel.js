@@ -34,7 +34,7 @@ class CPluginPanel extends Component {
 
     render() {
         let self = this;
-        let { plugins } = self.props;
+        let { plugins, PluginManager } = self.props;
 
         return (
             <div className="content-column default">
@@ -49,7 +49,7 @@ class CPluginPanel extends Component {
                         </div>
                     </div>
                     {plugins.map(plugin => {
-                        return <CPluginCard settingsHandler={self.settingsHandler} settings={plugin.name === self.state.settingsOpen} key={plugin.name} plugin={plugin} />
+                        return <CPluginCard PluginManager={PluginManager} settingsHandler={self.settingsHandler} settings={plugin.name === self.state.settingsOpen} key={plugin.name} plugin={plugin} />
                     })}
                 </div>
             </div>
