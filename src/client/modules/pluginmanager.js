@@ -83,9 +83,11 @@ class PluginManager {
 
             if (reload) delete window.require.cache[window.require.resolve(`${basePath}/${pluginFile}`)];
 
+            let storage = new PluginStorage(basePath, config.defaultSettings);
+
             let BD = {
                 'Api': new PluginApi(config.info),
-                'Storage': new PluginStorage(basePath, config.defaultSettings),
+                'Storage': storage,
                 'Events': PluginEvents
             }
 
@@ -102,7 +104,7 @@ class PluginManager {
             }
 
             pluginInstance.internal = {
-                'storage': BD.Storage,
+                'storage': storage,
                 'path': name
             };
 
