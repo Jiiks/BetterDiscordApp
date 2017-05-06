@@ -11,7 +11,7 @@
 'use strict';
 
 const { React, ReactDOM, $ } = require('../vendor');
-const { Events, Settings, Renderer, CssEditor, PluginManager } = require('../modules');
+const { Events, Settings, Renderer, CssEditor } = require('../modules');
 import { CSettingsPanel, CProTip, CCheckboxGroup, CPluginList, CTabBarItem, CTabBarSeparator, CTabBarHeader } from './components';
 
 import { CSP_Sidebar, CSP_Content } from './components/bd';
@@ -21,7 +21,7 @@ class SettingsPanel {
     constructor() {
         let self = this;
 
-        self.initUi();
+        //self.initUi();
 
         Events.on('user-settings-modal', e => {
             console.log("USER SETTINGS OPEN");
@@ -31,7 +31,7 @@ class SettingsPanel {
 			self.renderSidebar(layer);
         });
     }
-
+    /*
     initUi() {
         let self = this;
 
@@ -90,7 +90,7 @@ class SettingsPanel {
         };
 
     }
-
+    */
     refreshLocalPlugins(cb) {
         PluginLoader.loadPlugins(plugins => cb(plugins));
     }
