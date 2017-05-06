@@ -46,6 +46,19 @@ class Plugin {
         return this.storage.settings;
     }
 
+    saveSettings() {
+        this.storage.save();
+    }
+
+    getSetting(id) {
+        let setting = this.storage.settings.find(setting => { return setting.id === id; });
+        if (setting && setting.value) return setting.value;
+    }
+
+    get enabled() {
+        return this.getSetting("enabled");
+    }
+
 }
 
 module.exports = Plugin;
