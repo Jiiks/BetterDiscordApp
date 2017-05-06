@@ -21,7 +21,7 @@ class PluginStorage {
 
     load() {
         let self = this;
-        self.settings = self.defaultConfig;
+        self.settings = JSON.parse(JSON.stringify(self.defaultConfig));
 
         let loadSettings = Utils.tryParse(Utils.readFileSync(self.path));
 
