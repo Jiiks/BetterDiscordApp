@@ -8,7 +8,7 @@ const { BDEmoteModule } = require('./modules/modules');
 const CssEditor = require('./modules/csseditor');
 const IpcStruct = require('./modules/ipcstruct');
 const _bd_fs = require('fs');
-const _bd_config = require('./config');
+let _bd_config = require('./config');
 const _bd_logger = new BDLogger(`${_bd_config.dataPath}/log.log`, _bd_config.debug);
 const _bd_IPC = require('electron').ipcMain;
 const _bd_chokidar = require('chokidar');
@@ -20,7 +20,13 @@ class BetterDiscord {
     constructor(options) {
         let self = this;
 
-        const { mainWindow } = options;
+        const { mainWindow, config } = options;
+
+        if (config) {
+            //Use config supplied by injector if present
+            _bd_config = self.validateConfig(config) ? config : _bd_config;
+        }
+
         let wc = mainWindow.webContents;
 
         if (!self.validateOptions(options)) return;
@@ -232,6 +238,10 @@ class BetterDiscord {
             return false;
         }
         return true;
+    }
+
+    validateConfig(config) {
+        return config.version && config.dataPath && config.basePath;
     }
 
 }
