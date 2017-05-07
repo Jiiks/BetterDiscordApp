@@ -1,3 +1,9 @@
 {
+  "version": "0.3.0",
+  "debug": true,
+  "basePath": "G:/Github/BetterDiscordApp",
+  "dataPath": "G:/Github/BetterDiscordApp/devdata",
+  "windowsTest": "G:/Github/BetterDiscordApp/devdata",
+  "macTest": "/volumes/VMWare Shared Folders/BetterDiscordApp/devdata",
   "bdPath": "G:/Github/BetterDiscordApp/src/core/main"
 }
