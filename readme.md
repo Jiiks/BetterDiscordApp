@@ -7,18 +7,13 @@ Clone the v2 branch
 Run `npm install` in `BetterDiscordApp` directory
 
 **Step 3**
-Edit the `config.json` file in `src/core` to point to the correct paths
+Copy the files in `injector` to `discordpath/resources/app` folder. You do not need to extract app.asar
 
 **Step 4**
-Run `npm run build-client` to build or `npm run watch-client` in `BetterDiscordApp` directory to watch
+Edit the `config.json` file in `discordpath/resources/app` (the injector config) to point to the correct paths
 
 **Step 5**
-Edit Discord `index.js` with the following:
-
-`const { BetterDiscord } = require("PATH TO BD MAIN");` after `'use strict';`
-eg: `const { BetterDiscord } = require("G:/Github/BetterDiscordApp/src/core/main");` in my local system
-
-`let _betterDiscord = new BetterDiscord({ mainWindow: mainWindow });` after `mainWindow = new BrowserWindow(mainWindowOptions`
+Run `npm run build-client` to build or `npm run watch-client` in `BetterDiscordApp` directory to watch
 
 **Step 6**
 Restart Discord
