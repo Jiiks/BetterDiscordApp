@@ -12,6 +12,12 @@ Copy the files in `injector` to `discordpath/resources/app` folder. You do not n
 **Step 4**
 Edit the `config.json` file in `discordpath/resources/app` (the injector config) to point to the correct paths
 
+So that:
+`basePath` points to where you cloned the branch to. This is where additional directories such as `plugins` are.
+`dataPath` points to whatever directory you want data to be stored in.(custom css, user settings etc)
+
+Ignore `windowsTest` and `macTest`
+
 **Step 5**
 Run `npm run build-client` to build or `npm run watch-client` in `BetterDiscordApp` directory to watch
 
