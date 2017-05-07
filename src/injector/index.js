@@ -8,7 +8,8 @@
  * LICENSE file in the root directory of this source tree. 
 */
 
-const { bdPath } = require('./config');
+const config = require('./config');
+const { bdPath } = config;
 const { BetterDiscord } = require(bdPath);
 
 function BdInjector() {
@@ -35,7 +36,7 @@ function BdInjector() {
             mainWindow.setTitle(`${discordVersion} with BetterDiscord`); //Append BetterDiscord to window title
             process.execPath = execPath; //Reset exec path
             //Load BD
-            let _betterDiscord = new BetterDiscord({ mainWindow: mainWindow });
+            let _betterDiscord = new BetterDiscord({ mainWindow: mainWindow, config: config });
         }
     }, 100);
 }
