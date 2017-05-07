@@ -158,7 +158,7 @@ document.onkeydown = (e) => {
     if (updateDown && window.controlDown) update();
 }
 
-var mycm = CodeMirror(document.getElementById("cm-container"), {
+const mycm = CodeMirror(document.getElementById("cm-container"), {
     lineNumbers: true,
     mode: 'css',
     indentUnit: 4,
@@ -170,7 +170,7 @@ var mycm = CodeMirror(document.getElementById("cm-container"), {
 
 ipcRenderer.send('bd-css-editor', { command: 'get-css' });
 
-var ExcludedIntelliSenseTriggerKeys = {
+const ExcludedIntelliSenseTriggerKeys = {
     "8": "backspace",
     "9": "tab",
     "13": "enter",
