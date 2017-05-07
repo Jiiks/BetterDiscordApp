@@ -3,6 +3,7 @@ window.liveUpdate = false;
 window.autoSave = false;
 window.hideBackdrop = false;
 window.extEditor = false;
+
 const { remote } = require('electron');
 const { ipcRenderer } = require('electron');
 
@@ -16,7 +17,7 @@ ipcRenderer.on('set-css', (event, data) => {
 });
 
 ipcRenderer.on('save-ok', () => {
-    let alert = document.getElementById("alert");
+    const alert = document.getElementById("alert");
     alert.innerText = "Saved!";
     alert.className = "success visible";
     setTimeout(() => {
@@ -26,7 +27,7 @@ ipcRenderer.on('save-ok', () => {
 
 ipcRenderer.on('save-error', (event, err) => {
     console.log(err);
-    let alert = document.getElementById("alert");
+    const alert = document.getElementById("alert");
     alert.innerText = "Failed to save! Check console for details";
     alert.className = "danger visible";
     setTimeout(() => {
@@ -35,15 +36,15 @@ ipcRenderer.on('save-error', (event, err) => {
 });
 
 window.onbeforeunload = (e) => {
-    ipcRenderer.send('bd-css-editor', { 'command': 'close-ext-editor' });
+    ipcRenderer.send('bd-css-editor', { command: 'close-ext-editor' });
 }
 
 function save() {
-    ipcRenderer.send('bd-css-editor', { 'command': 'save', 'data': mycm.getValue() });
+    ipcRenderer.send('bd-css-editor', { command: 'save', data: mycm.getValue() });
 }
 
 function update() {
-    ipcRenderer.send('bd-css-editor', { 'command': 'update-css', 'data': mycm.getValue() });
+    ipcRenderer.send('bd-css-editor', { command: 'update-css', data: mycm.getValue() });
 }
 
 function closeWindow() {
@@ -74,7 +75,7 @@ function toggleOption(e, n) {
         case 'external-editor':
             window.extEditor = !window.extEditor;
             if (window.extEditor) {
-                ipcRenderer.send('css-editor', { 'command': 'open-ext-editor' });
+                ipcRenderer.send('css-editor', { command: 'open-ext-editor' });
                 mycm.setOption('readOnly', true);
                 document.getElementById("windowtitle").innerText = "CSS Editor - Read Only Mode";
                 document.getElementById("eehint").className = "visible";
@@ -82,7 +83,7 @@ function toggleOption(e, n) {
                 document.getElementById("cbAutoSave").className = "checkbox-container hidden";
                 document.getElementById("btnSave").className = "hidden";
             } else {
-                ipcRenderer.send('css-editor', { 'command': 'close-ext-editor' });
+                ipcRenderer.send('css-editor', { command: 'close-ext-editor' });
                 document.getElementById("windowtitle").innerText = "CSS Editor";
                 document.getElementById("eehint").className = "";
                 document.getElementById("cbAutoSave").className = "checkbox-container";
@@ -98,26 +99,30 @@ window.controlDown = false;
 
 document.onkeyup = (e) => {
     e = e || window.event;
-    var ctrl = false;
+    
+    let ctrl = false;
     if ("key" in e) {
         ctrl = (e.key === "Control" || e.key === "Ctrl");
     } else {
         ctrl = (e.keyCode === 17);
     }
+
     if (ctrl) {
         window.controlDown = false;
         document.getElementById("hints").className = "";
         document.getElementById("cmhints").className = "";
     }
-}
+};
 
 document.onkeydown = (e) => {
     e = e || window.event;
-    var isEscape = false;
-    var ctrl = false;
-    var saveDown = false;
-    var updateDown = false;
-    var alt = false;
+
+    let isEscape = false;
+    let ctrl = false;
+    let saveDown = false;
+    let updateDown = false;
+    let alt = false;
+
     if ("key" in e) {
         isEscape = (e.key === "Escape" || e.key === "Esc");
         ctrl = (e.key === "Control" || e.key === "Ctrl");
@@ -128,9 +133,10 @@ document.onkeydown = (e) => {
         isEscape = (e.keyCode === 27);
         ctrl = (e.keyCode === 17);
         saveDown = (e.keyCode === 83);
-        updateDown = (e.keyCode === 72)
+        updateDown = (e.keyCode === 72);
         alt = (e.keyCode === 18);
     }
+
     if (isEscape) {
         window.close();
     }
@@ -158,11 +164,11 @@ var mycm = CodeMirror(document.getElementById("cm-container"), {
     indentUnit: 4,
     theme: 'material',
     scrollbarStyle: 'overlay',
-    extraKeys: { "Ctrl-Space": "autocomplete" },
-    dialog: { "position": "bottom" }
+    extraKeys: { 'Ctrl-Space': 'autocomplete' },
+    dialog: { 'position': 'bottom' }
 });
 
-ipcRenderer.send('bd-css-editor', { 'command': 'get-css' });
+ipcRenderer.send('bd-css-editor', { command: 'get-css' });
 
 var ExcludedIntelliSenseTriggerKeys = {
     "8": "backspace",
@@ -216,14 +222,14 @@ var ExcludedIntelliSenseTriggerKeys = {
     "222": "quote"
 }
 
-mycm.on("keyup", function (editor, event) {
+mycm.on('keyup', function (editor, event) {
     if (window.controlDown) return;
     if (ExcludedIntelliSenseTriggerKeys[event.keyCode]) return;
     CodeMirror.commands.autocomplete(editor, null, { completeSingle: false });
 });
 
 
-mycm.on("change", cm => {
+mycm.on('change', cm => {
     if (window.liveUpdate) update();
     if (window.autoSave) save();
 });
