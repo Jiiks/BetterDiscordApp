@@ -1,55 +1,34 @@
-### Manual installation steps for latest developer preview(DP2):
+# BetterDiscord (v2)
 
-**Step 1**
-Clone the v2 branch
+This is a rewrite of BetterDiscord. As of right now, all development is happening here. This branch is not ready for production yet. Looking to download the current stable version of BetterDiscord? [Check the releases](https://github.com/Jiiks/BetterDiscordApp/releases) or [the site](https://betterdiscord.net).
 
-**Step 2**
-Run `npm install` in `BetterDiscordApp` directory
+## Setting up a development environment
 
-**Step 3**
-Copy the files in `injector` to `discordpath/resources/app` folder. You do not need to extract app.asar
+**Step 1**:  
+Clone this repository (`git clone https://github.com/jiiks/betterdiscordapp`) and switch to the v2 branch (`git checkout v2`).
 
-**Step 4**
-Edit the `config.json` file in `discordpath/resources/app` (the injector config) to point to the correct paths
+**Step 2**:  
+Run `npm install` (or `yarn install`) to pull in all required dependencies.
 
-So that:
+**Step 3**:  
+Copy the files in `src/injector` to `<path to discord>/resources/app`. `<path to discord>/resources/app/index.js` should be [the `index.js` from `src/injector`](https://github.com/Jiiks/BetterDiscordApp/blob/v2/src/injector/index.js).
 
-`basePath` points to where you cloned the branch to. This is where additional directories such as `plugins` are.
+**Step 4**:  
+Modify `<path to discord>/resources/app/config.json` to point to the correct paths. The following values need to be adjusted:
+- `basePath` should point to the location of the cloned repository.
+- `dataPath` should contain to a directory where user settings can be stored (this can be anything, as long as it exists).
+- `bdPath` should point to the location of `src/core/main.js`. Most of the time this is simply `<location to cloned repo>/src/core/main.js`.
 
-`dataPath` points to whatever directory you want data to be stored in.(custom css, user settings etc)
+The rest of the settings can be left as-is.
 
-`bdPath` points to the `core/main` script
+**Step 5**:  
+Run `npm run build-client` to build the `src/client` bundle. You can use `npm run watch-client` to do this automatically whenever a file changes.
 
-Ignore `windowsTest` and `macTest`
+**Step 6**:  
+Restart Discord.
 
-**Step 5**
-Run `npm run build-client` to build or `npm run watch-client` in `BetterDiscordApp` directory to watch
+You can now simply `git pull` and restart Discord to retrieve any new changes.
 
-**Step 6**
-Restart Discord
+## License
 
-You can now simply fetch the latest version whenever it's updated.
-
-___
-
-Developer Preview 1 Install instructions:
-
-Extract Discord app.asar(you can use the regular BetterDiscord installer if you don't know how)
-
-Download the developer preview 1(dp1.7z)
-
-Extract developer preview 1 anywhere on your computer
-
-Edit the `index.js` file in Discord directory `%localappdata%/Discord/app-0.0.xxx/resources/app` with the following:
-
-add:
-`const { BetterDiscord } = require("PATHTODP1/core/main");` after `use strict`
-
-add:
-`let _betterDiscord = new BetterDiscord({ mainWindow: mainWindow });` after `mainWindow = new BrowserWindow(mainWindowOptions);`
-
-Restart Discord
-
-only the plugin loader and customcss editor are available in this test build.
-
-Edit the `config.json` file in `PATHTODP1/core` so that your `basePath` and `dataPath` point to the correct directories
+BetterDiscord is released under the [MIT License](https://github.com/Jiiks/BetterDiscordApp/blob/v2/LICENSE).
