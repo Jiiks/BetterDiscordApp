@@ -7,19 +7,19 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+'use strict';
 
 const Channel = require('./channel');
 const User = require('./user');
 
-
 class Message {
     constructor(data) {
-		if(!data) {
+		if (!data) {
 			this.null = true;
 			return;
 		}
-        let { message, channel } = data;
-        let { author } = message;
+        const { message, channel } = data;
+        const { author } = message;
         this.state = message.state;
         this.id = message.id;
         this.content = message.content;

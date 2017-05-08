@@ -7,7 +7,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
-
 'use strict';
 
 const Logger = require('../modules/logger');
@@ -15,7 +14,6 @@ const { EventEmitter } = require('events');
 const emitter = new EventEmitter();
 
 class PluginEvents {
-
     static on(eventName, callBack) {
         try {
             emitter.on(eventName, callBack);
@@ -42,7 +40,6 @@ class PluginEvents {
             console.log(err);
         }
     }
-
 }
 
 module.exports = PluginEvents;

@@ -7,7 +7,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
-
 'use strict';
 
 const { PluginEvents } = require('../plugins');
@@ -16,7 +15,6 @@ const { EventEmitter } = require('events');
 const emitter = new EventEmitter();
 
 class Events {
-
     static on(eventName, callBack) {
         emitter.on(eventName, callBack);
     }
@@ -29,7 +27,6 @@ class Events {
         emitter.emit(...args);
         PluginEvents.emit(...args);
     }
-
 }
 
 module.exports = Events;

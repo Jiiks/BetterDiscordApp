@@ -14,8 +14,8 @@ const PluginApi = require('./api');
 const PluginEvents = require('./events');
 
 module.exports = {
-    Plugin: Plugin,
-    PluginStorage: PluginStorage,
-    PluginApi: PluginApi,
-    PluginEvents: PluginEvents
-}
+    Plugin,
+    PluginStorage,
+    PluginApi,
+    PluginEvents
+};
