@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const webpackConfig = {
+module.exports = {
     entry: './src/client/index.js',
     output: {
         path: path.resolve(__dirname, 'dist/client'),
@@ -16,10 +16,9 @@ const webpackConfig = {
                 query: {
                     presets: ['es2015', 'react']
                 }
-            },
-            {
+            }, {
                 test: /\.scss$/,
-                loader: ["css-loader", "sass-loader"]
+                loader: ['css-loader', 'sass-loader']
             }
         ]
     },
@@ -36,6 +35,4 @@ const webpackConfig = {
             compress: { warnings: false }
         })
     ]*/
-}
-
-module.exports = webpackConfig;
+};

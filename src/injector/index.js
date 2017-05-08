@@ -7,36 +7,34 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+"use strict";
 
-const config = require('./config');
-const { bdPath } = config;
+const { bdPath } = require('./config');
 const { BetterDiscord } = require(bdPath);
 
 function BdInjector() {
+    const { app, BrowserWindow } = require('electron');
+    const path = require('path');
 
-    let electron = require('electron');
-    let { app } = electron;
-    let path = require('path');
-
-    let execPath = process.execPath;
-
-    let discordVersion = path.basename(execPath, '.exe');
+    const execPath = process.execPath;
+    const discordExecutableName = path.basename(execPath, '.exe');
 
     app.setAppPath(app.getAppPath().replace(/app(?![\s\S]*app)/, 'app.asar'));
 
-    process.execPath = `${discordVersion} with BetterDiscord`; //Append BetterDiscord to trayicon
+    process.execPath = `${discordExecutableName} with BetterDiscord`; // Append BetterDiscord to tray icon name
 
-    let discord = require('../app.asar');
+    const discord = require('../app.asar');
 
-    let defer = setInterval(() => {
-        let mainWindow = electron.BrowserWindow.getAllWindows()[0];
-        let url = mainWindow.webContents.getURL();
+    const defer = setInterval(() => {
+        const mainWindow = BrowserWindow.getAllWindows()[0];
+        const url = mainWindow.webContents.getURL();
         if (url.includes("discordapp.com")) {
             clearInterval(defer);
-            mainWindow.setTitle(`${discordVersion} with BetterDiscord`); //Append BetterDiscord to window title
-            process.execPath = execPath; //Reset exec path
-            //Load BD
-            let _betterDiscord = new BetterDiscord({ mainWindow: mainWindow, config: config });
+            mainWindow.setTitle(`${discordExecutableName} with BetterDiscord`); // Append BetterDiscord to window title
+            process.execPath = execPath; // Reset exec path
+
+            // Load BD
+            const _betterDiscord = new BetterDiscord({ mainWindow, config });
         }
     }, 100);
 }

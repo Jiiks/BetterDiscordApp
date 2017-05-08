@@ -3,5 +3,5 @@
 const BDEmoteModule = require('./emotemodule');
 
 module.exports = {
-    BDEmoteModule: BDEmoteModule
-}
+    BDEmoteModule
+};
