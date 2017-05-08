@@ -6,20 +6,24 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
-import { Component } from 'React';
 
+import { Component } from 'React';
 import CTheme from './theme';
 
 class CThemeList extends Component {
 
     constructor(props) {
         super(props);
+        this.bindings();
         this.setInitialState();
+    }
+
+    bindings() {
         this.refreshLocal = this.refreshLocal.bind(this);
         this.refreshOnline = this.refreshOnline.bind(this);
     }
@@ -57,7 +61,7 @@ class CThemeList extends Component {
     }
 
     refreshLocal() {
-        let self = this;
+
         this.setState({
             'local': {
                 'refreshing': true,
@@ -65,10 +69,10 @@ class CThemeList extends Component {
             }
         });
 
-        let { ThemeManager } = self.props;
+        const { ThemeManager } = this.props;
 
         ThemeManager.loadThemes(themes => {
-            self.setState({
+            this.setState({
                 'local': {
                     'refreshing': false,
                     'themes': themes

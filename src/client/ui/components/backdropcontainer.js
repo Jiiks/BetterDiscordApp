@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React, ReactDOM } = require('../../vendor');
+
 import { Component } from 'React';
 import CBackdrop from './backdrop';
 
@@ -26,21 +27,18 @@ class CBackdropContainer extends Component {
     }
 
     componentDidMount() {
-        let self = this;
         setTimeout(() => {
-            self.refs.root.className = "bd-backdrop-container visible";
+            this.refs.root.className = "bd-backdrop-container visible";
         }, 100);
     }
 
     render() {
-        let self = this;
-        let { child } = self.props;
-
-        let rchild = React.cloneElement(child, { close: self.unmount });
+        const { child } = this.props;
+        let rchild = React.cloneElement(child, { close: this.unmount });
 
         return (
             <div ref="root" className="bd-backdrop-container">
-                <CBackdrop onClick={self.unmount} />
+                <CBackdrop onClick={this.unmount} />
                 <span className="bd-backdrop-container-content">
                     {rchild}
                 </span>
@@ -49,8 +47,7 @@ class CBackdropContainer extends Component {
     }
 
     unmount() {
-        let self = this;
-        self.refs.root.className = "bd-backdrop-container";
+        this.refs.root.className = "bd-backdrop-container";
         setTimeout(() => {
             ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this).parentNode);
         }, 300);

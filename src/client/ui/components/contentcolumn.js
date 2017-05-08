@@ -11,6 +11,7 @@
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CContentColumn extends Component {
@@ -20,8 +21,8 @@ class CContentColumn extends Component {
     }
 
     render() {
-        let { title, children } = this.props;
-        let style = this.props.style || {};
+        const { title, children } = this.props;
+        const style = this.props.style || {};
         return (
             <div style={style} className="content-column default">
                 {title &&

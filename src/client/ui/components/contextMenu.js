@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 import CContextMenuCheckBox from './contextMenuCheckbox';
 import CContextMenuSub from './contextMenuSub';
@@ -27,20 +28,18 @@ class CContextMenu extends Component {
     }
 
     render() {
-        let self = this;
-        let { items } = self.props;
-        let onChange = self.onChange;
+        const { items, top, left } = this.props;
 
         return (
-            <div className="context-menu" style={{ top: self.props.top, left: self.props.left}}>
+            <div className="context-menu" style={{ top: top, left: left}}>
                 {items.map(value => {
 
                     if(value.type === 'toggle') {
-                        return (<CContextMenuCheckBox checked={value.enabled} disabled={value.disabled} onChange={onChange} cat={value.cat} id={value.key} key={value.key} text={value.text} />);
+                        return (<CContextMenuCheckBox checked={value.enabled} disabled={value.disabled} onChange={this.onChange} cat={value.cat} id={value.key} key={value.key} text={value.text} />);
                     }
                     if (value.type === 'submenu') {
                         return (
-                            <CContextMenuSub onChange={onChange} id={value.key} key={value.key} text={value.text} items={value.items} />
+                            <CContextMenuSub onChange={this.onChange} id={value.key} key={value.key} text={value.text} items={value.items} />
                         )
                     }
                     if (value.type === 'text') {

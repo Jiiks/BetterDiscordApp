@@ -6,20 +6,24 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
-import { Component } from 'React';
 
+import { Component } from 'React';
 import CPlugin from './plugin';
 
 class CPluginList extends Component {
 
     constructor(props) {
         super(props);
+        this.bindings();
         this.setInitialState();
+    }
+
+    bindings() {
         this.refreshLocal = this.refreshLocal.bind(this);
         this.refreshOnline = this.refreshOnline.bind(this);
     }
@@ -57,7 +61,6 @@ class CPluginList extends Component {
     }
 
     refreshLocal() {
-        let self = this;
         this.setState({
             'local': {
                 'refreshing': true,
@@ -65,10 +68,10 @@ class CPluginList extends Component {
             }
         });
 
-        let { PluginManager } = self.props;
+        const { PluginManager } = this.props;
 
         PluginManager.loadPlugins(plugins => {
-            self.setState({
+            this.setState({
                 'local': {
                     'refreshing': false,
                     'plugins': plugins

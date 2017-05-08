@@ -11,6 +11,7 @@
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 import CPluginCard from './pluginCard';
 
@@ -33,8 +34,7 @@ class CPluginPanel extends Component {
     }
 
     render() {
-        let self = this;
-        let { plugins, PluginManager } = self.props;
+        const { plugins, PluginManager } = this.props;
 
         return (
             <div className="content-column default">
@@ -49,7 +49,7 @@ class CPluginPanel extends Component {
                         </div>
                     </div>
                     {plugins.map(plugin => {
-                        return <CPluginCard PluginManager={PluginManager} settingsHandler={self.settingsHandler} settings={plugin.name === self.state.settingsOpen} key={plugin.name} plugin={plugin} />
+                        return <CPluginCard PluginManager={PluginManager} settingsHandler={this.settingsHandler} settings={plugin.name === this.state.settingsOpen} key={plugin.name} plugin={plugin} />
                     })}
                 </div>
             </div>

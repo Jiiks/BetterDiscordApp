@@ -6,14 +6,14 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 
 'use strict';
 
 const { React } = require('../../vendor');
-import { Component } from 'React';
 
+import { Component } from 'React';
 import CCheckbox from './checkbox';
 
 class CPluginSettings extends Component {
@@ -23,9 +23,7 @@ class CPluginSettings extends Component {
     }
 
     render() {
-        return (
-            <div>Not yet implemented</div>
-            )
+        return <div>Not yet implemented</div>
     }
 
 }
@@ -34,9 +32,13 @@ class CPlugin extends Component {
 
     constructor(props) {
         super(props);
+        this.bindings();
+        this.setInitialState();
+    }
+
+    bindings() {
         this.reload = this.reload.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.setInitialState();
     }
 
     setInitialState() {
@@ -75,12 +77,12 @@ class CPlugin extends Component {
     }
 
     reload(id) {
-        let { PluginManager } = this.props;
+        const { PluginManager } = this.props;
         PluginManager.reloadPlugin(id);
     }
 
     onChange(id, checked) {
-        let { PluginManager, Plugin } = this.props;
+        const { PluginManager, Plugin } = this.props;
         
         if (checked) {
             let success = PluginManager.startPlugin(id);

@@ -6,13 +6,13 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React, $ } = require('../../vendor');
-import { Component } from 'React';
 
+import { Component } from 'React';
 
 class CToolTip extends Component {
 
@@ -34,9 +34,8 @@ class CToolTip extends Component {
     }
 
     render() {
-        let self = this;
-        let { pos, top, left, text } = self.props;
-        let { visible } = self.props;
+        const { pos, top, left, text } = this.props;
+        const { visible } = this.props;
         return (
             <div className={`tooltip tooltip-${pos || 'top'} tooltip-normal`} style={{ top: top === "auto" ? "auto" : `${top}px`, left: left === "auto" ? "auto" : `${left}px`, display: visible ? '' : 'none' }}>{text}</div>
         )

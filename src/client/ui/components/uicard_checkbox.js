@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React, ReactDOM, $ } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CUiCard_Checkbox extends Component {
@@ -32,14 +33,13 @@ class CUiCard_Checkbox extends Component {
     }
 
     render() {
-        let self = this;
-        let { title } = self.props;
-        let { checked } = self.state;
-        let checkboxClass = ['ui-checkbox box', checked ? 'checked' : ''];
-        let cardClass = ['ui-card ui-card-primary flex-horizontal margin-bottom-8 editable', checked ? 'checked' : ''];
-        let cardStyle = checked ? { borderColor: "rgb(114, 137, 218)", backgroundColor: "rgb(114, 137, 218)", padding: "10px" } : {padding: "10px"};
+        const { title } = this.props;
+        const { checked } = this.state;
+        const checkboxClass = ['ui-checkbox box', checked ? 'checked' : ''];
+        const cardClass = ['ui-card ui-card-primary flex-horizontal margin-bottom-8 editable', checked ? 'checked' : ''];
+        const cardStyle = checked ? { borderColor: "rgb(114, 137, 218)", backgroundColor: "rgb(114, 137, 218)", padding: "10px" } : {padding: "10px"};
         return (
-            <div onClick={self.onClick} className={cardClass.join(' ')} style={cardStyle}>
+            <div onClick={this.onClick} className={cardClass.join(' ')} style={cardStyle}>
                 <label className="ui-checkbox-wrapper">
                     <input type="checkbox" className="input"></input>
                     <div className={checkboxClass.join(' ')}>
@@ -58,7 +58,7 @@ class CUiCard_Checkbox extends Component {
     }
 
     onClick() {
-        let { checked } = this.state;
+        const { checked } = this.state;
         if (checked) return;
         this.setState({
             'checked': true

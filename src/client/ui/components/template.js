@@ -6,25 +6,27 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
+/*Constants*/
 const { React } = require('../../vendor');
+
+/*Imports*/
 import { Component } from 'React';
 
+/*Component*/
 class Template extends Component {
 
     constructor(props) {
         super(props);
-		let self = this;
 
-		self.bindings();
-		self.setInitialState();
+		this.bindings();
+        this.setInitialState();
     }
 
 	bindings() {
-		let self = this;
 	}
 
 	setInitialState() {
@@ -37,4 +39,5 @@ class Template extends Component {
 
 }
 
+/*Export*/
 export default Template;

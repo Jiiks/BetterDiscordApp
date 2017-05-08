@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CScroller extends Component {
@@ -20,8 +21,8 @@ class CScroller extends Component {
     }
 
     render() {
-		let wrapperClass = `scroller-wrap${this.props.fade ? ' fade' : ''} ${this.props.dark ? ' dark' : ''}`;
-		let { children } = this.props;
+		const wrapperClass = `scroller-wrap${this.props.fade ? ' fade' : ''} ${this.props.dark ? ' dark' : ''}`;
+		const { children } = this.props;
 		return (
 			<div className={wrapperClass}>
 				<div ref="scroller" className="scroller">

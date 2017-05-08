@@ -11,6 +11,7 @@
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CTextbox extends Component {
@@ -32,8 +33,8 @@ class CTextbox extends Component {
     }
 
     render() {
-        let {title, required, placeholder, maxlength, keydown, initialValue, onChange} = this.props;
-        let value = initialValue || "";
+        const {title, required, placeholder, maxlength, keydown, initialValue, onChange} = this.props;
+        const value = initialValue || "";
 
         return (
             <div className="ui-form-item margin-bottom-20">

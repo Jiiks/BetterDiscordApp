@@ -6,14 +6,14 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React, $ } = require('../../vendor');
+
 import { Component } from 'React';
 import CContextMenu from './contextMenu';
-
 
 class CContextMenuSub extends Component {
 
@@ -25,12 +25,12 @@ class CContextMenuSub extends Component {
     }
 
     componentDidMount() {
-        let root = $(this.refs.menu);
+        const root = $(this.refs.menu);
         root.find('.context-menu').css({ 'top': `${root.parent().position().top}px`, 'left': `${root.parent().position().left + root.width() + 20}px` });
     }
 
     componentDidUpdate() {
-        let root = $(this.refs.menu);
+        const root = $(this.refs.menu);
         root.find('.context-menu').css({ 'top': `${root.parent().position().top}px`, 'left': `${root.parent().position().left + root.width() + 20}px` });
     }
 

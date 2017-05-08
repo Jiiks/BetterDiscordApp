@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CContextMenuCheckBox extends Component {
@@ -33,8 +34,8 @@ class CContextMenuCheckBox extends Component {
     }
 
     render() {
-        let { text } = this.props;
-        let { checked } = this.state;
+        const { text } = this.props;
+        const { checked } = this.state;
         return (
             <div onClick={this.onClick} className="item item-toggle">
                 <div className="label">{text}</div>
@@ -50,7 +51,7 @@ class CContextMenuCheckBox extends Component {
     }
 
     onClick() {
-        let checked = !this.state.checked;
+        const checked = !this.state.checked;
         this.props.onChange(this.props.id, checked, this.props.cat);
         this.setState({
             'checked': checked

@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React, ReactDOM } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CBackdrop extends Component {
@@ -20,9 +21,9 @@ class CBackdrop extends Component {
     }
 
     render() {
-        let self = this;
+        const { onClick } = this.props;
         return (
-            <div onClick={self.props.onClick} className="callout-backdrop bd-backdrop"></div>
+            <div onClick={onClick} className="callout-backdrop bd-backdrop"></div>
         );
     }
 }

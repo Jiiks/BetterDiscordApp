@@ -6,24 +6,28 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React, $ } = require('../../vendor');
+
 import { Component } from 'React';
 import CToolTip from './tooltip';
-
 
 class CEmote extends Component {
 
     constructor(props) {
         super(props);
+        this.bindings();
+        this.setInitialState();
+    }
+
+    bindings() {
         this.onLoad = this.onLoad.bind(this);
         this.favourite = this.favourite.bind(this);
         this.onMouseOver = this.onMouseOver.bind(this);
         this.onMouseOut = this.onMouseOut.bind(this);
-        this.setInitialState();
     }
 
     setInitialState() {
@@ -77,7 +81,6 @@ class CEmote extends Component {
             'hover': false
         });
     }
-
 
 }
 

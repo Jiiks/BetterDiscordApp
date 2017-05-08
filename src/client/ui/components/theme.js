@@ -6,14 +6,13 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
-
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
-import { Component } from 'React';
 
+import { Component } from 'React';
 import CCheckbox from './checkbox';
 
 class CThemeSettings extends Component {
@@ -103,12 +102,12 @@ class CTheme extends Component {
     }
 
     reload(id) {
-        let { ThemeManager } = this.props;
+        const { ThemeManager } = this.props;
         ThemeManager.reloadTheme(id);
     }
 
     onChange(id, checked) {
-        let { ThemeManager, Theme } = this.props;
+        const { ThemeManager, Theme } = this.props;
 
         if (checked) {
             let success = ThemeManager.enableTheme(id);
@@ -126,7 +125,7 @@ class CTheme extends Component {
     }
 
     saveSettings() {
-        let { ThemeManager } = this.props;
+        const { ThemeManager } = this.props;
         ThemeManager.disableTheme('Example Theme');
         ThemeManager.themes["Example Theme"].storage.defaultConfig[0].value = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/CH_cow_2_cropped.jpg/250px-CH_cow_2_cropped.jpg";
         ThemeManager.enableTheme('Example Theme');

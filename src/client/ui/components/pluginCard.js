@@ -6,12 +6,13 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 import CFontAwesome from './fontAwesome';
 import CScroller from './scroller';
@@ -46,24 +47,24 @@ class CPluginCard extends Component {
 
     render() {
         let self = this;
-        let { plugin, reload } = self.state;
-        let { settings, verified } = self.props;
+        const { plugin, reload } = this.state;
+        const { settings, verified } = this.props;
 
         return (
             <div className="bd-plugin-card" style={verified ? {} : { border: "1px solid #f04747", boxShadow: "0 0 6px rgba(240,71,71,0.3)"}}>
                 <div className="bd-plugin-info">
-                    <CSwitch text={`${plugin.name} v${plugin.version} by ${plugin.authors.join(", ")}`} info="" checked={plugin.enabled} disabled={reload} onChange={self.onChange} />
+                    <CSwitch text={`${plugin.name} v${plugin.version} by ${plugin.authors.join(", ")}`} info="" checked={plugin.enabled} disabled={reload} onChange={this.onChange} />
                     <CScroller dark={true} fade={true} children={plugin.description} />
                 </div>
-                {self.renderControls}
+                {this.renderControls}
                 <ICPluginSettings key="ps" plugin={plugin} visible={settings} settingStore={JSON.parse(JSON.stringify(plugin.settings))} />
             </div>
         )
     }
 
     onChange(id, checked) {
-        let { plugin } = this.state;
-        let { PluginManager } = this.props;
+        const { plugin } = this.state;
+        const { PluginManager } = this.props;
         if (checked) {
             PluginManager.startPlugin(plugin.name);
             this.setState({});
@@ -74,16 +75,15 @@ class CPluginCard extends Component {
     }
 
     reload() {
-        let self = this;
-        let { plugin } = self.state;
-        let { PluginManager, settingsHandler } = self.props;
+        const { plugin } = this.state;
+        const { PluginManager, settingsHandler } = this.props;
         settingsHandler(null);
-        self.setState({
+        this.setState({
             'reload': true
         });
 
         PluginManager.reloadPlugin(plugin.name, plugin => {
-            self.setState({
+            this.setState({
                 'reload': false,
                 'plugin': plugin
             });
@@ -99,10 +99,10 @@ class CPluginCard extends Component {
     }
 
     get renderControls() {
-        let self = this;
-        let { plugin, reload } = self.state;
-        let { settingsHandler, verified } = self.props;
-        let { showTooltip, hideTooltip } = self;
+
+        const { plugin, reload } = this.state;
+        const { settingsHandler, verified } = this.props;
+        const { showTooltip, hideTooltip } = this;
 
         return (
             <div className="bd-plugin-controls">
@@ -111,7 +111,7 @@ class CPluginCard extends Component {
                 }
                 <div style={{ flex: "1 1 auto" }}></div>
                 <CUiButton type="brand" disabled={reload} onClick={() => { settingsHandler(plugin.name)}} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Settings' }} />
-                <CUiButton type="brand" disabled={reload} onClick={() => { self.reload() }} content={<CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />} tooltip={{ 'text': 'Reload' }} />
+                <CUiButton type="brand" disabled={reload} onClick={() => { this.reload() }} content={<CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />} tooltip={{ 'text': 'Reload' }} />
                 <CUiButton type="red" disabled={reload} onClick={() => {}} content={<CFontAwesome name="trash" />} tooltip={{ 'text': 'Uninstall' }} />
             </div>
         );
@@ -149,10 +149,9 @@ class ICPluginSettings extends Component {
     }
 
     render() {
-        let self = this;
-        let { settingStore } = self.state;
-        let { plugin, visible } = self.props;
-        let { settingsPanel } = plugin;
+        const { settingStore } = this.state;
+        const { plugin, visible } = this.props;
+        const { settingsPanel } = plugin;
 
         let _panel = null;
 
@@ -160,7 +159,7 @@ class ICPluginSettings extends Component {
             _panel = settingsPanel;
         } else {
             _panel = (<div> {settingStore.map(setting => {
-                return self.renderSetting(setting);
+                return this.renderSetting(setting);
             })}</div>);
         }
 
@@ -169,13 +168,12 @@ class ICPluginSettings extends Component {
         return (
             <div className="bd-plugin-settings" style={{ maxHeight: visible ? "200px" : "0" }}>
                 <CScroller dark={true} fade={true} children={column} />
-                {self.controls}
+                {this.controls}
             </div>
         );
     }
 
     get controls() {
-        let self = this;
         return (
             <div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
                 <div style={{ flex: "1 1 auto" }}></div>
@@ -186,21 +184,20 @@ class ICPluginSettings extends Component {
     }
 
     onChange(id, value) {
-        let self = this;
-        let { settingStore } = self.state;
-        self.setState({
+        const { settingStore } = this.state;
+        this.setState({
             'settingStore': settingStore.map(setting => { if (setting && setting.id === id) { setting.value = value; } return setting; })
         });
     }
 
     save() {
-        let { plugin } = this.props;
+        const { plugin } = this.props;
         plugin.storage.setSettings(this.state.settingStore);
         plugin.saveSettings();
     }
 
     renderSetting(setting) {
-        let { id, type, text, description, value, multiline } = setting;
+        const { id, type, text, description, value, multiline } = setting;
 
         switch (type) {
             case 'bool':

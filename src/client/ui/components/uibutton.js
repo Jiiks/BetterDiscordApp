@@ -6,11 +6,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 import CToolTip from './tooltip';
 
@@ -34,16 +35,13 @@ class CUiButton extends Component {
     }
 
     render() {
-        let self = this;
-        return self.props.tooltip ? self.renderWithTooltip : self.renderWithoutTooltip;
+        return this.props.tooltip ? this.renderWithTooltip : this.renderWithoutTooltip;
     }
 
     get renderWithTooltip() {
-        let self = this;
-        let { tooltip, content, type, disabled } = self.props;
-        let { tooltipVisible } = self.state;
-
-        let cn = ['ui-button', 'filled', 'small', 'grow', type, disabled ? 'disabled' : ''];
+        const { tooltip, content, type, disabled } = this.props;
+        const { tooltipVisible } = this.state;
+        const cn = ['ui-button', 'filled', 'small', 'grow', type, disabled ? 'disabled' : ''];
 
 
         return (
@@ -55,8 +53,7 @@ class CUiButton extends Component {
     }
 
     get renderWithoutTooltip() {
-        let self = this;
-        let { content } = self.props;
+        const { content } = this.props;
         return (
             <button type="button" onClick={this.props.onClick}>
                 <div className="ui-button-contents">{content}</div>

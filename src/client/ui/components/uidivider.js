@@ -11,8 +11,8 @@
 'use strict';
 
 const { React, $ } = require('../../vendor');
-import { Component } from 'React';
 
+import { Component } from 'React';
 
 class CUiDivider extends Component {
 
@@ -21,7 +21,7 @@ class CUiDivider extends Component {
     }
 
     render() {
-        let margin = this.props.margin || 10;
+        const margin = this.props.margin || 10;
         return (
             <div className="ui-form-divider" style={{ flex: "1 1 auto", marginTop: `${margin}px`, marginBottom: `${margin}px`}}></div>
         )

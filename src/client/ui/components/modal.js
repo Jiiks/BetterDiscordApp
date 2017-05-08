@@ -11,6 +11,7 @@
 'use strict';
 
 const { React, ReactDOM } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CModal extends Component {
@@ -20,10 +21,8 @@ class CModal extends Component {
     }
 
     render() {
-        let self = this;
-        let { child } = self.props;
-        console.log(self);
-        let rchild = React.cloneElement(child, { close: self.props.close || self.unmount });
+        const { child } = this.props;
+        const rchild = React.cloneElement(child, { close: this.props.close || this.unmount });
 
         return (
             <div className="modal bd-modal">

@@ -6,26 +6,25 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
- */
+*/
 
 'use strict';
 
 const { React } = require('../../vendor');
+
 import { Component } from 'React';
 
 class CSwitch extends Component {
 
     constructor(props) {
         super(props);
-		let self = this;
 
-		self.bindings();
-		self.setInitialState();
+		this.bindings();
+        this.setInitialState();
     }
 
 	bindings() {
-		let self = this;
-		self.onChange = self.onChange.bind(self);
+        this.onChange = this.onChange.bind(this);
 	}
 
 	setInitialState() {
@@ -35,16 +34,15 @@ class CSwitch extends Component {
 	}
 
     render() {
-		let self = this;
-        let { text, info, disabled } = self.props;
-        let { checked } = self.props;
-        let labelClassName = ['ui-switch-wrapper', 'ui-flex-child', disabled ? 'disabled' : ''];
+        const { text, info, disabled } = this.props;
+        const { checked } = this.props;
+        const labelClassName = ['ui-switch-wrapper', 'ui-flex-child', disabled ? 'disabled' : ''];
 		return (
             <div className="ui-flex flex-vertical flex-justify-start flex-align-stretch flex-nowrap ui-switch-item">
                 <div className="ui-flex flex-horizontal flex-justify-start flex-align-stretch flex-nowrap">
                     <h3 className="ui-form-title h3 margin-reset margin-reset ui-flex-child">{text}</h3>
                     <label className={labelClassName.join(' ')} style={{ flex: '0 0 auto' }}>
-                        <input className="ui-switch-checkbox" type="checkbox" checked={checked} onChange={self.onChange}></input>
+                        <input className="ui-switch-checkbox" type="checkbox" checked={checked} onChange={this.onChange}></input>
                         <div className="ui-switch"></div>
                     </label>
                 </div>
@@ -54,13 +52,12 @@ class CSwitch extends Component {
     }
 
 	onChange() {
-        let self = this;
-        if (self.props.disabled) return;
+        if (this.props.disabled) return;
 		
-		self.setState({
-			'checked': !self.state.checked
+		this.setState({
+            'checked': !this.state.checked
         });
-        self.props.onChange(self.props.id, !self.props.checked);
+        this.props.onChange(this.props.id, !this.props.checked);
 	}
 
 }
