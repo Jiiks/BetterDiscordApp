@@ -5,8 +5,8 @@
  * Last Update: 01/05/2016
  * https://github.com/Jiiks/BetterDiscordApp
  */
-var settingsPanel, emoteModule, utils, quickEmoteMenu, opublicServers, voiceMode, pluginModule, themeModule, customCssEditor;
-var jsVersion = 1.72;
+var settingsPanel, emoteModule, utils, quickEmoteMenu, opublicServers, voiceMode, pluginModule, themeModule, customCssEditor, dMode;
+var jsVersion = 1.74;
 var supportedVersion = "0.2.5";
 
 var mainObserver;
@@ -33,6 +33,7 @@ var settings = {
     "Custom css auto udpate":     { "id": "bda-css-1", "info": "",                                                  "implemented": true,  "hidden": true,  "cat": "core"},
     "24 Hour Timestamps":         { "id": "bda-gs-6",  "info": "Replace 12hr timestamps with proper ones",          "implemented": true,  "hidden": false, "cat": "core"},
     "Coloured Text":              { "id": "bda-gs-7",  "info": "Make text colour the same as role colour",          "implemented": true,  "hidden": false, "cat": "core"},
+    "Developer Mode":             { "id": "bda-gs-8",  "info": "Developer Mode",                                    "implemented": true,  "hidden": false, "cat": "core"},
 
     "Twitch Emotes":              { "id": "bda-es-7",  "info": "Show Twitch emotes",                                "implemented": true,  "hidden": false, "cat": "emote"},
     "FrankerFaceZ Emotes":        { "id": "bda-es-1",  "info": "Show FrankerFaceZ Emotes",                          "implemented": true,  "hidden": false, "cat": "emote"},
@@ -61,6 +62,7 @@ var defaultCookie = {
     "bda-gs-5": true,
     "bda-gs-6": false,
     "bda-gs-7": false,
+    "bda-gs-8": false,
     "bda-es-0": true,
     "bda-es-1": true,
     "bda-es-2": true,
@@ -80,6 +82,16 @@ var defaultCookie = {
 
 var bdchangelog = {
     "changes": {
+        "0a": {
+            "title": "1.73 : Native sub emotes",
+            "text": "Native sub emote support disabled for now due to a critical bug",
+            "img": ""
+        },
+        "1a": {
+            "title": "1.73 : Initial Developer Mode",
+            "text": "Enable developer mode from settings!",
+            "img": ""
+        },
         "a": {
             "title": "v1.72 : Public Servers",
             "text": "Public servers now have categories, description, tags, dark mode and more!",
@@ -94,72 +106,37 @@ var bdchangelog = {
             "title": "v1.72 : Changelog",
             "text": "You can now reopen this changelog from the settings",
             "img": ""
-        },
-        "d": {
-            "title": "v1.71 : Hide Twitch emotes",
-            "text": "Hide all emotes option now toggles Twitch emotes instead!",
-            "img": ""
-        },
-        "e": {
-            "title": "v1.71 : Override FFZ emote",
-            "text": "Use the <code class=\"inline\">:bttv</code> emote modifier to override a FFZ emote with a BTTV one!",
-            "img": ""
-        },
-        "f": {
-            "title": "v1.70 : 0.2.8 Support",
-            "text": "Added support for Core version 0.2.8.",
-            "img": ""
-        },
-        "g": {
-            "title": "v1.70 : Setting Import/Export",
-            "text": "You can now import and export your settings!",
-            "img": ""
-        },
-        "h": {
-            "title": "v1.70 : Public Server List Infinite Scroll",
-            "text": "Public server list now has the ability to load more than 20 servers.",
-            "img": ""
-        },
-        "i": {
-            "title": "v1.70 : 24 hour timestamps",
-            "text": "Replace 12 hour timestamp with 24 hour timestamps!",
-            "img": ""
-        },
-        "j": {
-            "title": "v1.70 : Coloured text",
-            "text": "Make text colour the same as role colour!",
-            "img": ""
         }
     },
     "fixes": {
-        "a": {
+        "0a": {
+            "title": "v1.74 : BetterDiscord Invite",
+            "text": "Fixed the BetterDiscord invite link in public servers",
+            "img": ""
+        },
+        "0b": {
+            "title": "v1.74 : Dev Mode",
+            "text": "Fixed dev mode breaking",
+            "img": ""
+        },
+        "0c": {
             "title": "v1.72 : Settings panel",
             "text": "Settings panel will now show no matter how you open it!",
             "img": ""
         },
-        "b": {
+        "0d": {
             "title": "v1.72 : Fixed emote edit bug",
             "text": "Edits now appear properly even with emotes!",
             "img": ""
         },
-        "c": {
+        "0e": {
             "title": "v1.72 : Public servers",
             "text": "Public servers button is visible again!",
             "img": ""
         },
-        "d": {
+        "0f": {
             "title": "v1.72 : Public servers",
             "text": "Updated public servers api endpoint url for fetching correct serverlist.",
-            "img": ""
-        },
-        "e": {
-            "title": "v1.71 : Fixed emotes and edit",
-            "text": "Emotes work again! So does editing emotes!",
-            "img": ""
-        },
-        "f": {
-            "title": "Spoilers are currently broken :(",
-            "text": "Ps. I know this in the fixes section :o",
             "img": ""
         }
     }
@@ -186,6 +163,7 @@ Core.prototype.init = function () {
     emoteModule = new EmoteModule();
     quickEmoteMenu = new QuickEmoteMenu();
     voiceMode = new VoiceMode();
+    dMode = new devMode();
 
     emoteModule.init();
 
