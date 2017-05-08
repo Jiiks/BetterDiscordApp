@@ -9,7 +9,8 @@
 */
 "use strict";
 
-const { bdPath } = require('./config');
+const config = require('./config');
+const { bdPath } = config;
 const { BetterDiscord } = require(bdPath);
 
 function BdInjector() {
