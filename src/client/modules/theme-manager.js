@@ -92,7 +92,7 @@ class ThemeManager {
             return false;
         }
 
-        const css = Themes[id].css;
+        let css = Themes[id].css;
 
         Themes[id].storage.defaultConfig.forEach(setting => {
             css = css.replace(setting.id, setting.value);
