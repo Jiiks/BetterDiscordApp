@@ -11,17 +11,17 @@
 
 
 module.exports = {
-    BrowserEvents: require('./browserEvents'),
+    BrowserEvents: require('./browser-events'),
     Cache: require('./cache'),
     CssEditor: require('./csseditor'),
     Emotes: require('./emotes'),
     Events: require('./events'),
     IPC: require('./ipc'),
     Logger: require('./logger'),
-    MessageHandler: require('./messageHandler'),
+    MessageHandler: require('./message-handler'),
     Observer: require('./observer'),
-    PluginManager: require('./pluginManager'),
-    ThemeManager: require('./themeManager'),
+    PluginManager: require('./plugin-manager'),
+    ThemeManager: require('./theme-manager'),
 	Reflection: require('./reflection_deep'),
     Renderer: require('./renderer'),
     Settings: require('./settings'),
