@@ -23,7 +23,8 @@
         "sass-loader": "^4.1.1",
         "css-loader": "^0.28.1",
         "open": "^0.0.5",
-        "md5-file": "^3.1.1"
+        "md5-file": "^3.1.1",
+        "chokidar": "^1.6.1"
     },
     "scripts": {
         "build-client": "webpack --progress --colors",
