@@ -7,6 +7,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+'use strict';
 
 const Channel = require('./channel');
 const Guild = require('./guild');
@@ -15,9 +16,9 @@ const Role = require('./role');
 const User = require('./user');
 
 module.exports = {
-    Channel: Channel,
-    Guild: Guild,
-    Message: Message,
-    Role: Role,
-    User: User
-}
+    Channel,
+    Guild,
+    Message,
+    Role,
+    User
+};

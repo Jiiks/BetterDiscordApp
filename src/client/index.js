@@ -7,7 +7,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
-
 'use strict';
 
 const { Observer, Settings, IPC, Events, PluginManager, Utils, Logger, Reflection, BrowserEvents, DeepReflection, Api, Dom } = require('./modules');
@@ -18,59 +17,54 @@ const { CChangeLog } = require('./ui/components/bd');
 const mainCss = require('../scss/main.scss');
 
 class BDCore {
-
     constructor() {
-        let self = this;
         Logger.log('Core', `v${Api.bdVersion}:${Api.jsVersion} Initialized`);
 
         window.onbeforeunload = (e) => {
             IPC.send({ "command": "reset" });
         };
 
-        self.injectGlobal();
+        this.injectGlobal();
         Dom.injectContainers();
 
-
-        self.tempStuff();
+        this.tempStuff();
     }
 
-    //Inject global BetterDiscord variable
+    // Inject global BetterDiscord variable
     injectGlobal() {
         window.BetterDiscord = {
-            'version': `${Settings.version}:${Settings.jsversion}`,
-            'debug': Settings.debug
+            version: `${Settings.version}:${Settings.jsversion}`,
+            debug: Settings.debug
         };
 
         if (!Settings.debug) return;
 
         window.BetterDiscord = Object.assign(window.BetterDiscord, {
-            Api: Api,
+            Api,
             jQuery: $,
-            $: $,
-            Logger: Logger,
-            Utils: Utils,
-            Settings: Settings,
+            $,
+            Logger,
+            Utils,
+            Settings,
             Reflection: DeepReflection,
-            Events: Events,
-            Dom: Dom,
-            PluginManager: PluginManager
+            Events,
+            Dom,
+            PluginManager
         });
     }
 
     tempStuff() {
-
         window.backdrop = CBackdrop;
         window.backdropContainer = CBackdropContainer;
         window.modal = CModal;
         window.clog = CChangeLog;
 
-       // let css = Utils.readFileSync(`${Settings.settings.dataPath}/betterdiscord.css`);
+        // let css = Utils.readFileSync(`${Settings.settings.dataPath}/betterdiscord.css`);
         Api.injectStyle('bd-main', mainCss.toString());
 
-        Observer.observe({ 'childList': true, 'subtree': true });
+        Observer.observe({ childList: true, subtree: true });
 
         let settingsPanel = new SettingsPanel();
-
     }
 }
 

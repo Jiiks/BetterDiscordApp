@@ -7,7 +7,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
-
 'use strict';
 
 const { $ } = require('../vendor');
@@ -18,14 +17,9 @@ const endPoints = {
 };
 
 class Discord {
-
-    constructor() {
-
-    }
-
     sendMessage(channel, content, token, cb) {
         channel = channel === "active" ? $(".channel.selected a").attr("href").split("/").splice(-1) : channel;
-        this.post(`${endPoints.channels}/${channel}?token=${token}`, content, data => cb(data));
+        this.post(`${endPoints.channels}/${channel}?token=${token}`, content, cb);
     }
 
     post(url, content, cb) {
@@ -36,8 +30,6 @@ class Discord {
             success: data => cb(data)
         });
     }
-
 }
-
 
 module.exports = new Discord();

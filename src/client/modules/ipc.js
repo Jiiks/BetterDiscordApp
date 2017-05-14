@@ -7,23 +7,21 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+'use strict';
 
 const { ipcRenderer } = require('electron');
 const Events = require('./events');
 
-class IPC  {
-
+class IPC {
     constructor() {
-        let self = this;
-        self.register = {};
-        ipcRenderer.on("bd-async", self.onMessage.bind(self));
+        this.register = {};
+        ipcRenderer.on("bd-async", this.onMessage.bind(this));
     }
 
     send(message, cb) {
-        let self = this;
-        let id = Date.now()+ Math.random();
-        if(cb) self.register[id] = cb;
-        ipcRenderer.send("bd-async", Object.assign({"id": id}, message));
+        const id = Date.now() + Math.random();
+        if (cb) this.register[id] = cb;
+        ipcRenderer.send("bd-async", Object.assign({ id }, message));
     }
 
     sendSync(message) {
@@ -31,28 +29,23 @@ class IPC  {
     }
 
     onMessage(event, args) {
-        let self = this;
-        if(self.register[args.id]) {
-            self.register[args.id](args);
-            delete self.register[args.id];
+        if (this.register[args.id]) {
+            this.register[args.id](args);
+            delete this.register[args.id];
             return; //Registered event
         }
 
-        let { command } = args;
-
-        switch(command) {
+        const { command } = args;
+        switch (command) {
             case 'browser-event':
-            let { event } = args;
-            Events.emit('browser-event', event);
-            break;
+                Events.emit('browser-event', args.event);
+                break;
         }
-
     }
 
     on(event, cb) {
         ipcRenderer.on(event, cb);
     }
-
 }
 
 module.exports = new IPC();

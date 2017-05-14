@@ -7,7 +7,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
-
 'use strict';
 
 const { $ } = require('../vendor');
@@ -18,61 +17,55 @@ const Api = require('./api');
 const Logger = require('./logger');
 
 class BrowserEvents {
-
     constructor() {
-        let self = this;
-
-		self.page = {
-			'previous': {
-				'guild': Api.currentGuild,
-				'channel': Api.currentChannel
+		this.page = {
+			previous: {
+				guild: Api.currentGuild,
+				channel: Api.currentChannel
 			},
-			'current': this.prev
+			current: this.prev
 		};
 
-        Events.on('browser-event', e => {
-            let { type, url } = e;
+        Events.on('browser-event', ({ type, url }) => {
             switch (type) {
                 case 'did-navigate-in-page':
-                    self.didNavigateInPage(url);
+                    this.didNavigateInPage(url);
 					break;
             }
         });
     }
 
 	didNavigateInPage(url) {
-		let self = this;
-
-		self.page.current = {
-			'guild': Api.currentGuild,
-			'channel': Api.currentChannel
+		this.page.current = {
+			guild: Api.currentGuild,
+			channel: Api.currentChannel
 		};
 
-		if(!self.page.previous.guild) {
+		if (!this.page.previous.guild) {
 			Logger.debug("BrowserEvents", "Server Switch");
-			Events.emit('server-switch', self.page);
-			self.page.previous = self.page.current;
+			Events.emit('server-switch', this.page);
+			this.page.previous = this.page.current;
 			return;
 		}
 
-		if(self.page.previous.guild.id !== self.page.current.guild.id) {
+		if (this.page.previous.guild.id !== this.page.current.guild.id) {
 			Logger.debug("BrowserEvents", "Server Switch");
-			Events.emit('server-switch', self.page);
-			self.page.previous = self.page.current;
+			Events.emit('server-switch', this.page);
+			this.page.previous = this.page.current;
 			return;
 		}
 
-		if(!self.page.previous.channel) {
+		if (!this.page.previous.channel) {
 			Logger.debug("BrowserEvents", "Channel Switch");
-			Events.emit('channel-switch', self.page);
-			self.page.previous = self.page.current;
+			Events.emit('channel-switch', this.page);
+			this.page.previous = this.page.current;
 			return;
 		}
 
-		if(self.page.previous.channel.id !== self.page.current.channel.id) {
+		if (this.page.previous.channel.id !== this.page.current.channel.id) {
 			Logger.debug("BrowserEvents", "Channel Switch");
-			Events.emit('channel-switch', self.page);
-			self.page.previous = self.page.current;
+			Events.emit('channel-switch', this.page);
+			this.page.previous = this.page.current;
 			return;
 		}
 	}
@@ -80,11 +73,10 @@ class BrowserEvents {
     parseUrl(url) {
         let splice = url.split('/').splice(4);
         return {
-            'server': splice[0],
-            'channel': splice[1]
+            server: splice[0],
+            channel: splice[1]
         };
     }
-
 }
 
 module.exports = new BrowserEvents();

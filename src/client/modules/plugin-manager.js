@@ -7,7 +7,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
 */
-
+'use strict';
 
 const { Plugin, PluginApi, PluginStorage, PluginEvents } = require('../plugins');
 const { jQuery, React, moment } = require('../vendor');
@@ -19,10 +19,10 @@ const Settings = require('./settings');
 const Plugins = [];
 
 const Vendor = {
-    'jQuery': jQuery,
-    '$': jQuery,
-    'React': React,
-    'moment': moment
+    jQuery,
+    $: jQuery,
+    React,
+    moment
 };
 
 const blockedKeywords = {
@@ -36,7 +36,6 @@ const blockedKeywords = {
 const authorizedPlugins = [];
 
 class PluginManager {
-
     constructor() {
         this.loadPlugins(() => { });
     }
@@ -64,10 +63,7 @@ class PluginManager {
         });
     }
 
-
-
     loadPlugin(name, reload, all, cb) {
-
         const basePath = `${this.pluginPath}/${name}`;
 
         if (this.getPlugin(name) && !reload) {
@@ -76,7 +72,6 @@ class PluginManager {
         }
 
         const config = Utils.tryParse(Utils.readFileSync(`${basePath}/config.json`));
-
         if (!config) {
             Logger.log('PluginManager', `Failed to load config for: ${name}`, 'err');
             return;
@@ -86,14 +81,13 @@ class PluginManager {
             const pluginFile = files.find(file => file.endsWith('.js'));
             const absPath = `${basePath}/${pluginFile}`;
             if (!this.validatePlugin(absPath)) {
-                console.log("INVALID PLUGIN");
+                Logger.log('PluginManager', `Invalid plugin ${name} at ${absPath}`, 'err');
                 return;
             }
 
             if (reload) delete window.require.cache[window.require.resolve(absPath)];
 
             const storage = new PluginStorage(basePath, config.defaultSettings);
-
             const BD = {
                 'Api': new PluginApi(config.info),
                 'Storage': storage,
@@ -113,8 +107,8 @@ class PluginManager {
             }
 
             pluginInstance.internal = {
-                'storage': storage,
-                'path': name
+                storage,
+                path: name
             };
 
             if (reload) {
@@ -127,7 +121,6 @@ class PluginManager {
             if (pluginInstance.internal.storage.getSetting('enabled')) pluginInstance.onStart();
             if (cb) cb(pluginInstance);
         });
-
     }
 
     reloadPlugin(id, cb) {
@@ -168,11 +161,11 @@ class PluginManager {
     }
 
     getPluginIndex(name) {
-        return this.plugins.findIndex(plugin => { return (plugin.name === name || plugin.internal.path === name); });
+        return this.plugins.findIndex(plugin => plugin.name === name || plugin.internal.path === name);
     }
 
     getPlugin(name) {
-        return this.plugins.find(plugin => { return (plugin.name === name || plugin.internal.path === name); });
+        return this.plugins.find(plugin => plugin.name === name || plugin.internal.path === name);
     }
 
     validatePlugin(path) {
@@ -203,7 +196,6 @@ class PluginManager {
         }
         return true;
     }
-
 }
 
 module.exports = new PluginManager();

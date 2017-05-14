@@ -7,13 +7,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+'use strict';
 
 const Role = require('./role');
 
 class Guild {
-
     constructor(data) {
-		if(!data) {
+		if (!data) {
 			this.null = true;
 			return;
 		}

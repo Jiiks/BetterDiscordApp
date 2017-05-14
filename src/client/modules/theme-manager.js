@@ -7,6 +7,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
 */
+'use strict';
 
 const Settings = require('./settings');
 const Utils = require('./utils');
@@ -19,23 +20,19 @@ const ThemeStorage = require('../themes/storage');
 const Themes = {};
 
 class ThemeManager {
-
     constructor() {
-        let self = this;
-        self.themePath = `${Settings.settings.basePath}/themes`;
-        self.loadThemes(() => { });
+        this.themePath = `${Settings.settings.basePath}/themes`;
+        this.loadThemes(() => { });
     }
 
     loadThemes(cb) {
-        let self = this;
-        Utils.readDir(self.themePath, files => {
+        Utils.readDir(this.themePath, files => {
             if (!files) {
                 cb(Themes);
                 return;
             }
             files.forEach(file => {
-                self.loadTheme(file, false);
-
+                this.loadTheme(file, false);
             });
 
             cb(Themes);
@@ -43,16 +40,13 @@ class ThemeManager {
     }
 
     loadTheme(name, reload) {
-        let self = this;
-
         if (Themes.hasOwnProperty(name) && !reload) {
             Logger.log('ThemeManager', `Attempted to load already loaded theme: ${name}`, 'warn');
             return;
         }
 
-        let basePath = `${self.themePath}/${name}`;
-
-        let config = Utils.tryParse(Utils.readFileSync(`${basePath}/config.json`));
+        const basePath = `${this.themePath}/${name}`;
+        const config = Utils.tryParse(Utils.readFileSync(`${basePath}/config.json`));
 
         if (!config) {
             Logger.log('ThemeManager', `Failed to load config for: ${name}`, 'err');
@@ -60,30 +54,26 @@ class ThemeManager {
         }
 
         Utils.readDir(basePath, files => {
-
-            let themeFile = files.find(file => file.endsWith('.css'));
+            const themeFile = files.find(file => file.endsWith('.css'));
             if (!themeFile) {
                 Logger.log('ThemeManager', `Attempted to load theme that does not seem to exist: ${name}`, 'err');
                 return;
             }
 
-            let css = Utils.readFileSync(`${basePath}/${themeFile}`);
+            const css = Utils.readFileSync(`${basePath}/${themeFile}`);
             if (!css) {
                 Logger.log('ThemeManager', `Failed to parse theme: ${name}`, 'err');
                 return;
             }
 
-            let storage = new ThemeStorage(basePath, config.defaultSettings);
-            let theme = new Theme(Object.assign(config.info, { 'css': css }));
+            const storage = new ThemeStorage(basePath, config.defaultSettings);
+            const theme = new Theme(Object.assign(config.info, { 'css': css }));
 
             theme.storage = storage;
             theme.presets = config.presets;
 
             Themes[name] = theme;
-
-
         });
-
     }
 
     enableTheme(id) {
@@ -91,10 +81,12 @@ class ThemeManager {
             Logger.log('ThemeManager', `Attempted to enable a theme that is not loaded: ${id}`, 'err');
             return false;
         }
+
         if (!Themes[id].css) {
             Logger.log('ThemeManager', `Attempted to enable a theme that does not contain valid css: ${id}`, 'err');
             return false;
         }
+
         if (Themes[id].ref) {
             Logger.log('ThemeManager', `Attempted to enable already enabled theme: ${id}`, 'warn');
             return false;
@@ -120,6 +112,7 @@ class ThemeManager {
             Logger.log('ThemeManager', `Attempted to disable a theme that is not loaded: ${id}`, 'err');
             return false;
         }
+
         if (!Themes[id].ref) {
             Logger.log('ThemeManager', `Attempted to disable a theme that is not enabled: ${id}`, 'warn');
             return false;

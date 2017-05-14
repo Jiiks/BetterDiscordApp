@@ -7,31 +7,24 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+'use strict';
 
-/*Used for storing common nodes and manipulating the dom*/
-
+/* Used for storing common nodes and manipulating the dom */
 const { $ } = require('../vendor');
 
 class Dom {
-
-    constructor() {
-        
-    }
-
     injectContainers() {
-        let self = this;
-        if (self.containers) return;
+        if (this.containers) return;
 
-        self.containers = {
-            'head': $("<bd-head/>"),
-            'body': $("<bd-body/>"),
-            'modalContainer': $("<div/>", { 'data-bd': 'modal-container' })
+        this.containers = {
+            head: $("<bd-head/>"),
+            body: $("<bd-body/>"),
+            modalContainer: $("<div/>", { 'data-bd': 'modal-container' })
         };
 
-        self.containers.head.appendTo($("head"));
-        self.containers.body.appendTo($("body"));
-        self.containers.modalContainer.appendTo(self.containers.body);
-
+        this.containers.head.appendTo($("head"));
+        this.containers.body.appendTo($("body"));
+        this.containers.modalContainer.appendTo(this.containers.body);
     }
 
     get head() { return this.containers.head; }
@@ -39,7 +32,6 @@ class Dom {
     get body() { return this.containers.body; }
     get scriptContainer() { return this.body; }
     get modalContainer() { return this.containers.modalContainer; }
-
 }
 
 module.exports = new Dom();

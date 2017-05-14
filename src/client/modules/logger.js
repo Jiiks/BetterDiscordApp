@@ -7,11 +7,11 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree. 
 */
+'use strict';
 
 class Logger {
-
-    static log(moduleName, message, level) {
-        console.log(`%c[%cBetter%cDiscord%c:${moduleName}%c]%c ${message} `, ...this.style(level || 'info'));
+    static log(moduleName, message, level = 'info') {
+        console.log(`%c[%cBetter%cDiscord%c:${moduleName}%c]%c ${message} `, ...this.style(level));
     }
 
     static logObject(moduleName, message, object, level) {
@@ -60,7 +60,6 @@ class Logger {
             ]
         }[level];
     }
-
 }
 
 module.exports = Logger;
