@@ -108,20 +108,22 @@ class CSP_Content extends Component {
         );
     }
 
-	get renderCorePanel() {
-        return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="cs" title="Core Settings" settings={Settings.getCoreSettings} onChange={(id, checked) => this.onChange("core", id, checked)} />, this.tools]}/>;
+    get renderCorePanel() {
+        return <CScroller><CSettingsPanel key="cs" title="Core Settings" settings={Settings.getCoreSettings} onChange={(id, checked) => this.onChange("core", id, checked)} /> {this.tools}</CScroller>;
+
+
 	}
-	get renderEmotesPanel() {
-        return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="es" title="Emote Settings" settings={Settings.getEmoteSettings} onChange={(id, checked) => this.onChange("emotes", id, checked)} />, this.tools]}/>;
+    get renderEmotesPanel() {
+        return <CScroller><CSettingsPanel key="es" title="Emote Settings" settings={Settings.getEmoteSettings} onChange={(id, checked) => this.onChange("emotes", id, checked)} /> {this.tools}</CScroller>;
 	}
-	get renderUiPanel() {
-        return <CScroller fade={true} dark={true} children={[<CSettingsPanel key="us" title="UI Settings" settings={Settings.getUiSettings} onChange={(id, checked) => this.onChange("ui", id, checked)} />, this.tools]}/>;
+    get renderUiPanel() {
+        return <CScroller><CSettingsPanel key="us" title="UI Settings" settings={Settings.getUiSettings} onChange={(id, checked) => this.onChange("ui", id, checked)} /> {this.tools}</CScroller>;
 	}
     get renderPluginsPanel() {
-        return <CScroller fade={true} dark={true} children={[<CPluginPanel key="pp" PluginManager={PluginManager} plugins={PluginManager.plugins} />, this.tools]} />;
+        return <CScroller><CPluginPanel key="pp" PluginManager={PluginManager} plugins={PluginManager.plugins} /> {this.tools}</CScroller>;
 	}
     get renderThemesPanel() {
-        return <CScroller fade={true} dark={true} children={[<CThemePanel key="tp" ThemeManager={ThemeManager} themes={ThemeManager.themes} />, this.tools]} />;
+        return <CScroller><CThemePanel key="tp" ThemeManager={ThemeManager} themes={ThemeManager.themes}/> {this.tools}</CScroller>;
 	}
 }
 
