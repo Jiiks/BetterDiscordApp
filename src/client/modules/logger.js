@@ -12,6 +12,7 @@
 class Logger {
 
     static log(moduleName, message, level = 'log') {
+        level = this.parseLevel(level);
         console[level]('[%cBetter%cDiscord:%s] %s', 'color: #3E82E5', '', `${moduleName}${level === 'debug' ? '|DBG' : ''}`, message);
     }
 
@@ -30,6 +31,18 @@ class Logger {
 
         if (message) this.debug(moduleName, message, level, force);
         console.debug(object);
+    }
+
+    static parseLevel(level) {
+        return {
+            'log': 'log',
+            'warn': 'warn',
+            'err': 'error',
+            'error': 'error',
+            'debug': 'debug',
+            'dbg': 'debug',
+            'info': 'info'
+        }[level];
     }
 
 }
