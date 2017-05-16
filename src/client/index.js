@@ -9,7 +9,7 @@
 */
 'use strict';
 
-const { Observer, Settings, IPC, Events, PluginManager, Utils, Logger, Reflection, BrowserEvents, DeepReflection, Api, Dom } = require('./modules');
+const { Observer, Settings, IPC, Events, PluginManager, ThemeManager, Utils, Logger, Reflection, BrowserEvents, DeepReflection, Api, Dom } = require('./modules');
 const { SettingsPanel, ContextMenu } = require('./ui');
 const { $ } = require('./vendor');
 const { CBackdrop, CModal, CBackdropContainer } = require('./ui/components');
@@ -49,7 +49,8 @@ class BDCore {
             Reflection: DeepReflection,
             Events,
             Dom,
-            PluginManager
+            PluginManager,
+            ThemeManager
         });
     }
 

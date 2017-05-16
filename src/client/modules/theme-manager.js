@@ -12,35 +12,81 @@
 const Settings = require('./settings');
 const Utils = require('./utils');
 const Logger = require('./logger');
+const Api = require('./api');
 const { $ } = require('../vendor');
 
 const Theme = require('../themes/theme');
 const ThemeStorage = require('../themes/storage');
 
-const Themes = {};
+const Themes = [];
 
 class ThemeManager {
+
     constructor() {
-        this.themePath = `${Settings.settings.basePath}/themes`;
         this.loadThemes(() => { });
+    }
+
+    get themePath() {
+        return `${Settings.settings.basePath}/themes`;
+    }
+
+    get themes() {
+        return Themes;
     }
 
     loadThemes(cb) {
         Utils.readDir(this.themePath, files => {
             if (!files) {
-                cb(Themes);
+                cb(this.themes);
                 return;
             }
+
             files.forEach(file => {
-                this.loadTheme(file, false);
+                this.loadTheme(file, false, true);
             });
 
-            cb(Themes);
+            cb(this.themes);
         });
     }
 
-    loadTheme(name, reload) {
-        if (Themes.hasOwnProperty(name) && !reload) {
+    loadTheme(name, reload, all, cb) {
+
+        const basePath = `${this.themePath}/${name}`;
+
+        if (this.getTheme(name) && !reload) {
+            Logger.log('ThemeManager', `Attempted to load already loaded theme: ${name}`, 'warn');
+            return;
+        }
+
+        const config = Utils.tryParse(Utils.readFileSync(`${basePath}/config.json`));
+        if (!config) {
+            Logger.log('ThemeManager', `Failed to load config for: ${name}`, 'err');
+            return;
+        }
+
+        Utils.readDir(basePath, files => {
+            const themeFile = files.find(file => file.endsWith('.css'));
+            const absPath = `${basePath}/${themeFile}`;
+
+            const css = Utils.readFileSync(absPath);
+            if (!css) {
+                Logger.log('ThemeManager', `Invalid theme ${name} at ${absPath}`, 'err');
+                return;
+            }
+
+            const storage = new ThemeStorage(basePath, config.defaultSettings);
+            const theme = new Theme(Object.assign(config.info, { css }));
+
+            theme.internal = {
+                storage,
+                path: name
+            };
+
+            this.themes.push(theme);
+            Api.injectStyle(name, css);
+        });
+
+        /*if (Themes.hasOwnProperty(name) && !reload) {
             Logger.log('ThemeManager', `Attempted to load already loaded theme: ${name}`, 'warn');
             return;
         }
@@ -73,7 +119,7 @@ class ThemeManager {
             theme.presets = config.presets;
 
             Themes[name] = theme;
-        });
+        });*/
     }
 
     enableTheme(id) {
@@ -124,9 +170,10 @@ class ThemeManager {
         return true;
     }
 
-    get themes() {
-        return Themes;
+    getTheme(name) {
+        return this.themes.find(theme => theme.name === name || theme.internal.path === name);
     }
+
 }
 
 module.exports = new ThemeManager();
