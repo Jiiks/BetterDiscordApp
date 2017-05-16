@@ -1,0 +1,21 @@
+{
+  "info": {
+    "name": "Clock",
+    "authors": [ "Jiiks" ],
+    "version": "1.0",
+    "description": "Add a clock to Discord",
+    "repository": "https://github.com/Jiiks/BetterDiscordApp.git",
+    "homepage": "https://github.com/Jiiks/BetterDiscordApp",
+    "reloadable": true
+  },
+  "defaultSettings": [
+    {
+      "id": "12hr",
+      "type": "bool",
+      "text": "12 Hour Clock",
+      "description": "",
+      "value": false
+    }
+  ],
+  "permissions": []
+}
