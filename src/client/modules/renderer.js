@@ -36,7 +36,10 @@ class Renderer {
         return {
             root,
             element: re,
-            remove: () => root.remove()
+            "remove": () => {
+                ReactDOM.unmountComponentAtNode(root);
+                root.remove();
+            }
         };
     }
 
