@@ -52,10 +52,10 @@ class CPluginCard extends Component {
 
 
         return (
-            <div className="bd-plugin-card" style={verified ? {} : { border: "1px solid #f04747", boxShadow: "0 0 6px rgba(240,71,71,0.3)"}}>
-                <div className="bd-plugin-info">
+            <div className="bd-card" style={verified ? {} : { border: "1px solid #f04747", boxShadow: "0 0 6px rgba(240,71,71,0.3)"}}>
+                <div className="bd-card-info">
                     <CSwitch text={`${plugin.name} v${plugin.version} by ${plugin.authors.join(", ")}`} info="" checked={plugin.enabled} disabled={reload} onChange={this.onChange} />
-                    <CScroller dark={true} fade={true} children={plugin.description} />
+                    <CScroller dark={true} fade={true}>{plugin.description}</CScroller>
                 </div>
                 {this.renderControls}
                 <ICPluginSettings key="ps" plugin={plugin} visible={settings} settingStore={JSON.parse(JSON.stringify(plugin.settings))} />
@@ -106,7 +106,7 @@ class CPluginCard extends Component {
         const { showTooltip, hideTooltip } = this;
 
         return (
-            <div className="bd-plugin-controls">
+            <div className="bd-card-controls">
                 {!verified &&
                     <div className="title" style={{ color: "rgb(240, 71, 71)", fontSize: "14px", lineHeight: "32px", fontWeight: "700" }}>Unverified plugin. Use at your own risk!</div>
                 }
@@ -167,7 +167,7 @@ class ICPluginSettings extends Component {
         let column = <CContentColumn key="sco" style={{ padding: "0", minHeight: "0", marginTop: "10px" }} children={_panel} />;
 
         return (
-            <div className="bd-plugin-settings" style={{ maxHeight: visible ? "200px" : "0" }}>
+            <div className="bd-card-settings" style={{ maxHeight: visible ? "200px" : "0" }}>
                 <CScroller dark={true} fade={true} children={column} />
                 {this.controls}
             </div>
@@ -176,7 +176,7 @@ class ICPluginSettings extends Component {
 
     get controls() {
         return (
-            <div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
+            <div className="bd-card-settings-controls" key="sc" style={{ display: "flex" }}>
                 <div style={{ flex: "1 1 auto" }}></div>
                 <CUiButton type="brand" disabled={false} onClick={() => { this.setState({ 'settingStore': this.defaultSettings }) }} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Default' }} />
                 <CUiButton type="brand" disabled={false} onClick={() => { this.save()}} content={<CFontAwesome name="check" />} tooltip={{ 'text': 'Save' }} />

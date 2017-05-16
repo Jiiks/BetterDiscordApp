@@ -1,9 +1,9 @@
 .control-groups {
 
-    &.bd-plugins {
+    &.bd-plugins, &.bd-themes {
         flex-direction: column;
 
-        .bd-plugin-card {
+        .bd-card {
             background: #33363c;
             padding: 5px;
             border-radius: 5px;
@@ -12,7 +12,7 @@
             display: flex;
             flex-direction: column;
 
-            .bd-plugin-info {
+            .bd-card-info {
                 display: flex;
                 flex-direction: column;
                 flex: 1 1 auto;
@@ -34,7 +34,7 @@
                 }
             }
 
-            .bd-plugin-controls {
+            .bd-card-controls {
                 display: flex;
                 flex-direction: row;
                 flex: 0 0 auto;
@@ -55,7 +55,7 @@
                 }
             }
 
-            .bd-plugin-settings {
+            .bd-card-settings {
                 height: 200px;
                 max-height: 0;
                 flex: 0 0 auto;
@@ -78,7 +78,7 @@
                     }
                 }
 
-                .bd-plugin-settings-controls {
+                .bd-card-settings-controls {
                     button:nth-of-type(1) {
                         border-radius: 3px 0 0 3px;
                         border-right: 1px solid #7289da;
