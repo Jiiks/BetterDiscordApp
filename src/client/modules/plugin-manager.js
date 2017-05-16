@@ -15,6 +15,7 @@ const IPC = require('./ipc');
 const Utils = require('./utils');
 const Logger = require('./logger');
 const Settings = require('./settings');
+const Renderer = require('./renderer');
 
 const Plugins = [];
 
@@ -91,7 +92,8 @@ class PluginManager {
             const BD = {
                 'Api': new PluginApi(config.info),
                 'Storage': storage,
-                'Events': PluginEvents
+                'Events': PluginEvents.
+                Renderer
             };
 
             let plugin = null;
