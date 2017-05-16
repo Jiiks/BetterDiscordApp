@@ -53,7 +53,7 @@ class Plugin {
 
     getSetting(id) {
         let setting = this.storage.settings.find(setting => { return setting.id === id; });
-        if (setting && setting.value) return setting.value;
+        if (setting && setting.value !== undefined) return setting.value;
     }
 
     get enabled() {
