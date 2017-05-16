@@ -10,6 +10,7 @@
 'use strict';
 
 const Logger = require('../modules/logger');
+const Api = require('../modules/api');
 
 class PluginApi {
     constructor(props) {
@@ -18,6 +19,22 @@ class PluginApi {
 
     log(message, level) {
         Logger.log(this.props.name, message, level);
+    }
+
+    injectStyle(id, css) {
+        Api.injectStyle(id, css);
+    }
+
+    removeStyle(id) {
+        Api.removeStyle(id);
+    }
+
+    injectScript(id, script) {
+        Api.injectScript(id, script);
+    }
+
+    removeScript(id) {
+        Api.removeScript(id);
     }
 }
 
