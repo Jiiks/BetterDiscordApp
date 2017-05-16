@@ -11,12 +11,12 @@
 'use strict';
 
 const { React, $, ReactDOM } = require('../../../vendor');
-const { Settings, PluginManager } = require('../../../modules');
+const { Settings, PluginManager, ThemeManager } = require('../../../modules');
 import { Component } from 'React';
 
 import { CTabBarSeparator, CTabBarHeader, CTabBarItem } from '../tabbar';
 
-import { CContentColumn, CScroller, CSettingsPanel, CPluginPanel, CSwitch, CButton_Close } from '../';
+import { CContentColumn, CScroller, CSettingsPanel, CPluginPanel, CThemePanel, CSwitch, CButton_Close } from '../';
 
 class CSP_Content extends Component {
 
@@ -120,8 +120,8 @@ class CSP_Content extends Component {
     get renderPluginsPanel() {
         return <CScroller fade={true} dark={true} children={[<CPluginPanel key="pp" PluginManager={PluginManager} plugins={PluginManager.plugins} />, this.tools]} />;
 	}
-	get renderThemesPanel() {
-		return <span>Themes</span>;
+    get renderThemesPanel() {
+        return <CScroller fade={true} dark={true} children={[<CThemePanel key="tp" ThemeManager={ThemeManager} themes={ThemeManager.themes} />, this.tools]} />;
 	}
 }
 
