@@ -72,7 +72,6 @@ module.exports = (Plugin, BD, Vendor) => {
         onStart() {
             Api.injectStyle(this.styleId, this.style);
             this.root = Renderer.append("#app-mount", $("<span/>"), React.createElement(ClockComponent, null));
-            window.fuck = this.root;
             return true;
         }
 
