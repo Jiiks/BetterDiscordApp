@@ -13,6 +13,8 @@
 const { React } = require('../../vendor');
 
 import { Component } from 'React';
+import CScroller from './scroller';
+import CSwitch from './switch';
 
 class CThemeCard extends Component {
 
@@ -25,7 +27,12 @@ class CThemeCard extends Component {
         const { theme } = this.props;
 
         return (
-            <h3>{theme.name}</h3>
+            <div className="bd-card">
+                <div className="bd-card-info">
+                    <CSwitch text={`${theme.name} v${theme.version} by ${theme.authors.join(", ")}`} info="" checked={false} disabled={false} onChange={() => { }}/>
+                    <CScroller>{theme.description}</CScroller>
+                </div>
+            </div>
         );
     }
 
