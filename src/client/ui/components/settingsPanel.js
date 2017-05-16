@@ -31,7 +31,7 @@ class CSettingsPanel extends Component {
                     return (
                         <span>
                             <CUiDivider />
-                            <CSwitch key={setting.key} id={setting.key} text={setting.text} info={setting.helptext} checked={setting.enabled} disabled={setting.disabled} onChange={(id, checked) => { onChange(id, checked); self.setState({}) }} />
+                            <CSwitch key={setting.key} id={setting.key} text={setting.text} info={setting.helptext} checked={setting.enabled} disabled={setting.disabled} onChange={(id, checked) => { onChange(id, checked); this.setState({}) }} />
                         </span>
                     )
 				})}
