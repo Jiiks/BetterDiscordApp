@@ -92,7 +92,7 @@ class PluginManager {
             const BD = {
                 'Api': new PluginApi(config.info),
                 'Storage': storage,
-                'Events': PluginEvents.
+                'Events': PluginEvents,
                 Renderer
             };
 
