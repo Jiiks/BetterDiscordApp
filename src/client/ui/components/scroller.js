@@ -21,12 +21,13 @@ class CScroller extends Component {
     }
 
     render() {
-		const wrapperClass = `scroller-wrap${this.props.fade ? ' fade' : ''} ${this.props.dark ? ' dark' : ''}`;
-		const { children } = this.props;
+        const fade = this.props.fade === undefined ? true : this.props.fade;
+        const dark = this.props.dark === undefined ? true : this.props.fade;
+
 		return (
-			<div className={wrapperClass}>
+            <div className={`scroller-wrap${fade ? ' fade' : ''} ${dark ? ' dark' : ''}`}>
 				<div ref="scroller" className="scroller">
-					{children}
+					{this.props.children}
 				</div>
 			</div>
 		);
