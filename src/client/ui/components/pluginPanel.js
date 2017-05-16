@@ -1,5 +1,5 @@
 /**
- * BetterDiscord Settings Panel Component
+ * BetterDiscord Plugin Panel Component
  * Copyright (c) 2015-present Jiiks - https://jiiks.net
  * All rights reserved.
  * https://github.com/Jiiks/BetterDiscordApp - https://betterdiscord.net
