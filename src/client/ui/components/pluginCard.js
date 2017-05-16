@@ -46,9 +46,10 @@ class CPluginCard extends Component {
     }
 
     render() {
-        let self = this;
+
         const { plugin, reload } = this.state;
         const { settings, verified } = this.props;
+
 
         return (
             <div className="bd-plugin-card" style={verified ? {} : { border: "1px solid #f04747", boxShadow: "0 0 6px rgba(240,71,71,0.3)"}}>
@@ -177,10 +178,25 @@ class ICPluginSettings extends Component {
         return (
             <div className="bd-plugin-settings-controls" key="sc" style={{ display: "flex" }}>
                 <div style={{ flex: "1 1 auto" }}></div>
-                <CUiButton type="brand" disabled={false} onClick={() => { this.setState({ 'settingStore': JSON.parse(JSON.stringify(this.props.plugin.storage.defaultConfig)) }) }} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Default' }} />
+                <CUiButton type="brand" disabled={false} onClick={() => { this.setState({ 'settingStore': this.defaultSettings }) }} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Default' }} />
                 <CUiButton type="brand" disabled={false} onClick={() => { this.save()}} content={<CFontAwesome name="check" />} tooltip={{ 'text': 'Save' }} />
             </div>
         );
+    }
+
+    get defaultSettings() {
+        const { plugin } = this.props;
+        const defaults = JSON.parse(JSON.stringify(plugin.storage.defaultConfig));
+
+        const red = defaults.reduce((arr, item) => {
+            if (item.id === 'enabled') return arr;
+            arr.push(item);
+            return arr;
+        }, []);
+
+        red.push({ 'id': 'enabled', 'value': plugin.enabled });
+
+        return red;
     }
 
     onChange(id, value) {
@@ -192,7 +208,17 @@ class ICPluginSettings extends Component {
 
     save() {
         const { plugin } = this.props;
-        plugin.storage.setSettings(this.state.settingStore);
+        const { settingStore } = this.state;
+
+        const red = settingStore.reduce((arr, item) => {
+            if (item.id === 'enabled') return arr;
+            arr.push(item);
+            return arr;
+        }, []);
+
+        red.push({ 'id': 'enabled', 'value': plugin.enabled });
+
+        plugin.storage.setSettings(red);
         plugin.saveSettings();
     }
 
