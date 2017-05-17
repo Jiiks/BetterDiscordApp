@@ -17,7 +17,6 @@ import { Component } from 'React';
 import CFontAwesome from './fontAwesome';
 import CScroller from './scroller';
 import CSwitch from './switch';
-import CToolTip from './tooltip';
 import CContentColumn from './contentcolumn';
 import CTextbox from './textbox';
 import CUiDivider from './uidivider';
