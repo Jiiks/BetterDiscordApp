@@ -38,6 +38,17 @@ class Api {
         return channel.null ? null: channel;
     }
 
+    static injectTheme(id, css) {
+        Dom.themeContainer.append($("<style/>", {
+            'data-bd': id,
+            'text': css
+        }));
+    }
+
+    static removeTheme(id) {
+        Dom.themeContainer.find(`[data-bd='${id}']`).remove();
+    }
+
     static injectStyle(id, css) {
         Dom.styleContainer.append($("<style/>", {
             'data-bd': id,

@@ -82,7 +82,7 @@ class ThemeManager {
                 path: name
             };
 
-            if (theme.enabled) Api.injectStyle(theme.name, theme.css);
+            if (theme.enabled) Api.injectTheme(theme.name, theme.css);
 
             this.themes.push(theme);
            // Api.injectStyle(name, css);
@@ -174,7 +174,7 @@ class ThemeManager {
 
         theme.internal.storage.setSetting('enabled', false);
 
-        Api.removeStyle(theme.name);
+        Api.removeTheme(theme.name);
 
         return true;
     }

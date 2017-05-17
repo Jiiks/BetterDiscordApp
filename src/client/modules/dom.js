@@ -19,10 +19,12 @@ class Dom {
         this.containers = {
             head: $("<bd-head/>"),
             body: $("<bd-body/>"),
+            themeContainer: $("<bd-themes/>"),
             modalContainer: $("<div/>", { 'data-bd': 'modal-container' })
         };
 
         this.containers.head.appendTo($("head"));
+        this.containers.themeContainer.appendTo(this.containers.head);
         this.containers.body.appendTo($("body"));
         this.containers.modalContainer.appendTo(this.containers.body);
     }
@@ -32,6 +34,7 @@ class Dom {
     get body() { return this.containers.body; }
     get scriptContainer() { return this.body; }
     get modalContainer() { return this.containers.modalContainer; }
+    get themeContainer() { return this.containers.themeContainer; }
 }
 
 module.exports = new Dom();
