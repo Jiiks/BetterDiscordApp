@@ -41,8 +41,7 @@ class CUiButton extends Component {
     get renderWithTooltip() {
         const { tooltip, content, type, disabled } = this.props;
         const { tooltipVisible } = this.state;
-        const cn = ['ui-button', 'filled', 'small', 'grow', type || 'brand', disabled ? 'disabled' : ''];
-
+        const cn = ['ui-button', 'filled', 'small', 'grow', type || 'brand' , disabled ? 'disabled' : ''];
 
         return (
             <button ref="button" className={cn.join(' ')} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} type="button" onClick={this.props.onClick}>
@@ -53,9 +52,11 @@ class CUiButton extends Component {
     }
 
     get renderWithoutTooltip() {
+        const { type, disabled } = this.props;
+        const cn = ['ui-button', 'filled', 'small', 'grow', type || 'brand', disabled ? 'disabled' : ''];
 
         return (
-            <button type="button" onClick={this.props.onClick}>
+            <button ref="button" className={cn.join(' ')} type="button" onClick={this.props.onClick}>
                 <div className="ui-button-contents">{this.props.children}</div>
             </button>
         );
