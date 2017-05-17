@@ -103,7 +103,6 @@ class CPluginCard extends Component {
 
         const { plugin, reload } = this.state;
         const { settingsHandler, verified } = this.props;
-        const { showTooltip, hideTooltip } = this;
 
         return (
             <div className="bd-card-controls">
