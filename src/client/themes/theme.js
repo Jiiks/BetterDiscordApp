@@ -33,6 +33,23 @@ class Theme {
     get css() {
         return this.props.css;
     }
+
+    get storage() {
+        return this.internal.storage;
+    }
+
+    get settings() {
+        return this.storage.settings;
+    }
+
+    getSetting(id) {
+        let setting = this.storage.settings.find(setting => { return setting.id === id; });
+        if (setting && setting.value !== undefined) return setting.value;
+    }
+
+    get enabled() {
+        return this.getSetting("enabled");
+    }
 }
 
 module.exports = Theme;

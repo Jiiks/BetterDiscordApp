@@ -82,8 +82,10 @@ class ThemeManager {
                 path: name
             };
 
+            if (theme.enabled) Api.injectStyle(theme.name, theme.css);
+
             this.themes.push(theme);
-            Api.injectStyle(name, css);
+           // Api.injectStyle(name, css);
         });
 
         /*if (Themes.hasOwnProperty(name) && !reload) {
@@ -123,49 +125,56 @@ class ThemeManager {
     }
 
     enableTheme(id) {
-        if (!Themes[id]) {
+
+        const theme = this.getTheme(id);
+        if (!theme) {
             Logger.log('ThemeManager', `Attempted to enable a theme that is not loaded: ${id}`, 'err');
             return false;
         }
 
-        if (!Themes[id].css) {
+        if (!theme.css) {
             Logger.log('ThemeManager', `Attempted to enable a theme that does not contain valid css: ${id}`, 'err');
             return false;
         }
 
-        if (Themes[id].ref) {
+        if (theme.enabled) {
             Logger.log('ThemeManager', `Attempted to enable already enabled theme: ${id}`, 'warn');
             return false;
         }
 
-        let css = Themes[id].css;
-
-        Themes[id].storage.defaultConfig.forEach(setting => {
+        /*Themes[id].storage.defaultConfig.forEach(setting => {
             css = css.replace(setting.id, setting.value);
-        });
+        });*/
 
-        Themes[id].ref = $('<style/>', {
+        /*Themes[id].ref = $('<style/>', {
             text: css
         });
 
         Themes[id].ref.appendTo($('head'));
+        */
 
+        theme.internal.storage.setSetting('enabled', true);
+
+        Api.injectStyle(theme.name, theme.css);
         return true;
     }
 
     disableTheme(id) {
-        if (!Themes[id]) {
+
+        const theme = this.getTheme(id);
+        if (!theme) {
             Logger.log('ThemeManager', `Attempted to disable a theme that is not loaded: ${id}`, 'err');
             return false;
         }
 
-        if (!Themes[id].ref) {
-            Logger.log('ThemeManager', `Attempted to disable a theme that is not enabled: ${id}`, 'warn');
+        if (!theme.enabled) {
+            Logger.log('ThemeManager', `Attempted to disable already disabled theme: ${id}`, 'warn');
             return false;
         }
 
-        Themes[id].ref.remove();
-        Themes[id].ref = null;
+        theme.internal.storage.setSetting('enabled', false);
+
+        Api.removeStyle(theme.name);
 
         return true;
     }

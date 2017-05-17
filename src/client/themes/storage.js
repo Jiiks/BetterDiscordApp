@@ -19,9 +19,16 @@ class ThemeStorage {
     }
 
     load() {
-        this.settings = this.defaultConfig;
+        this.settings = JSON.parse(JSON.stringify(this.defaultConfig));
 
         const loadSettings = Utils.tryParse(Utils.readFileSync(this.path));
+        if (loadSettings) {
+            Object.keys(loadSettings).map(key => {
+                this.setSetting(key, loadSettings[key]);
+            });
+        }
+
+        if (!this.getSetting('enabled')) this.setSetting('enabled', false);
     }
 
     save() {
@@ -43,6 +50,10 @@ class ThemeStorage {
             setting.value = value;
         }
         this.save();
+    }
+
+    setSettings(settings) {
+        this.settings = settings;
     }
 }
 
