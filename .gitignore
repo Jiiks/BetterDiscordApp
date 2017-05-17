@@ -6,3 +6,4 @@ dev*
 dist
 depr
 plugins/*/settings.json
+themes/*/settings.json
