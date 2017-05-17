@@ -1,0 +1,13 @@
+{
+  "info": {
+    "name": "Example Theme 1",
+    "authors": [ "Jiiks" ],
+    "version": "1.0",
+    "description": "Example Theme 1 Description",
+    "repository": "https://github.com/Jiiks/BetterDiscordApp.git",
+    "homepage": "https://github.com/Jiiks/BetterDiscordApp",
+    "reloadable": true
+  },
+  "defaultSettings": [],
+  "permissions": []
+}

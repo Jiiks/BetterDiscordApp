@@ -1,0 +1,11 @@
+.account .btn-group .btn-mute {
+    background: red;
+}
+
+.account .btn-group .btn-deafen {
+    background: blue;
+}
+
+.account .btn-group .btn-settings {
+    background: green;
+}
