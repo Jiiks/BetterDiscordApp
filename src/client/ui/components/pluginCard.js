@@ -111,9 +111,16 @@ class CPluginCard extends Component {
                     <div className="title" style={{ color: "rgb(240, 71, 71)", fontSize: "14px", lineHeight: "32px", fontWeight: "700" }}>Unverified plugin. Use at your own risk!</div>
                 }
                 <div style={{ flex: "1 1 auto" }}></div>
-                <CUiButton type="brand" disabled={reload} onClick={() => { settingsHandler(plugin.name)}} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Settings' }} />
-                <CUiButton type="brand" disabled={reload} onClick={() => { this.reload() }} content={<CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />} tooltip={{ 'text': 'Reload' }} />
-                <CUiButton type="red" disabled={reload} onClick={() => {}} content={<CFontAwesome name="trash" />} tooltip={{ 'text': 'Uninstall' }} />
+
+                <CUiButton disabled={reload} onClick={() => { settingsHandler(plugin.name); }} tooltip={{ 'text': 'Settings' }}>
+                    <CFontAwesome name="cog"/>
+                </CUiButton>
+                <CUiButton disabled={reload} onClick={this.reload} tooltip={{ 'text': 'Reload' }}>
+                    <CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`}/>
+                </CUiButton>
+                <CUiButton disabled={reload} type="red" onClick={() => { console.log("uninstall"); }} tooltip={{ 'text': 'Uninstall' }}>
+                    <CFontAwesome name="trash"/>
+                </CUiButton>
             </div>
         );
     }
@@ -178,8 +185,13 @@ class ICPluginSettings extends Component {
         return (
             <div className="bd-card-settings-controls" key="sc" style={{ display: "flex" }}>
                 <div style={{ flex: "1 1 auto" }}></div>
-                <CUiButton type="brand" disabled={false} onClick={() => { this.setState({ 'settingStore': this.defaultSettings }) }} content={<CFontAwesome name="cog" />} tooltip={{ 'text': 'Default' }} />
-                <CUiButton type="brand" disabled={false} onClick={() => { this.save()}} content={<CFontAwesome name="check" />} tooltip={{ 'text': 'Save' }} />
+                <CUiButton disabled={false} onClick={() => { this.setState({ 'settingStore': this.defaultSettings }) }} tooltip={{ 'text': 'Default' }}>
+                    <CFontAwesome name="cog"/>
+                </CUiButton>
+
+                <CUiButton disabled={false} onClick={this.save} tooltip={{ 'text': 'Save' }}>
+                    <CFontAwesome name="check"/>
+                </CUiButton>
             </div>
         );
     }
@@ -251,6 +263,3 @@ class ICPluginSettings extends Component {
 }
 
 export default CPluginCard;
-
-
-
