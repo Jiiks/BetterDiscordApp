@@ -13,8 +13,13 @@
 const { React } = require('../../vendor');
 
 import { Component } from 'React';
+import CFontAwesome from './fontAwesome';
 import CScroller from './scroller';
 import CSwitch from './switch';
+import CContentColumn from './contentcolumn';
+import CTextbox from './textbox';
+import CUiDivider from './uidivider';
+import CUiButton from './uibutton';
 
 class CThemeCard extends Component {
 
@@ -26,6 +31,7 @@ class CThemeCard extends Component {
 
     bindings() {
         this.onChange = this.onChange.bind(this);
+        this.reload = this.reload.bind(this);
     }
 
     setInitialState() {
@@ -38,7 +44,7 @@ class CThemeCard extends Component {
 
     render() {
 
-        const { theme } = this.props;
+        const { theme } = this.state;
 
         return (
             <div className="bd-card">
@@ -46,6 +52,7 @@ class CThemeCard extends Component {
                     <CSwitch text={`${theme.name} v${theme.version} by ${theme.authors.join(", ")}`} info="" checked={theme.enabled} disabled={false} onChange={this.onChange}/>
                     <CScroller>{theme.description}</CScroller>
                 </div>
+                {this.renderControls}
             </div>
         );
     }
@@ -63,6 +70,47 @@ class CThemeCard extends Component {
 
         ThemeManager.disableTheme(theme.name);
         this.setState({});
+    }
+
+    reload() {
+        const { theme } = this.state;
+        const { ThemeManager, settingsHandler } = this.props;
+        settingsHandler(null);
+
+        this.setState({
+            'reload': true
+        });
+
+        ThemeManager.reloadTheme(theme.name, theme => {
+            this.setState({
+                'reload': false,
+                'theme': theme
+            });
+        });
+    }
+
+    get renderControls() {
+
+        const { theme, reload } = this.state;
+        const { settingsHandler } = this.props;
+
+        return (
+            <div className="bd-card-controls">
+                <div style={{ flex: "1 1 auto" }}></div>
+                <CUiButton disabled={reload} onClick={() => { settingsHandler(theme.name); }} tooltip={{ 'text': 'Settings' }}>
+                    <CFontAwesome name="cog" />
+                </CUiButton>
+                <CUiButton disabled={reload} onClick={this.reload} tooltip={{ 'text': 'Reload' }}>
+                    <CFontAwesome name={`refresh${reload ? ' fa-spin' : ''}`} />
+                </CUiButton>
+                <CUiButton disabled={reload} type="red" onClick={() => { console.log("uninstall"); }} tooltip={{ 'text': 'Uninstall' }}>
+                    <CFontAwesome name="trash" />
+                </CUiButton>
+            </div>
+
+
+        );
+
     }
 
 }

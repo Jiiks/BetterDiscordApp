@@ -82,46 +82,30 @@ class ThemeManager {
                 path: name
             };
 
-            if (theme.enabled) Api.injectTheme(theme.name, theme.css);
+            if (reload) {
+                const index = this.getThemeIndex(name);
+                this.themes[index] = theme;
+            } else {
+                this.themes.push(theme);
+            }
 
-            this.themes.push(theme);
-           // Api.injectStyle(name, css);
+            if (theme.enabled) Api.injectTheme(theme.name, theme.css);
+            if (cb) cb(theme);
         });
 
-        /*if (Themes.hasOwnProperty(name) && !reload) {
-            Logger.log('ThemeManager', `Attempted to load already loaded theme: ${name}`, 'warn');
+    }
+
+    reloadTheme(id, cb) {
+        const theme = this.getTheme(id);
+        if (!theme) {
+            Logger.log('ThemeManager', `Attempted to reload a theme that is not loaded: ${id}`, 'warn');
+            if (cb) cb(null);
             return;
         }
 
-        const basePath = `${this.themePath}/${name}`;
-        const config = Utils.tryParse(Utils.readFileSync(`${basePath}/config.json`));
+        if (theme.enabled) Api.removeTheme(theme.name);
 
-        if (!config) {
-            Logger.log('ThemeManager', `Failed to load config for: ${name}`, 'err');
-            return;
-        }
-
-        Utils.readDir(basePath, files => {
-            const themeFile = files.find(file => file.endsWith('.css'));
-            if (!themeFile) {
-                Logger.log('ThemeManager', `Attempted to load theme that does not seem to exist: ${name}`, 'err');
-                return;
-            }
-
-            const css = Utils.readFileSync(`${basePath}/${themeFile}`);
-            if (!css) {
-                Logger.log('ThemeManager', `Failed to parse theme: ${name}`, 'err');
-                return;
-            }
-
-            const storage = new ThemeStorage(basePath, config.defaultSettings);
-            const theme = new Theme(Object.assign(config.info, { 'css': css }));
-
-            theme.storage = storage;
-            theme.presets = config.presets;
-
-            Themes[name] = theme;
-        });*/
+        this.loadTheme(theme.internal.path, true, false, cb);
     }
 
     enableTheme(id) {
@@ -142,20 +126,9 @@ class ThemeManager {
             return false;
         }
 
-        /*Themes[id].storage.defaultConfig.forEach(setting => {
-            css = css.replace(setting.id, setting.value);
-        });*/
-
-        /*Themes[id].ref = $('<style/>', {
-            text: css
-        });
-
-        Themes[id].ref.appendTo($('head'));
-        */
-
         theme.internal.storage.setSetting('enabled', true);
 
-        Api.injectStyle(theme.name, theme.css);
+        Api.injectTheme(theme.name, theme.css);
         return true;
     }
 
@@ -181,6 +154,10 @@ class ThemeManager {
 
     getTheme(name) {
         return this.themes.find(theme => theme.name === name || theme.internal.path === name);
+    }
+
+    getThemeIndex(name) {
+        return this.themes.findIndex(theme => theme.name === name || theme.internal.path === name);
     }
 
 }
