@@ -136,7 +136,7 @@ class SettingsPanel {
     }
 
 	get changeLogButton() {
-		let changeLog = $(".ui-tab-bar-item:contains('Change Log')");
+		let changeLog = $(".ui-tab-bar-item:not(.danger)").last();
 		if(!changeLog.length) return false;
 		return changeLog;
 	}
