@@ -42,7 +42,7 @@ class BetterDiscord {
 
         this.initIpc();
         this.registerListeners();
-        this.domReady();
+        this.registerDomReady();
     }
 
     registerListeners() {
@@ -60,31 +60,39 @@ class BetterDiscord {
         });
     }
 
+    registerDomReady() {
+        const { mainWindow } = this.options;
+
+        BDUtils.execJs(mainWindow, `
+            if(document.readyState === 'complete')
+                window._bd.ipc.async({ command: 'dom-ready' });
+        `);
+        mainWindow.webContents.on('dom-ready', this.domReady.bind(this));
+    }
+
     // dom ready listener
     domReady() {
         const { mainWindow } = this.options;
 
-        mainWindow.webContents.on('dom-ready', () => {
-            _bd_logger.log("dom-ready", 'DBG');
+        _bd_logger.log("dom-ready", 'DBG');
 
-            if (_bd_config.debug) {
-                // If we're debugging then load the main script locally
-                const waiter = setInterval(() => {
-                    // Wait for fasthook
-                    if (!this.fastHooked) return;
+        if (_bd_config.debug) {
+            // If we're debugging then load the main script locally
+            const waiter = setInterval(() => {
+                // Wait for fasthook
+                if (!this.fastHooked) return;
 
-                    clearInterval(waiter);
-                    this.clientPrep();
+                clearInterval(waiter);
+                this.clientPrep();
 
-                    BDUtils.execJs(mainWindow, `window._bd.options = {}`);
-                    if (_bd_config.debug) {
-                        BDUtils.execJs(mainWindow, `window._bd.options.debug = true`);
-                    }
+                BDUtils.execJs(mainWindow, `window._bd.options = {}`);
+                if (_bd_config.debug) {
+                    BDUtils.execJs(mainWindow, `window._bd.options.debug = true`);
+                }
 
-                    BDUtils.injectDevScript(mainWindow, "betterdiscord.client.js");
-                }, 100);
-            }
-        });
+                BDUtils.injectDevScript(mainWindow, "betterdiscord.client.js");
+            }, 100);
+        }
     }
 
     // Adds IPC methods and listeners
@@ -131,6 +139,9 @@ class BetterDiscord {
                 break;
             case "reset":
                 this.fastHooked = true;
+                break;
+            case "dom-ready":
+                this.domReady();
                 break;
         }
     }
