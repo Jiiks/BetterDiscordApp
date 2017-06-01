@@ -7,7 +7,7 @@
  * Git: https://github.com/Jiiks/BetterDiscordApp.git
  * License: MIT
  */
- 
+
 'use strict';
 
 const
@@ -17,7 +17,7 @@ const
     { _logger } = require('./utils'),
     { EOL } = require('os'),
     _os = require('os');
-    
+
 const _startDate = new Date();
 
 var _cfg;
@@ -45,21 +45,21 @@ const _resources = {
 var _self;
 
 class Core {
-    
+
     constructor(args) {
         _self = this;
         this.continue = true;
         _logger.log(`v${this.__version} Loading - OS: ${_os.platform()}`);
         this.initConfig(args.cfg);
     }
-    
+
     initConfig(args) {
         _cfg = _config.cfg;
         _cfg.installPath = args.installPath || _defaults.installPath;
         _cfg.dataPath = args.dataPath || _defaults.dataPath;
         _cfg.emotesEnabled = args.emotesEnabled || _defaults.emotesEnabled;
     }
-    
+
     hook(mainWindow) {
         if(mainWindow === undefined) {
             this.exit("mainWindow is undefined!");
@@ -68,7 +68,7 @@ class Core {
         this.mainWindow = mainWindow;
         this.hookEvent('dom-ready', this.domReady);
     }
-    
+
     hookEvent(event, callback) {
         if(!this.continue) return;
         try {
@@ -78,31 +78,31 @@ class Core {
             this.exit(`Failed to hook event ${event}. Reason: ${err}`);
         }
     }
-    
+
     domReady() {
         for(var key in _resources) {
             var resource = _resources[key];
             _utils.requireJs(`${_cfg.installPath}/${resource.path}/${resource.filename}`, resource.var, _self.mainWindow);
         }
-        
+
         _self.pluginLoader();
     }
-    
+
     pluginLoader() {
-        
+
     }
-    
+
     exit(reason, severity) {
         this.continue = false;
         // TODO show an actual error dialog for user
         _logger.log(`Quitting. Reason: ${reason}`, severity || 2);
         _logger.save();
     }
-    
+
     get __version() {
         return _config.core.version;
     }
-    
+
 }
 
 exports.BetterDiscord = Core;
