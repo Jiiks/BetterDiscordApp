@@ -9,7 +9,7 @@
 */
 'use strict';
 
-const { PluginEvents } = require('../plugins');
+const PluginEvents = require('../plugins/events');
 
 const { EventEmitter } = require('events');
 const emitter = new EventEmitter();
