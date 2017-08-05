@@ -65,9 +65,9 @@ EmoteModule.prototype.injectEmote = function(node) {
             return;
         }
         if(emotesTwitch != null) {
-            if (emotesTwitch.emotes.hasOwnProperty(word)) {
+            if (emotesTwitch.hasOwnProperty(word)) {
                 var len = Math.round(word.length / 4);
-                parentInnerHTML = parentInnerHTML.replace(word, '<img class="emote" alt="' + word.substr(0, len) + "\uFDD9" + word.substr(len, len) + "\uFDD9" + word.substr(len * 2, len) +    "\uFDD9" + word.substr(len * 3) + '" src="' + twitchEmoteUrlStart + emotesTwitch.emotes[word].image_id + twitchEmoteUrlEnd + '" />');
+                parentInnerHTML = parentInnerHTML.replace(word, '<img class="emote" alt="' + word.substr(0, len) + "\uFDD9" + word.substr(len, len) + "\uFDD9" + word.substr(len * 2, len) +    "\uFDD9" + word.substr(len * 3) + '" src="' + twitchEmoteUrlStart + emotesTwitch[word].id + twitchEmoteUrlEnd + '" />');
                 return;
             }
         }
@@ -116,7 +116,7 @@ EmoteModule.prototype.loadEmoteData = function(type) {
         break;
         case "twitch":
             _utils.log("Loading twitch global emotes");
-            $.getJSON('https://twitchemotes.com/api_cache/v2/global.json', function(data) {
+            $.getJSON('https://twitchemotes.com/api_cache/v3/global.json', function(data) {
                 _utils.log("Loaded twitch global emotes");
                 emotesTwitch = data;
                 _emoteModule.loadEmoteData("twitch-sub");
@@ -125,10 +125,10 @@ EmoteModule.prototype.loadEmoteData = function(type) {
         case "twitch-sub":
             emotesTwitchSub = {};
             _utils.log("Loading twitch subscriber emotes");
-            $.getJSON('https://twitchemotes.com/api_cache/v2/subscriber.json', function(data) {
-               $.each(data.channels, function(key, val){
+            $.getJSON('https://twitchemotes.com/api_cache/v3/subscriber.json', function(data) {
+               $.each(data, function(key, val){
                    $.each(val.emotes, function(key, val) {
-                      emotesTwitchSub[val.code] = val.image_id;
+                      emotesTwitchSub[val.code] = val.id;
                    });
                });
                
