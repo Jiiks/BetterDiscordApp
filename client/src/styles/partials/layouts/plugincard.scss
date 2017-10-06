@@ -1,0 +1,206 @@
+.bd- {
+    &panel-plugins {
+        .bd-plugins-container {
+            .bd-plugins-tabs {
+                background: #292b2f;
+                border-radius: 3px 3px 0 0;
+
+                .bd-plugins-tab {
+                    position: relative;
+                    flex-grow: 1;
+                    text-align: center;
+                    padding: 10px;
+                    color: rgba(221, 222, 223, 0.3);
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #FFF;
+                        background: lighten(#292b2f, 2%);
+                    }
+
+                    &:first-of-type {
+                        border-right: 1px solid lighten(#292b2f, 1%);
+                        border-radius: 3px 0 0 0;
+                    }
+
+                    &:last-of-type {
+                        border-radius: 0 3px 0 0;
+                    }
+
+                    &.bd-selected {
+                        color: #FFF;
+                        background: #7289da;
+                        cursor: default;
+
+                        &:hover {
+                            .bd-plugins-refresh,
+                            .bd-plugins-opendir {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    .bd-plugins-refresh {
+                        position: absolute;
+                        right: 7px;
+                        top: 7px;
+                        height: 24px;
+                        opacity: 0;
+                        border: none;
+                        border-radius: 3px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: #677bc4;
+                        }
+                    }
+
+                    .bd-plugins-opendir {
+                        position: absolute;
+                        right: 37px;
+                        top: 7px;
+                        opacity: 0;
+                        border: none;
+                        border-radius: 3px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: #677bc4;
+                        }
+                    }
+                }
+            }
+
+            .bd-plugins-list {
+                background: #292b2f;
+                padding: 10px;
+            }
+        }
+    }
+
+    &plugincard {
+        position: relative;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+
+        .bd-plugincard-inner {
+            padding: 20px;
+            position: relative;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 5px;
+            min-height: 215px;
+
+            &.bd-plugincard-info {
+                .bd-plugincard-name {
+                    text-transform: uppercase;
+                    flex: 1;
+                    cursor: default;
+                }
+
+                .bd-plugincard-description {
+                    flex-grow: 1;
+                    min-height: 100px;
+                    max-height: 100px;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    border-width: 1px;
+                    border-style: solid;
+                    border-radius: 3px;
+                    padding: 5px;
+                    cursor: default;
+
+                    &::-webkit-scrollbar {
+                        width: 14px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        border-width: initial;
+                        border-color: transparent;
+                    }
+
+                    &::-webkit-scrollbar-thumb, &::-webkit-scrollbar-track {
+                        background-clip: padding-box;
+                        border-width: 3px;
+                        border-style: solid;
+                        border-radius: 7px;
+                    }
+                }
+            }
+
+            &.bd-plugincard-settings {
+                opacity: 0;
+                display: none;
+
+                .bd-plugincard-back button {
+                    max-height: 30px;
+                }
+
+                .bd-plugincard-settings-scroller {
+                    max-height: 130px;
+                    min-height: 130px;
+                    padding: 10px;
+                    border: 1px solid #202225;
+                    border-radius: 3px;
+                }
+            }
+
+            &.bd-plugincard-uninstall-dialog {
+                padding-top: 50px;
+
+                .bd-button {
+                    margin-left: 5px;
+                }
+
+                .bd-plugincard-uninstall-delconfig {
+                    .bd-switch {
+                        margin-left: 5px;
+                    }
+
+                    span {
+                        line-height: 24px;
+                    }
+                }
+            }
+        }
+
+        .bd-plugincard-uninstall {
+            opacity: 0;
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            box-shadow: 0 0 0 1px rgba(32,34,37,.6), 0 1px 5px 0 rgba(0,0,0,.3);
+            text-indent: -9999em;
+            overflow: hidden;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBvbHlnb24gZmlsbD0iI0YwNDc0NyIgZmlsbC1ydWxlPSJub256ZXJvIiBwb2ludHM9IjE0LjI1IDQuODA4IDEzLjE5MyAzLjc1IDkgNy45NDIgNC44MDggMy43NSAzLjc1IDQuODA4IDcuOTQyIDkgMy43NSAxMy4xOTMgNC44MDggMTQuMjUgOSAxMC4wNTcgMTMuMTkzIDE0LjI1IDE0LjI1IDEzLjE5MyAxMC4wNTcgOSIvPgogICAgPHBvbHlnb24gcG9pbnRzPSIwIDAgMTggMCAxOCAxOCAwIDE4Ii8+CiAgPC9nPgo8L3N2Zz4K);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            transition: opacity .1s ease-in-out,box-shadow .1s ease-in-out,transform .2s ease;
+            background-color: #292b2f;
+        }
+
+        &:hover {
+            .bd-plugincard-uninstall {
+                opacity: 1;
+            }
+        }
+
+        &.bd-plugincard-settings {
+            .bd-plugincard-settings {
+                opacity: 1;
+                display: flex;
+            }
+
+            .bd-plugincard-info {
+                opacity: 0;
+                display: none;
+            }
+        }
+    }
+}

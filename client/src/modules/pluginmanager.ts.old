@@ -1,0 +1,482 @@
+/**
+ * BetterDiscord Plugin Manager
+ * Copyright (c) 2015-present Jiiks - https://jiiks.net
+ * All rights reserved.
+ * https://github.com/Jiiks/BetterDiscordApp - https://betterdiscord.net
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
+
+declare var window : any;
+
+import * as React from 'react';
+
+import { BdModule } from './bdmodule';
+import { Utils, Plugin, Config } from './';
+
+import path = require('path');
+
+const Vendor: any = {
+    React
+};
+
+class PluginManager extends BdModule {
+
+    private pluginPath: string;
+    private plugins: Plugin[] = [];
+    public get Plugins(): Plugin[] { return this.plugins; }
+    
+    public get name(): string { return 'PluginManager' }
+
+    protected bindings(): void {
+
+    }
+
+    public cleanup(): void {}
+
+    public init(): void {
+        this.pluginPath = 'g:/bdv2/data/plugins';
+        this.loadPlugins();
+    }
+
+    private setPlugins(plugins: Plugin[]): Plugin[] {
+        return (this.plugins = plugins);
+    }
+
+    private resolvePlugin(sp: string | Plugin): Plugin {
+        return (typeof (sp) === 'string') ? this.getPlugin(sp) : sp;
+    }
+
+    public async loadPlugins(): Promise<Plugin[]> {
+
+        const pluginDirs = await Utils.readDirAsync(this.pluginPath);
+        const loadedPlugins: Plugin[] = [];
+        const errors: any[] = [];
+
+        for (let pluginDir of pluginDirs) {
+            try {
+                const plugin = await this.loadPlugin(pluginDir);
+                loadedPlugins.push(plugin);
+            } catch (err) {
+                errors.push({err, pluginDir});
+            }
+        }
+
+        if (errors.length > 0) {
+            errors.forEach(error => console.log(`Plugin: ${error.pluginDir} failed to load. Reason: ${error.err}`));
+        }
+
+        return this.setPlugins(loadedPlugins);
+    }
+
+    private async loadPlugin(directory: string, reload: boolean = false, index: number = 0): Promise<Plugin> {
+
+        try {
+
+            const pluginPath = reload ? directory : path.join(this.pluginPath, directory);
+
+            const files = await Utils.readDirAsync(pluginPath);
+
+            const [configFilePath, pluginFilePath] = [
+                await this.locateConfigFile(pluginPath, files),
+                await this.locatePluginFile(pluginPath, files)
+            ];
+
+            const pluginConfig = await Utils.readJsonAsync(configFilePath);
+
+            if (!reload) {
+                const loadedPlugin = this.getPlugin(pluginConfig.info.name);
+                if (loadedPlugin) return loadedPlugin;
+            }
+
+            const plugin = window.require(pluginFilePath)(Plugin, {}, Vendor);
+            const pluginInstance = new plugin() as Plugin;
+            pluginInstance.setConfig(pluginConfig, { pluginFilePath, configFilePath, pluginPath });
+
+            if (reload) {
+                this.plugins[index] = pluginInstance;
+                return pluginInstance;
+            }
+
+            this.plugins.push(pluginInstance);
+            return pluginInstance;
+
+        } catch (err) {
+            return Promise.reject(err);
+        }
+
+    }
+
+    public async reloadPlugin(name: string): Promise<Plugin> {
+        return null;
+    }
+
+    public async stopPlugin(sp: string | Plugin): Promise<Plugin> {
+        const plugin = this.resolvePlugin(sp);
+
+        return new Promise<Plugin>((resolve, reject) => {
+            if (!plugin) reject('Attempted to stop a plugin that doesn\'t exist');
+            if (!plugin.enabled) reject('Already Disabled');
+            if (!plugin.onStop()) reject('Failed to stop plugin!');
+
+            plugin.enabled = false;
+            resolve(plugin);
+        });
+    }
+
+    public async startPlugin(sp: string | Plugin): Promise<Plugin> {
+        const plugin = this.resolvePlugin(sp);
+
+        return new Promise<Plugin>((resolve, reject) => {
+            if (!plugin) reject('Attempted to start a plugin that doesn\'t exist');
+            if (plugin.enabled) reject('Already Enabled');
+            if (!plugin.onStart()) reject('Failed to start plugin!');
+
+            plugin.enabled = true;
+            resolve(plugin);
+        });
+    }
+
+    private async locateConfigFile(basePath: string, files: string[]): Promise<string> {
+        const configFile: string = files.find(file => file === 'config.json');
+        if (!configFile) return Promise.reject('Config file not found!');
+
+        return path.join(basePath, configFile);
+    }
+
+    private async locatePluginFile(basePath: string, files: string[]): Promise<string> {
+        let pluginFile: string = files.find(file => file.endsWith('plugin.js'));
+        if (!pluginFile) pluginFile = files.find(file => file.endsWith('.js'));
+
+        if (!pluginFile) return Promise.reject('Plugin file not found!');
+
+        return path.join(basePath, pluginFile);
+    }
+
+    private getPlugin(name: string): Plugin {
+        if (this.plugins.length <= 0) return null;
+        return this.plugins.find(plugin => plugin.getConfig.info.name === name );
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class PluginManagerO extends BdModule {
+
+    private pluginPath: string;
+    private plugins: Plugin[] = []
+
+    public get Plugins(): Plugin[] {
+        return this.plugins;
+    }
+
+    constructor() {
+        super();
+    }
+
+    public init(): void {
+        this.pluginPath = "g:/bdv2/data/plugins";
+        this.loadPluginsAsync();
+        window.pm = this;
+    }
+
+    public get name(): string { return "PluginManager" }
+
+    protected bindings(): void {
+        this.loadPlugins = this.loadPlugins.bind(this);
+        this.loadPlugin = this.loadPlugin.bind(this);
+        this.reloadPlugin = this.reloadPlugin.bind(this);
+    }
+
+    public cleanup(): void {
+    }
+
+    /**
+     * Load all plugins in plugins folder
+     */
+    public loadPlugins(): Promise<Plugin[]> {
+        return new Promise((resolve, reject) => Utils.readDir(this.pluginPath).then(files => {
+            Promise.all(files.map((file) => this.loadPlugin(file))).then(plugins => {
+                this.plugins = plugins;
+                resolve(plugins);
+            });
+        }, err => {
+            console.log(err);
+        }));
+    }
+
+    public async loadPluginsAsync(): Promise<Plugin[]> {
+        const pluginDirs = await Utils.readDir(this.pluginPath);
+        const lp = await pluginDirs.map(dir => {
+            return this.loadPlugin(dir);
+        });
+        
+        const plugins = await Promise.all(lp);
+
+        return (this.plugins = plugins);
+    }
+
+    private async loadPluginAsync(dir: string, reload: boolean = false, index: number = 0): Promise<Plugin> {
+        const pluginPath: string = reload ? dir : path.join(this.pluginPath, dir);
+
+        const files = await Utils.readDir(pluginPath);
+
+        const configFilePath = await this.findConfigFileAsync(pluginPath, files);
+        if(!configFilePath) return null;
+    }
+
+    private async findConfigFileAsync(basePath: string, files: string[]): Promise<string> {
+        const configFile: string = files.find(file => file === 'config.json' );
+        if(!configFile) {
+            console.log("Config file not found");
+            return null;
+        }
+        return path.join(basePath, configFile);
+    }
+
+    public async stopPluginAsync(sp: string | Plugin): Promise<Plugin> {
+        const plugin = this.resolvePlugin(sp);
+
+        return new Promise<Plugin>((resolve, reject) => {
+            if (!plugin) reject('Attempted to stop a plugin that doesn\'t exist');
+            if (!plugin.enabled) reject('Already Disabled');
+            if (!plugin.onStop()) reject('Failed to stop plugin!');
+
+            plugin.enabled = false;
+            resolve(plugin);
+        });
+    }
+
+    public async startPluginAsync(sp: string | Plugin): Promise<Plugin> {
+        const plugin = this.resolvePlugin(sp);
+
+        return new Promise<Plugin>((resolve, reject) => {
+            if (!plugin) reject('Attempted to start a plugin that doesn\'t exist');
+            if (plugin.enabled) reject('Already Enabled');
+            if (!plugin.onStart()) reject('Failed to start plugin!');
+
+            plugin.enabled = true;
+            resolve(plugin);
+        });
+    }
+
+    public async uninstallPluginAsync(sp: string | Plugin, delconfig: boolean): Promise<Plugin[]> {
+        const plugin = this.resolvePlugin(sp);
+
+        return new Promise<Plugin[]>((resolve, reject) => {
+            if (!plugin) reject('Attempted to uninstall a plugin that doesn\'t exist');
+            if (plugin.enabled) {
+                if (!plugin.onStop()) reject('Failed to stop plugin!');
+            }
+
+            plugin.enabled = false;
+
+            console.log(plugin);
+
+            Utils.delFile(plugin.getFilePath);
+            Utils.delFile(plugin.getConfigPath);
+
+            this.plugins = this.plugins.filter(pl => pl.getConfig.info.name !== plugin.getConfig.info.name);
+
+            resolve(this.plugins);
+        });
+    }
+
+    private resolvePlugin(sp: string | Plugin): Plugin {
+        return (typeof(sp) === 'string') ? this.getPlugin(sp) : sp;
+    }
+
+   /**
+    * Load a plugin in specified directory
+    * @param {string} dir Absolute path to plugin directory
+    */
+    private loadPlugin(dir: string, reload: boolean = false, index: number = 0): Promise<Plugin> {
+        const pluginPath = reload ? dir : path.join(this.pluginPath, dir);
+
+        return new Promise<Plugin>((resolve, reject) => {
+            Utils.readDir(pluginPath).then(files => {
+                const configFilePath: string = this.findConfigFile(pluginPath, files);
+                if(!configFilePath) return;
+
+                const pluginFilePath = this.findPluginFile(pluginPath, files);
+                if(!pluginFilePath) return;
+
+                const config = Utils.readJsonSync(configFilePath);
+                if(!config) return;
+                if(!reload) {
+                    const loadedPlugin = this.getPlugin(config.info.name);
+                    if(loadedPlugin) {
+                        resolve(loadedPlugin);
+                        return;
+                    }
+                }
+
+                const plugin = window.require(pluginFilePath)(Plugin, {}, Vendor); 
+                const pluginInstance = <Plugin>new plugin();
+                pluginInstance.setConfig(config, { pluginFilePath, configFilePath, pluginPath });
+
+                if(reload) {
+                    this.plugins[index] = pluginInstance;
+                    resolve(pluginInstance);
+                    return;
+                }
+
+                this.plugins.push(pluginInstance);
+                resolve(pluginInstance);
+            });
+        });
+    }
+
+    /**
+     * Find plugin config file
+     * @param basePath Plugin base directory
+     * @param files Files in plugin directory
+     * @return Path to plugin config file; null if not found
+     */
+    private findConfigFile(basePath: string, files: string[]): string {
+        const configFile: string = files.find(file => file === 'config.json' );
+        if(!configFile) {
+            console.log("Config file not found");
+            return null;
+        }
+        return path.join(basePath, configFile);
+    }
+
+    /**
+     * Find plugin code file
+     * @param basePath Plugin base directory
+     * @param files Files in plugin directory
+     * @return Path to plugin code file; null if not found
+     */
+    private findPluginFile(basePath: string, files: string[]): string {
+        let pluginFile: string = files.find(file => file.endsWith('plugin.js'));
+        if (!pluginFile) files.find(file => file.endsWith('.js'));
+        if (!pluginFile) { 
+            console.log("Plugin file not found");
+            return null;
+        }
+
+        return path.join(basePath, pluginFile);
+    }
+
+    /**
+     * Get plugin by name
+     * @param name Name of the plugin
+     * @return Plugin/null
+     */
+    public getPlugin(name: string): Plugin {
+        if(this.plugins.length <= 0) return null;
+        return this.plugins.find(plugin => { return plugin.getConfig.info.name == name; });
+    }
+
+    /**
+     * Reload plugin by name
+     * @param name Name of the plugin
+     */
+    public reloadPlugin(sp: string | Plugin): Promise<Plugin> {
+        let plugin: Plugin = null;
+        if(typeof(sp) === 'string') {
+            plugin = this.getPlugin(sp);
+        } else {
+            plugin = sp as Plugin;
+        }
+
+        if(!plugin) return;
+
+        if(plugin.enabled) {
+            return this.stopPlugin(plugin).then(plugin => {
+                delete window.require.cache[window.require.resolve(plugin.getFilePath)];
+                return this.loadPlugin(plugin.getBasePath, true, this.plugins.indexOf(plugin));
+            }).then(plugin => {
+                return this.startPlugin(plugin);
+            });
+        } else {
+            delete window.require.cache[window.require.resolve(plugin.getFilePath)];
+            return this.loadPlugin(plugin.getBasePath, true, this.plugins.indexOf(plugin));
+        }
+    }
+
+    public startPlugin(sp: string | Plugin): Promise<Plugin> {
+        let plugin: Plugin = null;
+        if(typeof(sp) === 'string') {
+            plugin = this.getPlugin(sp);
+        } else {
+            plugin = sp as Plugin;
+        }
+
+        return new Promise<Plugin>((resolve, reject) => {
+            if(!plugin) reject('Attempted to start a plugin that doesn\'t exist');
+            if(plugin.enabled) reject('Already Enabled');
+            if(plugin.onStart()) {
+                plugin.enabled = true;
+                resolve(plugin);
+            }
+            reject('Failed to start plugin!');
+        });
+    }
+
+    public stopPlugin(sp: string | Plugin): Promise<Plugin> {
+        let plugin: Plugin = null;
+        if(typeof(sp) === 'string') {
+            plugin = this.getPlugin(sp);
+        } else {
+            plugin = sp as Plugin;
+        }
+
+        return new Promise<Plugin>((resolve, reject) => {
+            if(!plugin) reject('Attempted to stop a plugin that doesn\'t exist');
+            if(!plugin.enabled) reject('Already Disabled');
+            if(plugin.onStop()) {
+                plugin.enabled = false;
+                resolve(plugin);
+            }
+            reject('Failed to stop plugin!');
+        });
+    }
+
+    /*public uninstallPlugin(sp: string | Plugin): Promise<Plugin[]> {
+        let plugin: Plugin = null;
+        if (typeof(sp) === 'string') {
+            plugin = this.getPlugin(sp);
+        } else {
+            plugin = sp as Plugin;
+        }
+
+        return new Promise<Plugin[]>((resolve, reject) => {
+            
+        });
+    }*/
+}
+
+export default new PluginManager();

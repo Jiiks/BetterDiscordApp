@@ -1,0 +1,1 @@
+export { EInjectMethod } from './einjectmethod';

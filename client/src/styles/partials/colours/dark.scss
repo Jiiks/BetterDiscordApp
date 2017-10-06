@@ -1,0 +1,92 @@
+//Settingspanel Sidebar
+.theme-dark .bd- {
+    &sidebar- {
+        &header {
+            color: #72767d;
+        }
+        &separator {
+            background-color: hsla(218,5%,47%,.3);
+        }
+        &item {
+            color: #b9bbbe;
+            &:hover {
+                color: #f6f6f7;
+                background-color: hsla(216,4%,74%,.1);
+            }
+
+            &.bd-selected {
+                color: #fff;
+                background-color: #7289da;
+            }
+        }
+    }
+}
+
+//Scroller
+.theme-dark .bd- { 
+    &scroller {
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,.4);
+            background-color: #202225;
+            border-color: transparent;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: rgba(0,0,0,.1);
+            background-color: #2e3338;
+        }
+    }
+}
+
+//Content Region
+.theme-dark .bd- { 
+    &content-region { 
+        .bd- { 
+            &content-column { 
+                .bd-panel {
+                    .bd-panel-title { 
+                        color: #f6f6f7;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Plugin Card
+.theme-dark .bd- {
+    &plugincard {
+        .bd-plugincard-inner {
+            background: rgba(32,34,37,.6);
+            border-color: #202225;
+
+            &:hover {
+                background: rgba(32,34,37,.5);
+            }
+
+            .bd-plugincard-name {
+                color: $gray-border;
+            }
+
+            .bd-plugincard-description {
+                color: $gray-border;
+                border-color: #202225;
+            }
+
+            &.bd-plugincard-uninstall-dialog {
+                background: $dim-red;
+            }
+        }
+    }
+}
+
+//Modal
+.bd-modal-error {
+    border-bottom: 1px solid #313131;
+}
+.bd-modal-error-reason {
+    color: $gray-border;
+}
+.bd-modal-errorhint {
+    border-top: 1px solid #313131;
+    color: $gray-border;
+}

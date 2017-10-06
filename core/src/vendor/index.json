@@ -1,0 +1,6 @@
+[
+    {"variable": "jQuery", "file": "jquery.2.2.4.min.js"},
+    {"variable": "jscolor", "file": "jscolor.min.js"},
+    {"variable": "moment", "file": "moment.2.17.1.min.js"},
+    {"variable": "picker", "file": "picker.js"}
+]

@@ -1,0 +1,76 @@
+.bd- {
+    &content-region {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        -webkit-box-flex: 1;
+        flex: 1 1 800px;
+        -webkit-box-align: start;
+        align-items: flex-start;
+        box-sizing: border-box;
+
+        .bd- {
+            &content-transition-wrap {
+                -webkit-box-flex: 1;
+                flex: 1;
+                height: 100%;
+                box-sizing: border-box;
+            }
+            &scroller-wrap {
+                height: 100%;
+                position: relative;
+                min-height: 1px;
+                display: flex;
+                -webkit-box-flex: 1;
+                flex: 1;
+            }
+            &scroller {
+                display: flex;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                flex-direction: row;
+                -webkit-box-pack: start;
+                justify-content: flex-start;
+                -webkit-box-align: start;
+                align-items: flex-start;
+                overflow-x: hidden;
+                box-sizing: border-box;
+                overflow-y: scroll;
+                min-height: 1px;
+                -webkit-box-flex: 1;
+                flex: 1;
+                contain: layout;
+                &::-webkit-scrollbar {
+                    width: 14px;
+                }
+                &::-webkit-scrollbar-track {
+                    border-width: initial;
+                    border-color: transparent;
+                }
+                &::-webkit-scrollbar-thumb, &::-webkit-scrollbar-track {
+                    background-clip: padding-box;
+                    border-width: 3px;
+                    border-style: solid;
+                    border-radius: 7px;
+                }
+            }
+            &content-column {
+                padding: 60px 40px 80px;
+                -webkit-box-flex: 1;
+                flex: 1 1 auto;
+                max-width: 740px;
+                min-width: 460px;
+                min-height: 100vh;
+                box-sizing: border-box;
+                .bd-panel {
+                    .bd-panel-title {
+                        flex: 1;
+                        -webkit-box-flex: 1;
+                        cursor: default;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+}

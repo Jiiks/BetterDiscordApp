@@ -1,0 +1,63 @@
+$discord-brand: #7289da;
+$discord-green: #43b581;
+$discord-red: #f04747;
+$dark-gray: rgba(221, 222, 223, 0.3);
+$gray-border: hsla(210,3%,87%,.3);
+$dim-red: #582727;
+$white: #FFF;
+
+@import './dark.scss';
+
+.bd- {
+    &white {
+        color: $white;
+    }
+
+    &button {
+        color: $white;
+    }
+
+    &dark-gray {
+        color: $dark-gray;
+    }
+
+    &button- {
+        &db {
+            background-color: $discord-brand;
+        }
+
+        &green {
+            background-color: $discord-green;
+        }
+
+        &red {
+            background-color: $discord-red;
+        }
+
+        &transparent {
+            background-color: transparent;
+        }
+    }
+
+    &switch {
+        background-color: #72767d;
+    }
+}
+
+.bd-modal-backdrop {
+    background: rgba(0, 0, 0, .85);
+
+    .bd-modal {
+        .bd-modal-inner {
+            background-color: rgb(32,34,37);
+
+            .bd-modal-title {
+                border-bottom: 1px solid #313131;
+            }
+
+            .bd-modal-body {
+
+            }
+        }
+    }
+}

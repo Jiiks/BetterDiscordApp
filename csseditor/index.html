@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>CSS Editor</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/codemirror.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/theme/material.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/scroll/simplescrollbars.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.18.2/addon/dialog/dialog.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/hint/show-hint.min.css" />
+        <link rel="stylesheet" href="./main.css" />
+    </head>
+    <body>
+        <div class="container">
+            <button titlge="Close CSS Editor" class="close" onClick="closeEditor()">X</button>
+            <button title="Toggle always on top" class="aot" onClick="toggleAot(this)">P</button>
+            <div class="titlebg"></div>
+            <div class="titlebar">
+                <span class="icon"></span>
+                <span id="windowtitle" class="title">CSS Editor</span>
+            </div>
+            <div id="eehint"><span>Your external editor is proxied to this window</span></div>
+            <div id="cm-container"></div>
+            <div id="alert">
+                Saved!
+            </div>
+            <div id="spinner">
+                <div class="valign">Loading Please Wait</div>
+            </div>
+            <div id="hints">
+                <h3>Keybinds</h3>
+                <table>
+                    <tr>
+                        <td>Exit:</td>
+                        <td>ESC</td>
+                    </tr>
+                    <tr>
+                        <td>Save:</td>
+                        <td>Ctrl/Cmd + S</td>
+                    </tr>
+                    <tr>
+                        <td>Update:</td>
+                        <td>Ctrl/Cmd + H</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="cmhints">
+                <h3>CM Keybinds</h3>
+                <table>
+                    <tr>
+                        <td>Search:</td>
+                        <td>Ctrl/Cmd + F</td>
+                    </tr>
+                    <tr>
+                        <td>Find Next:</td>
+                        <td>Ctrl/Cmd + G</td>
+                    </tr>
+                    <tr>
+                        <td>Find Previous</td>
+                        <td>Ctrl-Shift/Cmd-Option + G</td>
+                    </tr>
+                    <tr>
+                        <td>Replace</td>
+                        <td>Ctrl-Shift/Cmd-Option + F</td>
+                    </tr>
+                    <tr>
+                        <td>Replace All</td>
+                        <td>Ctrl-Shift/Cmd-Option-Shift + R</td>
+                    </tr>
+                    <tr>
+                        <td>Persistent Search:</td>
+                        <td>Alt + F</td>
+                    </tr>
+                    <tr>
+                        <td>Jump To Line:</td>
+                        <td>Alt + G</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="controls">
+                <button id="btnSave" onClick="save()">Save</button>
+                <button id="btnUpdate" onClick="update()">Update</button>
+                <div id="cbLiveUpdate" class="checkbox-container" onClick="toggleOption(this, 'live-update')">
+                    <div class="checkbox"></div>
+                    <span>Live Update</span>
+                </div>
+                <div id="cbAutoSave" class="checkbox-container" onClick="toggleOption(this, 'auto-save')">
+                    <div class="checkbox"></div>
+                    <span>Auto Save</span>
+                </div>
+                <div id="cbExtEditor" class="checkbox-container" onClick="toggleOption(this, 'external-editor')">
+                    <div class="checkbox"></div>
+                    <span>Use External Editor</span>
+                </div>
+            </div>
+        </div>
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/mode/css/css.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/scroll/simplescrollbars.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/search/search.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/search/searchcursor.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/search/jump-to-line.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/dialog/dialog.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/hint/show-hint.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/addon/hint/css-hint.min.js"></script>
+        <script src="./main.js"></script>
+    </body>
+</html>
