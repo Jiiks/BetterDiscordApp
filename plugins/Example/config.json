@@ -1,0 +1,11 @@
+{
+  "info": {
+    "name": "Example Plugin",
+    "authors": [ "Jiiks" ],
+    "version": "1.2",
+    "description": "Example Plugin Description",
+    "repository": "https://github.com/Jiiks/BetterDiscordApp.git",
+    "homepage": "https://github.com/Jiiks/BetterDiscordApp",
+    "reloadable": true
+  }
+}
