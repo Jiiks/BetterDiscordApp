@@ -2,6 +2,6 @@
   "version": "0.3.0",
   "debug": true,
 
-  "basePath": "YOUR BASE PATH,
+  "basePath": "YOUR BASE PATH",
   "dataPath": "YOUR DATA PATH"
 }
