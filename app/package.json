@@ -1,0 +1,15 @@
+{
+  "name": "bd-injector",
+  "description": "Better Discord Injector",
+  "author": "Jiiks",
+  "version": "0.1.0",
+  "homepage": "https://betterdiscord.net",
+  "license": "MIT",
+  "main": "index.js",
+  "contributors": [ "Jiiks" ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jiiks/BetterDiscordApp.git"
+  },
+  "private": false
+}
