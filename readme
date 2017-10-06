@@ -1,0 +1,14 @@
+1. Copy the app middleware to discord dir. eg: %localappdata%/discord/app-0.0.1/resources
+2. Edit the config inside the middleware dir so that basepath points to where core dir is and datapath points to where you want your plugins etc to be.
+
+Example:
+
+```
+{
+  "version": "0.3.0",
+  "debug": true,
+
+  "basePath": "G:/BetterDiscord",
+  "dataPath": "G:/BdData"
+}
+```
