@@ -116,7 +116,7 @@ EmoteModule.prototype.loadEmoteData = function(type) {
         break;
         case "twitch":
             _utils.log("Loading twitch global emotes");
-            $.getJSON('https://twitchemotes.com/api_cache/v2/global.json', function(data) {
+            $.getJSON('https://twitchemotes.com/api_cache/v3/global.json', function(data) {
                 _utils.log("Loaded twitch global emotes");
                 emotesTwitch = data;
                 _emoteModule.loadEmoteData("twitch-sub");
