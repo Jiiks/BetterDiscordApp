@@ -1798,7 +1798,7 @@
   color: #FFF;
 }
 .bda-dark .emoji-picker .scroller .emoji-item.selected {
-  background: rgba(123, 123, 123, 0.37);
+  background-color: rgba(123, 123, 123, 0.37);
 }
 .bda-dark .emoji-picker .dimmer.visible {
   background-color: rgba(62, 62, 62, 0.65);
