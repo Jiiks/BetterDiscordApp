@@ -25,7 +25,14 @@ export class UI {
 
     private eventListeners(): void {
         Events.on('mutation.childList', mutation => {
-            const { addedNodes, target } = mutation;
+            const { addedNodes, removedNodes, target } = mutation;
+
+            if (removedNodes.length > 0 && target) {
+                if (target.className.includes(settingsPanelClassSelector)) {
+                    Events.emit('bd.settingsClosed');
+                }
+            }
+
             if(!addedNodes || addedNodes.length <= 0 || !target) return;
 
             if(target.className.includes(settingsPanelClassSelector)) {

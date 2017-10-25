@@ -138,6 +138,14 @@ export class CSettingsPanel extends BdMultiComponent {
 
     constructor() {
         super();
+
+        Events.on('bd.settingsClosed', () => {
+            this.setState({
+                selectedId: 'none'
+            });
+            this.addContainerClass('bd-hidden', this.contentPanel);
+        });
+
         Events.on('global.click', e => {
             const target: any = e.target as any;
             if(
