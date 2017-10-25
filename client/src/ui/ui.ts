@@ -13,6 +13,7 @@ import { CSettingsPanel } from './components/settingspanel';
 import { CModal } from './components';
 
 const settingsPanelClassSelector: string = 'layers';
+const firstSettingsHeader: string = 'USER SETTINGS';
 
 export class UI {
 
@@ -29,7 +30,10 @@ export class UI {
             if(!addedNodes || addedNodes.length <= 0 || !target) return;
 
             if(target.className.includes(settingsPanelClassSelector)) {
-                this.injectSettingsPanel();
+                const firstHeader: HTMLElement = target.querySelector('.sidebar').childNodes[0].childNodes[0];
+                if (firstHeader.innerText === firstSettingsHeader) {
+                    this.injectSettingsPanel();
+                }
                 return;
             }
         });
