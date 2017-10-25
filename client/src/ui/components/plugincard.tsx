@@ -47,9 +47,8 @@ export class CPluginCard extends ReactComponent<IPluginCard, IPluginCard> {
                 <div className='bd-plugincard-inner bd-plugincard-info bd-flex-column'>
                     <div className='bd-flex-row bd-margin-bottom-8'>
                         <div className='bd-plugincard-name bd-weight-semibold bd-line-height-24'>
-                            {info.name} - <span className='bd-transform-normal'>v{info.version} by {info.authors[0]}</span>
+                            {info.name} - <span className='bd-transform-normal'>v{info.version} by {info.authors.join(', ')}</span>
                         </div>
-                        <div className='bd-flex-spacer'/>
                         <CSwitch checked={enabled} onClick={this.enableDisable}/>
                     </div>
                     <div className='bd-flex-row'>
