@@ -73,6 +73,7 @@ namespace BetterDiscordWI.panels {
 
         private void LocateDiscord() {
             var finalPath = GetLatestVersion(cbPtb.Checked ? PtbPath : cbCanary.Checked ? CanaryPath : StablePath);
+            if (finalPath == string.Empty) finalPath = "Not found!";
 
             tbPath.Text = finalPath;
             _formMain.DiscordPath = finalPath;
@@ -85,6 +86,7 @@ namespace BetterDiscordWI.panels {
 
         private string GetLatestVersion(string path) {
             var dirs = Directory.GetDirectories(path);
+            if (dirs.Length <= 0) return string.Empty;
             var latest = dirs[0];
 
             foreach (var dir in dirs) {
