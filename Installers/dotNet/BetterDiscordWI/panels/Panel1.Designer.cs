@@ -35,6 +35,7 @@
             this.cbRestart = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tbPath = new BetterDiscordWI.components.CTextBox();
             this.SuspendLayout();
             // 
@@ -80,6 +81,8 @@
             // cbRestart
             // 
             this.cbRestart.AutoSize = true;
+            this.cbRestart.Checked = true;
+            this.cbRestart.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRestart.Location = new System.Drawing.Point(23, 117);
             this.cbRestart.Name = "cbRestart";
             this.cbRestart.Size = new System.Drawing.Size(175, 17);
@@ -110,6 +113,19 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Location = new System.Drawing.Point(23, 187);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(149, 17);
+            this.checkBox3.TabIndex = 9;
+            this.checkBox3.Text = "Use Zere\'s (unofficial) fork";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
             // tbPath
             // 
             this.tbPath.CAutoSize = false;
@@ -123,6 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.cbRestart);
@@ -133,6 +150,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Panel1";
             this.Size = new System.Drawing.Size(524, 258);
+            this.Load += new System.EventHandler(this.Panel1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +166,6 @@
         internal components.CTextBox tbPath;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }
