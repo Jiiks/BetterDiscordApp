@@ -1,4 +1,4 @@
-Note that this whole branch is deprecated. all further development is going on here: https://github.com/Jiiks/BetterDiscordApp/tree/v2
+Note that this whole branch is deprecated. all further development is going on here: https://github.com/JsSucks/BetterDiscordApp
 
 # BetterDiscordApp
 
