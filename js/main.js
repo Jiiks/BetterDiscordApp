@@ -2417,7 +2417,7 @@ function Utils() {
 }
 
 Utils.prototype.getTextArea = function () {
-    return $(".channel-text-area-default textarea");
+    return $(".content textarea");
 };
 
 Utils.prototype.jqDefer = function (fnc) {
