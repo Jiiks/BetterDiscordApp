@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -37,7 +37,7 @@ namespace BetterDiscordWI.panels {
         private void KillProcessIfInstalling(string app) {
             if (!GetParent().DiscordPath.Contains(app + "\\")) return;
             AppendLog("Killing " + app);
-            foreach(var process in Process.GetProcessesByName(app)) {
+            foreach (var process in Process.GetProcessesByName(app)) {
                 process.Kill();
             }
         }
@@ -48,32 +48,32 @@ namespace BetterDiscordWI.panels {
                 _tempPath = $"{_dataPath}\\temp";
                 AppendLog("Deleting old cached files");
                 try {
-                    if(File.Exists($"{_dataPath}\\emotes_bttv.json")) {
+                    if (File.Exists($"{_dataPath}\\emotes_bttv.json")) {
                         File.Delete($"{_dataPath}\\emotes_bttv.json");
                     }
-                    if(File.Exists($"{_dataPath}\\emotes_bttv_2.json")) {
+                    if (File.Exists($"{_dataPath}\\emotes_bttv_2.json")) {
                         File.Delete($"{_dataPath}\\emotes_bttv_2.json");
                     }
-                    if(File.Exists($"{_dataPath}\\emotes_ffz.json")) {
+                    if (File.Exists($"{_dataPath}\\emotes_ffz.json")) {
                         File.Delete($"{_dataPath}\\emotes_ffz.json");
                     }
-                    if(File.Exists($"{_dataPath}\\emotes_twitch_global.json")) {
+                    if (File.Exists($"{_dataPath}\\emotes_twitch_global.json")) {
                         File.Delete($"{_dataPath}\\emotes_twitch_global.json");
                     }
-                    if(File.Exists($"{_dataPath}\\emotes_twitch_subscriber.json")) {
+                    if (File.Exists($"{_dataPath}\\emotes_twitch_subscriber.json")) {
                         File.Delete($"{_dataPath}\\emotes_twitch_subscriber.json");
                     }
-                    if(File.Exists($"{_dataPath}\\user.json")) {
+                    if (File.Exists($"{_dataPath}\\user.json")) {
                         File.Delete($"{_dataPath}\\user.json");
                     }
-                } catch(Exception e) { AppendLog("Failed to delete one or more cached files"); }
+                } catch (Exception e) { AppendLog("Failed to delete one or more cached files"); }
 
-                if(Directory.Exists(_tempPath)) {
+                if (Directory.Exists(_tempPath)) {
                     AppendLog("Deleting temp path");
                     Directory.Delete(_tempPath, true);
                 }
 
-                while(Directory.Exists(_tempPath)) {
+                while (Directory.Exists(_tempPath)) {
                     Debug.Print("Waiting for dirdel");
                     Thread.Sleep(100);
                 }
@@ -82,7 +82,7 @@ namespace BetterDiscordWI.panels {
 
                 DownloadResource("BetterDiscord.zip", "https://github.com/Jiiks/BetterDiscordApp/archive/stable16.zip");
 
-                while(!File.Exists($"{_tempPath}\\BetterDiscord.zip")) {
+                while (!File.Exists($"{_tempPath}\\BetterDiscord.zip")) {
                     Debug.Print("Waiting for download");
                     Thread.Sleep(100);
                 }
@@ -105,7 +105,7 @@ namespace BetterDiscordWI.panels {
             Thread t = new Thread(() => {
                 string dir = $"{GetParent().DiscordPath}\\resources\\app";
 
-                if(Directory.Exists(dir)) {
+                if (Directory.Exists(dir)) {
                     try {
                         AppendLog("Deleting " + dir);
                         Directory.Delete(dir, true);
@@ -116,12 +116,12 @@ namespace BetterDiscordWI.panels {
                     }
                 }
 
-                while(Directory.Exists(dir)) {
+                while (Directory.Exists(dir)) {
                     Debug.Print("Waiting for direl");
                     Thread.Sleep(100);
                 }
 
-                if (!Directory.Exists($"{GetParent().DiscordPath}\\resources\\node_modules\\")) {
+                if (!Directory.Exists($"{GetParent().DiscordPath}\\resources\\node_modules\\")) { 
                     Debug.Print("node_modules doesn't exist, creating");
                     AppendLog("node_modules doesn't exist, creating");
                     Directory.CreateDirectory($"{GetParent().DiscordPath}\\resources\\node_modules\\");
@@ -130,45 +130,68 @@ namespace BetterDiscordWI.panels {
                 dir = $"{GetParent().DiscordPath}\\resources\\node_modules\\BetterDiscord";
 
 
-                if(Directory.Exists(dir)) {
+                if (Directory.Exists(dir)) {
                     AppendLog($"Deleting {dir}");
                     Directory.Delete(dir, true);
                 }
 
-                while(Directory.Exists(dir)) {
+                while (Directory.Exists(dir)) {
                     Debug.Print("Waiting for direl");
                     Thread.Sleep(100);
                 }
 
-				AppendLog("Extracting app.asar");
-				string appAsarPath = $"{GetParent().DiscordPath}\\resources\\app.asar";
+                AppendLog("Extracting app.asar");
+                string appAsarPath = $"{GetParent().DiscordPath}\\resources\\app.asar";
 
-				if(File.Exists(appAsarPath)) {
-					AsarArchive archive = new AsarArchive(appAsarPath);
-					AsarExtractor extractor = new AsarExtractor();
-					extractor.ExtractAll(archive, $"{GetParent().DiscordPath}\\resources\\app\\");
-				} else {
-					AppendLog("Error: app.asar file couldn't be found in 'resources' folder. Installation cannot Continue.");
-					errors = 1;
-					Finalize(errors);
-				}
+                if (File.Exists(appAsarPath)) {
+                    AsarArchive archive = new AsarArchive(appAsarPath);
+                    AsarExtractor extractor = new AsarExtractor();
+                    extractor.ExtractAll(archive, $"{GetParent().DiscordPath}\\resources\\app\\");
+                } else {
+                    AppendLog("Error: app.asar file couldn't be found in 'resources' folder. Installation cannot Continue.");
+                    errors = 1;
+                    Finalize(errors);
+                }
 
-				if(errors == 0) {
-					AppendLog("Moving BetterDiscord to resources\\node_modules\\");
-					Directory.Move($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\BetterDiscord\\temp\\BetterDiscordApp-stable16", $"{GetParent().DiscordPath}\\resources\\node_modules\\BetterDiscord");
+                if (errors == 0) {
+                    AppendLog("Moving BetterDiscord to resources\\node_modules\\");
 
-					try {
-						Splice();
-					} catch {
-						AppendLog("Error: Extracting app.asar: Newtonsoft.Json.dll might not be present in the Installer Folder. Installation cannot Continue.");
-						errors = 1;
-						Finalize(errors);
-					}
-				}
+                    MoveFolder($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\BetterDiscord\\temp\\BetterDiscordApp-stable16", $"{GetParent().DiscordPath}\\resources\\node_modules\\BetterDiscord");
+
+                    try {
+                        Splice();
+                    } catch {
+                        AppendLog("Error: Extracting app.asar: Newtonsoft.Json.dll might not be present in the Installer Folder. Installation cannot Continue.");
+                        errors = 1;
+                        Finalize(errors);
+                    }
+                }
             });
 
 
             t.Start();
+        }
+
+        /* Info: Code from StackOverflow to copy a folder from volumes 
+           Link: https://stackoverflow.com/questions/2947300/copy-a-directory-to-a-different-drive */
+        private void MoveFolder(string sourceFolder, string destFolder) {
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files)
+            {
+                string name = Path.GetFileName(file);
+                string dest = Path.Combine(destFolder, name);
+                File.Move(file, dest);
+            }
+            string[] folders = Directory.GetDirectories(sourceFolder);
+            foreach (string folder in folders)
+            {
+                string name = Path.GetFileName(folder);
+                string dest = Path.Combine(destFolder, name);
+                MoveFolder(folder, dest);
+            }
+            Directory.Delete(sourceFolder);
         }
 
         private void DownloadResource(string resource, string url) {
@@ -180,27 +203,23 @@ namespace BetterDiscordWI.panels {
         }
 
         private void Splice() {
-        	
+
             string indexloc = null;
-            if(File.Exists($"{GetParent().DiscordPath}\\resources\\app\\app\\index.js"))
-            {
-            	//Normal path
+            if (File.Exists($"{GetParent().DiscordPath}\\resources\\app\\app\\index.js")) {
+                //Normal path
                 indexloc = $"{GetParent().DiscordPath}\\resources\\app\\app\\index.js";
-            } else if (File.Exists($"{GetParent().DiscordPath}\\resources\\app\\index.js"))
-            {
-            	//Canary 0.0.138 changed path to app\\index.js
+            } else if (File.Exists($"{GetParent().DiscordPath}\\resources\\app\\index.js")) {
+                //Canary 0.0.138 changed path to app\\index.js
                 indexloc = $"{GetParent().DiscordPath}\\resources\\app\\index.js";
             }
 
-            if(indexloc == null)
-            {
+            if (indexloc == null) {
                 AppendLog($"Error: index.js not found");
                 Finalize(1);
                 return;
             }
 
-            if(!File.Exists(@"splice"))
-            {
+            if (!File.Exists(@"splice")) {
                 AppendLog($"Error: splice install file not found, this should be included with the installer.");
                 Finalize(1);
                 return;
@@ -209,18 +228,18 @@ namespace BetterDiscordWI.panels {
             Thread t = new Thread(() => {
                 List<string> lines = new List<string>();
                 AppendLog("Spicing index");
-                using(FileStream fs = new FileStream(indexloc, FileMode.Open)) {
-                    using(StreamReader reader = new StreamReader(fs)) {
+                using (FileStream fs = new FileStream(indexloc, FileMode.Open)) {
+                    using (StreamReader reader = new StreamReader(fs)) {
                         string line = "";
-                        while((line = reader.ReadLine()) != null) {
+                        while ((line = reader.ReadLine()) != null) {
                             //if(GetParent().DiscordPath.Contains("Discord\\")) {
                             //if(GetParent().DiscordPath.Contains("DiscordCanary\\")) {
                             //if(GetParent().DiscordPath.Contains("DiscordPTB\\")) {
-                            if(line.Replace(" ", "").Contains("var_fs=")) {
+                            if (line.Replace(" ", "").Contains("var_fs=")) {
                                 lines.Add(line);
                                 lines.Add("var _betterDiscord = require('betterdiscord');");
                                 lines.Add("var _betterDiscord2;");
-                            } else if(line.Replace(" ", "").Contains("mainWindow=new")) {
+                            } else if (line.Replace(" ", "").Contains("mainWindow=new")) {
                                 lines.Add(line);
                                 lines.Add(File.ReadAllText(@"splice"));
                             } else {
@@ -241,15 +260,14 @@ namespace BetterDiscordWI.panels {
 
                 string curPath = $"{GetParent().DiscordPath}\\resources\\app\\app\\index.js";
                 string curPath2 = $"{GetParent().DiscordPath}\\resources\\app\\index.js";
-                if (!File.Exists(curPath) && !File.Exists(curPath2))
-                {
+                if (!File.Exists(curPath) && !File.Exists(curPath2)) {
                     AppendLog($"ERROR: index.js not found in {curPath} or {curPath2}");
                     errors++;
                 }
 
                 curPath = $"{GetParent().DiscordPath}\\resources\\node_modules\\BetterDiscord";
 
-                if(!Directory.Exists(curPath)) {
+                if (!Directory.Exists(curPath)) {
                     AppendLog($"ERROR: DIRECTORY: {curPath} DOES NOT EXIST!");
                     errors++;
                 }
@@ -258,7 +276,7 @@ namespace BetterDiscordWI.panels {
                 string basePath = $"{GetParent().DiscordPath}\\resources\\node_modules\\BetterDiscord";
                 string[] bdFiles = { "\\package.json", "\\betterdiscord.js", "\\lib\\BetterDiscord.js", "\\lib\\config.json", "\\lib\\Utils.js" };
 
-                foreach(string s in bdFiles.Where(s => !File.Exists(basePath + s))) {
+                foreach (string s in bdFiles.Where(s => !File.Exists(basePath + s))) {
                     AppendLog($"ERROR: FILE: {basePath}{s} DOES NOT EXIST");
                     errors++;
                 }
@@ -277,14 +295,14 @@ namespace BetterDiscordWI.panels {
                 GetParent().btnCancel.Enabled = true;
             });
 
-            if(GetParent().RestartDiscord) {
-                if(GetParent().DiscordPath.Contains("\\Discord\\")) {
+            if (GetParent().RestartDiscord) {
+                if (GetParent().DiscordPath.Contains("\\Discord\\")) {
                     Process.Start($"{GetParent().DiscordPath}\\Discord.exe");
                 }
-                if(GetParent().DiscordPath.Contains("\\DiscordCanary\\")) {
+                if (GetParent().DiscordPath.Contains("\\DiscordCanary\\")) {
                     Process.Start($"{GetParent().DiscordPath}\\DiscordCanary.exe");
                 }
-                if(GetParent().DiscordPath.Contains("\\DiscordPTB\\")) {
+                if (GetParent().DiscordPath.Contains("\\DiscordPTB\\")) {
                     Process.Start($"{GetParent().DiscordPath}\\DiscordPTB.exe");
                 }
             }
