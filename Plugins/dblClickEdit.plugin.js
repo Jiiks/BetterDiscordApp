@@ -14,7 +14,7 @@ dblClickEdit.prototype.start = function () {
             var opt = msg.find(".btn-option");
             opt.click();
 
-            $.each($(".option-popout .btn-item"), (index, value) => {
+            $.each($(".popout-3sVMXz .button-1ZXqCA"), (index, value) => {
                 var option = $(value);
                 if(option.text() === "Edit") {
                     option.click();
@@ -43,7 +43,7 @@ dblClickEdit.prototype.getDescription = function () {
     return "Double click messages to edit them";
 };
 dblClickEdit.prototype.getVersion = function () {
-    return "0.1.1";
+    return "0.1.2";
 };
 dblClickEdit.prototype.getAuthor = function () {
     return "Jiiks";
