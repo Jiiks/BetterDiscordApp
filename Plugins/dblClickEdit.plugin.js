@@ -14,7 +14,7 @@ dblClickEdit.prototype.start = function () {
             var opt = msg.find(".btn-option");
             opt.click();
 
-            $.each($(".option-popout .btn-item"), (index, value) => {
+            $.each($(".popout-3sVMXz .button-1ZXqCA"), (index, value) => {
                 var option = $(value);
                 if(option.text() === "Edit") {
                     option.click();
