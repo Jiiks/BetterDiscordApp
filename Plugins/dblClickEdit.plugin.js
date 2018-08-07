@@ -3,12 +3,16 @@
 var dblClickEdit = function () {};
 
 dblClickEdit.prototype.handler = function(e) {
-    const message = e.target.closest('[class^=messageCozy]');
+    const message = e.target.closest('[class^=messageCozy]') || e.target.closest('[class^=messageCompact]');
     if (!message) return;
     const btn = message.querySelector('[class^=buttonContainer] [class^=button-]');
     if (!btn) return;
     btn.click();
-    for (let btn of [...document.querySelectorAll(`[role=menu] [type=button]`)]) { if (btn.innerText && btn.innerText.includes('Edit')) btn.click(); }
+    const popup = document.querySelector('[class^=container][role=menu]');
+    if (!popup) return;
+    const rii = popup[Object.keys(popup).find(k => k.startsWith('__reactInternal'))];
+    if (!rii || !rii.memoizedProps || !rii.memoizedProps.children || !rii.memoizedProps.children[1] || !rii.memoizedProps.children[1].props || !rii.memoizedProps.children[1].props.onClick) return;
+    rii.memoizedProps.children[1].props.onClick();
 };
 
 dblClickEdit.prototype.onMessage = function () {
@@ -37,7 +41,7 @@ dblClickEdit.prototype.getDescription = function () {
     return "Double click messages to edit them";
 };
 dblClickEdit.prototype.getVersion = function () {
-    return "0.2.0";
+    return "0.2.1";
 };
 dblClickEdit.prototype.getAuthor = function () {
     return "Jiiks";
