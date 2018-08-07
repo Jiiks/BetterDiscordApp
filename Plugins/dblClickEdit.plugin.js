@@ -37,7 +37,7 @@ dblClickEdit.prototype.getDescription = function () {
     return "Double click messages to edit them";
 };
 dblClickEdit.prototype.getVersion = function () {
-    return "0.1.2";
+    return "0.2.0";
 };
 dblClickEdit.prototype.getAuthor = function () {
     return "Jiiks";
