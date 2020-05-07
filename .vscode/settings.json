@@ -1,0 +1,10 @@
+{
+    "window.autoDetectColorScheme": true,
+    "window.closeWhenEmpty": true,
+    "cleartool.actionCommentOptionDialog": true,
+    "cleartool.actionPreserveFileModificationTime": true,
+    "problems.showCurrentInStatus": true,
+    "remote.downloadExtensionsLocally": true,
+    "comments.openPanel": "openOnSessionStart",
+    "remote.restoreForwardedPorts": true
+}
