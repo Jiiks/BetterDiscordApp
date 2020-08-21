@@ -74,7 +74,7 @@ Save chatlogs locally.(soon)
 As of JS1.60 the public server list is supplied by [DiscordServers.com](https://www.discordservers.com/) 
 Add your server there and it will appear in the list!
 
-## BetterDiscord Uses the following API's
+## BetterDiscord Uses the following APIs
 * https://twitchemotes.com/apidocs for Twitch emotes
 * https://api.betterttv.net/emotes for [BetterTTV](https://nightdev.com/betterttv/) emotes
 
